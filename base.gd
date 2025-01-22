@@ -5,10 +5,12 @@ extends Node2D
 
 func _ready():
 	music.playing = true
-	map.position.x += 1250
-	map.position.y += 890
-	$"testCard".position.x += 750
-	$"testCard".position.y += 750
+	map.position.x += 1278
+	map.position.y += 720
+	$"alien_arrow".position.x += 1280
+	$"alien_arrow".position.y += 1030
+	$"pirate_carrier_5".position.x += 1280
+	$"pirate_carrier_5".position.y += 410
 
 func _input(event):
 	if event.is_action_pressed("escape"):
