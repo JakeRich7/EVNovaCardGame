@@ -16,9 +16,24 @@ func _input(event):
 
 func _physics_process(_delta):
 	var mouse_position = get_viewport().get_mouse_position()
+	print(mouse_position)
 	if mouse_position.x < 10 and mouse_position.y < 10:
 		if map.position.x < 1587.5: map.position.x += 5
 		if map.position.y < 1587.5: map.position.y += 5
 	elif mouse_position.x < 10 and mouse_position.y > 1430:
 		if map.position.x < 1587.5: map.position.x += 5
 		if map.position.y > -147.5: map.position.y -= 5
+	elif mouse_position.x > 2545 and mouse_position.y > 1430:
+		if map.position.x > 972.5: map.position.x -= 5
+		if map.position.y > -147.5: map.position.y -= 5
+	elif mouse_position.x > 2545 and mouse_position.y < 10:
+		if map.position.x > 972.5: map.position.x -= 5
+		if map.position.y < 1587.5: map.position.y += 5
+	elif mouse_position.x < 10:
+		if map.position.x < 1587.5: map.position.x += 5
+	elif mouse_position.y > 1430:
+		if map.position.y > -147.5: map.position.y -= 5
+	elif mouse_position.x > 2545:
+		if map.position.x > 972.5: map.position.x -= 5
+	elif mouse_position.y < 10:
+		if map.position.y < 1587.5: map.position.y += 5
