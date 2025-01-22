@@ -15,8 +15,10 @@ func _input(event):
 		get_tree().quit()
 
 func _physics_process(_delta):
+	map_movement_manager()
+
+func map_movement_manager():
 	var mouse_position = get_viewport().get_mouse_position()
-	print(mouse_position)
 	if mouse_position.x < 10 and mouse_position.y < 10:
 		if map.position.x < 1587.5: map.position.x += 5
 		if map.position.y < 1587.5: map.position.y += 5
