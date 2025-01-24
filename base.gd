@@ -5,6 +5,7 @@ extends Node2D
 @onready var music = $"music"
 const cards_draw_path = "res://cards_draw"
 const cards_ships_path = "res://cards_ships"
+@onready var card_back = preload("res://card_back.tscn")
 @onready var menu = preload("res://menu.tscn")
 @onready var settings = preload("res://settings.tscn")
 @onready var draw_deck = []
@@ -14,8 +15,18 @@ const cards_ships_path = "res://cards_ships"
 @onready var deck_races = ["Pirate", "Alien"]
 @onready var player_two_choose = false
 @onready var player_two_setup = false
+@onready var battlefield_setup = false
+@onready var players_done_choosing = false
+@onready var battleloop_started = false
 var menu_instance
 var settings_instance
+var player_one_draw_pile
+var player_two_draw_pile
+var draw_pile
+@onready var player_one_active_ships = []
+@onready var player_two_active_ships = []
+@onready var player_turn = 1
+@onready var attacks_generated = false
 
 func _ready():
 	# Starts music
@@ -57,13 +68,6 @@ func _ready():
 		file_name = dir.get_next()
 	# Creates menu options to select from for player 1
 	create_menu_options()
-	
-	$"alien_arrow".position.x += 1280
-	$"alien_arrow".position.y += 1030
-	$"pirate_carrier_5".position.x += 1280
-	$"pirate_carrier_5".position.y += 410
-	$"d1_1".position.x += 1820
-	$"d1_1".position.y += 720
 
 func _on_button_pressed(button):
 	# Adds all ships to players deck
@@ -75,6 +79,7 @@ func _on_button_pressed(button):
 			if x.type == type_to_search:
 				player_2_deck.push_back(x)
 		player_two_choose = false
+		players_done_choosing = true
 	else:
 		for x in ships_all:
 			if x.type == type_to_search:
@@ -103,11 +108,89 @@ func _input(event):
 				settings_instance.show()
 
 func _physics_process(_delta):
+	map_movement_manager()
+	player_setup_manager()
+	setup_battlefield()
+	battleloop()
+	
+func battleloop():
+	if battleloop_started == true:
+		send_active_ship()
+		if player_turn == 1:
+			attacks_generator_p1()
+
+func attack_chosen_p1(attack_button, active_ship):
+	for x in active_ship.attacks:
+		if x.button_name == attack_button.text:
+			print(x.button_name, " ", x.shield, " ", x.armor)
+
+func attacks_generator_p1():
+	if attacks_generated == false:
+		var active_ship = player_one_active_ships[0]
+		var menu_attacks_p1 = $"menu_layer/player_one_attacks_menu"
+		for x in active_ship.attacks:
+			var attack_button_instance = Button.new()
+			attack_button_instance.connect("pressed", Callable(self, "attack_chosen_p1").bind(attack_button_instance, active_ship))
+			attack_button_instance.custom_minimum_size = Vector2(250, 80)
+			attack_button_instance.add_theme_font_size_override("font_size", 50)
+			attack_button_instance.text = x.button_name
+			menu_attacks_p1.add_child(attack_button_instance)
+		offset_attacks_menu_by_number_of_attacks(active_ship, menu_attacks_p1)
+		attacks_generated = true
+
+func offset_attacks_menu_by_number_of_attacks(active_ship, menu_attacks):
+	if player_turn == 1:
+		if active_ship.attacks.size() == 2:
+			menu_attacks.position.y += 297
+		elif active_ship.attacks.size() == 4:
+			menu_attacks.position.y += 382
+		
+func send_active_ship():
+	if player_one_active_ships.size() == 0:
+		if player_1_deck.size() > 0:
+			var index = randi() % player_1_deck.size()
+			player_one_active_ships.push_back(player_1_deck.pop_at(index))
+			var player_one_main_ship = player_one_active_ships[0]
+			player_one_main_ship.position = Vector2(1280, 1030)
+			add_child(player_one_main_ship)
+			if player_1_deck.size() == 0:
+				player_one_draw_pile.queue_free()
+		else:
+			print("Player 2 Wins!!")
+	if player_two_active_ships.size() == 0:
+		if player_2_deck.size() > 0:
+			var index = randi() % player_2_deck.size()
+			player_two_active_ships.push_back(player_2_deck.pop_at(index))
+			var player_two_main_ship = player_two_active_ships[0]
+			player_two_main_ship.position = Vector2(1280, 410)
+			add_child(player_two_main_ship)
+			if player_2_deck.size() == 0:
+				player_two_draw_pile.queue_free()
+		else:
+			print("Player 1 Wins!!")
+	
+func setup_battlefield():
+	if battlefield_setup == false and players_done_choosing == true:
+		player_one_draw_pile = card_back.instantiate()
+		player_one_draw_pile.position.x += 350
+		player_one_draw_pile.position.y += 1030
+		add_child(player_one_draw_pile)
+		player_two_draw_pile = card_back.instantiate()
+		player_two_draw_pile.position.x += 350
+		player_two_draw_pile.position.y += 410
+		add_child(player_two_draw_pile)
+		draw_pile = card_back.instantiate()
+		draw_pile.position.x += 1820
+		draw_pile.position.y += 720
+		add_child(draw_pile)
+		battlefield_setup = true
+		battleloop_started = true
+
+func player_setup_manager():
 	if player_two_choose == true and player_two_setup == false:
 		# Creates menu options to select from for player 2
 		create_menu_options()
 		player_two_setup = true
-	map_movement_manager()
 
 func create_menu_options():
 	for x in deck_races:
