@@ -5,19 +5,19 @@
 [sub_resource type="GDScript" id="GDScript_dvr7m"]
 script/source = "extends Sprite2D
 
-@onready var type = \"alien\"
-@onready var shields = 16
-@onready var armor = 3
-@onready var escape = 6
-@onready var cost = 15
-@onready var attacks = [
+var type = \"alien\"
+var shields = 16
+var armor = 3
+var escape = 6
+var cost = 15
+var attacks = [
 	{
-		\"name\": \"Telepath Summer Bloom\", \"phase\": 4, \"shield\": 14,
-		\"armor\": 14, \"pursuit\": null, \"ammo\": 15
+		\"name\": \"Telepath Summer Bloom\", \"button_name\": \"Summer Bloom\",
+		\"phase\": 4, \"shield\": 14, \"armor\": 14, \"pursuit\": null, \"ammo\": 15
 	},
 	{
-		\"name\": \"Telepath Flower of Spring\", \"phase\": 4, \"shield\": 12,
-		\"armor\": 12, \"pursuit\": null, \"ammo\": 15
+		\"name\": \"Telepath Flower of Spring\", \"button_name\": \"Flower Spring\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 12, \"pursuit\": null, \"ammo\": 15
 	}
 ]
 "
