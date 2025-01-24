@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://lb5r8j0wnl4m"]
+[gd_scene load_steps=7 format=3 uid="uid://lb5r8j0wnl4m"]
 
 [ext_resource type="AudioStream" uid="uid://tvsnkwjs7bhl" path="res://music/Mars, the Bringer of War.mp3" id="1_0bq30"]
 [ext_resource type="Script" path="res://base.gd" id="1_8slmb"]
 [ext_resource type="Texture2D" uid="uid://bx5ekhqu1tkgi" path="res://images/board.jpeg" id="2_l80rw"]
 [ext_resource type="PackedScene" uid="uid://dnk06mkpwnoxd" path="res://cards_ships/alien_arrow.tscn" id="4_4hlu4"]
 [ext_resource type="PackedScene" uid="uid://btprhu8m27lgx" path="res://cards_ships/pirate_carrier_5.tscn" id="5_5mdxd"]
+[ext_resource type="PackedScene" uid="uid://bvk2vyt2vvojx" path="res://cards_draw/d_1_1.tscn" id="6_40drg"]
 
 [node name="base" type="Node2D"]
 script = ExtResource("1_8slmb")
@@ -20,3 +21,5 @@ texture = ExtResource("2_l80rw")
 [node name="alien_arrow" parent="." instance=ExtResource("4_4hlu4")]
 
 [node name="pirate_carrier_5" parent="." instance=ExtResource("5_5mdxd")]
+
+[node name="d1_1" parent="." instance=ExtResource("6_40drg")]

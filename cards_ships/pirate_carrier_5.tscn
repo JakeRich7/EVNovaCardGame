@@ -1,8 +1,35 @@
 [gd_scene load_steps=3 format=3 uid="uid://btprhu8m27lgx"]
 
-[ext_resource type="Script" path="res://pirate_carrier_5.gd" id="1_llyti"]
 [ext_resource type="Texture2D" uid="uid://csmrt5iafhdq1" path="res://images/pirate/carrier_5.jpeg" id="1_ywj0c"]
+
+[sub_resource type="GDScript" id="GDScript_p1kuj"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var shields = 13
+var armor = 14
+var escape = 4
+var cost = 20
+var attacks = [
+	{
+		\"name\": \"4 Pirate Viper Bays\", \"button_name\": \"Pirate Vipers\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 16
+	},
+	{
+		\"name\": \"4 150mm Railguns\", \"button_name\": \"150mm Railguns\",
+		\"phase\": 1, \"shield\": 18, \"armor\": 22, \"pursuit\": null, \"ammo\": null
+	},
+{
+		\"name\": \"EMP Torpedo Tube\", \"button_name\": \"EMP Torpedos\",
+		\"phase\": 3, \"shield\": 34, \"armor\": 10, \"pursuit\": 8, \"ammo\": 4
+	},
+	{
+		\"name\": \"2 PD Quad Lt. Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+"
 
 [node name="pirate_carrier_5" type="Sprite2D"]
 texture = ExtResource("1_ywj0c")
-script = ExtResource("1_llyti")
+script = SubResource("GDScript_p1kuj")

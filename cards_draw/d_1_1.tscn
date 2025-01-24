@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvk2vyt2vvojx"]
+
+[ext_resource type="Texture2D" uid="uid://bcr2drj0rq1cb" path="res://images/z_d1_extra/tile_0_1.jpeg" id="1_ty16x"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_pians"]
+
+[node name="d1_1" type="Sprite2D"]
+texture = ExtResource("1_ty16x")
+script = ExtResource("2_pians")
