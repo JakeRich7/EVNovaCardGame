@@ -26,13 +26,10 @@ var draw_pile
 @onready var player_one_active_ships = []
 @onready var player_two_active_ships = []
 @onready var ships_attacking_this_phase = []
-@onready var player_turn = 1
 @onready var attacks_generated = false
 var current_phase = 1
-var menu_attacks_p1
-var menu_attacks_p1_offset_to_fix = 0
-var menu_attacks_p2
-var menu_attacks_p2_offset_to_fix = 0
+var menu_attacks
+var menu_attacks_offset_to_fix = 0
 var player_end_turn_signal = false
 var order_of_attack_determined = false
 
@@ -131,6 +128,7 @@ func battleloop():
 
 func determine_order_of_attack():
 	if order_of_attack_determined == false:
+		print("Phase", " ", current_phase)
 		for x in player_one_active_ships:
 				var ship_attacking = false
 				for y in x.attacks:
@@ -146,7 +144,9 @@ func determine_order_of_attack():
 							ships_attacking_this_phase.push_back(x)
 							ship_attacking = true
 		# Anonymous lambda function to sort by pursuit speed
-		ships_attacking_this_phase.sort_custom(func(a, b): return a.pursuit < b.pursuit)
+		if ships_attacking_this_phase.size() == 0:
+			player_end_turn_signal = true
+		ships_attacking_this_phase.sort_custom(func(a, b): return a.pursuit > b.pursuit)
 		order_of_attack_determined = true
 
 func attack_chosen(attack_button, active_ship):
@@ -156,10 +156,10 @@ func attack_chosen(attack_button, active_ship):
 			#print(x.button_name, " ", x.shield, " ", x.armor)
 
 func attacks_generator():
-	if attacks_generated == false:
+	if attacks_generated == false and ships_attacking_this_phase.size() > 0:
 		attacks_generated = true
-		var active_ship = player_one_active_ships[0]
-		menu_attacks_p1 = $"menu_layer/player_one_attacks_menu"
+		var active_ship = ships_attacking_this_phase[0]
+		menu_attacks = $"menu_layer/player_one_attacks_menu"
 		for x in active_ship.attacks:
 			if x.phase == current_phase:
 				var attack_button_instance = Button.new()
@@ -167,31 +167,38 @@ func attacks_generator():
 				attack_button_instance.custom_minimum_size = Vector2(250, 80)
 				attack_button_instance.add_theme_font_size_override("font_size", 50)
 				attack_button_instance.text = x.button_name
-				menu_attacks_p1.add_child(attack_button_instance)
-		offset_attacks_menu_by_number_of_attacks(menu_attacks_p1)
-		if menu_attacks_p1.get_child_count() == 0:
+				menu_attacks.add_child(attack_button_instance)
+		offset_attacks_menu_by_number_of_attacks(menu_attacks)
+		if menu_attacks.get_child_count() == 0:
 			player_end_turn_signal = true
 		
 func player_end_turn():
+	for x in menu_attacks.get_children():
+		x.queue_free()
+	if ships_attacking_this_phase.size() > 0:
+		ships_attacking_this_phase.pop_front()
+		if ships_attacking_this_phase.size() == 0:
+			phase_switch()
+	else:
+		phase_switch()
 	attacks_generated = false
 	player_end_turn_signal = false
-	order_of_attack_determined = false
 
 func phase_switch():
 	if current_phase < 5:
 		current_phase += 1
 	else:
 		current_phase = 1
+	order_of_attack_determined = false
 
 func offset_attacks_menu_by_number_of_attacks(menu_attacks):
-	if player_turn == 1:
-		if menu_attacks.get_child_count() > 0:
-			menu_attacks.position.y += 297
-			menu_attacks_p1_offset_to_fix = 297
-	elif player_turn == 2:
-		if menu_attacks.get_child_count() > 0:
-			menu_attacks.position.y += 297
-			menu_attacks_p2_offset_to_fix = 297
+	#if menu_attacks.get_child_count() > 0:
+		#menu_attacks.position.y += 297
+		#menu_attacks_offset_to_fix = 297
+	#if menu_attacks.get_child_count() > 0:
+		#menu_attacks.position.y += 297
+		#menu_attacks_offset_to_fix = 297
+		pass
 		
 func send_active_ship():
 	if player_one_active_ships.size() == 0:
@@ -204,7 +211,7 @@ func send_active_ship():
 			if player_1_deck.size() == 0:
 				player_one_draw_pile.queue_free()
 			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
-				determine_first_player_and_reset_phase()
+				reset_phase()
 		else:
 			print("Player 2 Wins!!")
 	if player_two_active_ships.size() == 0:
@@ -217,17 +224,11 @@ func send_active_ship():
 			if player_2_deck.size() == 0:
 				player_two_draw_pile.queue_free()
 			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
-				determine_first_player_and_reset_phase()
+				reset_phase()
 		else:
 			print("Player 1 Wins!!")
 	
-func determine_first_player_and_reset_phase():
-	var player_one_main_ship = player_one_active_ships[0]
-	var player_two_main_ship = player_two_active_ships[0]
-	if player_one_main_ship.pursuit >= player_two_main_ship.pursuit:
-		player_turn = 1
-	else:
-		player_turn = 2
+func reset_phase():
 	current_phase = 1
 	
 func setup_battlefield():
