@@ -8,6 +8,7 @@ script/source = "extends Sprite2D
 var type = \"pirate\"
 var shields = 13
 var armor = 14
+var pursuit = 8
 var escape = 4
 var cost = 20
 var attacks = [
