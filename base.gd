@@ -25,6 +25,7 @@ var player_two_draw_pile
 var draw_pile
 @onready var player_one_active_ships = []
 @onready var player_two_active_ships = []
+@onready var ships_attacking_this_phase = []
 @onready var player_turn = 1
 @onready var attacks_generated = false
 var current_phase = 1
@@ -33,6 +34,7 @@ var menu_attacks_p1_offset_to_fix = 0
 var menu_attacks_p2
 var menu_attacks_p2_offset_to_fix = 0
 var player_end_turn_signal = false
+var order_of_attack_determined = false
 
 func _ready():
 	# Starts music
@@ -122,26 +124,38 @@ func _physics_process(_delta):
 func battleloop():
 	if battleloop_started == true:
 		send_active_ship()
-		if player_turn == 1:
-			attacks_generator_p1()
-		if player_turn == 2:
-			attacks_generator_p2()
+		determine_order_of_attack()
+		attacks_generator()
 		if player_end_turn_signal == true:
 			player_end_turn()
 
-func attack_chosen_p1(attack_button, active_ship):
-	for x in active_ship.attacks:
-		if x.button_name == attack_button.text:
-			player_end_turn_signal = true
-			#print(x.button_name, " ", x.shield, " ", x.armor)
-			
-func attack_chosen_p2(attack_button, active_ship):
+func determine_order_of_attack():
+	if order_of_attack_determined == false:
+		for x in player_one_active_ships:
+				var ship_attacking = false
+				for y in x.attacks:
+					if ship_attacking == false:
+						if y.phase == current_phase:
+							ships_attacking_this_phase.push_back(x)
+							ship_attacking = true
+		for x in player_two_active_ships:
+				var ship_attacking = false
+				for y in x.attacks:
+					if ship_attacking == false:
+						if y.phase == current_phase:
+							ships_attacking_this_phase.push_back(x)
+							ship_attacking = true
+		# Anonymous lambda function to sort by pursuit speed
+		ships_attacking_this_phase.sort_custom(func(a, b): return a.pursuit < b.pursuit)
+		order_of_attack_determined = true
+
+func attack_chosen(attack_button, active_ship):
 	for x in active_ship.attacks:
 		if x.button_name == attack_button.text:
 			player_end_turn_signal = true
 			#print(x.button_name, " ", x.shield, " ", x.armor)
 
-func attacks_generator_p1():
+func attacks_generator():
 	if attacks_generated == false:
 		attacks_generated = true
 		var active_ship = player_one_active_ships[0]
@@ -149,7 +163,7 @@ func attacks_generator_p1():
 		for x in active_ship.attacks:
 			if x.phase == current_phase:
 				var attack_button_instance = Button.new()
-				attack_button_instance.connect("pressed", Callable(self, "attack_chosen_p1").bind(attack_button_instance, active_ship))
+				attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship))
 				attack_button_instance.custom_minimum_size = Vector2(250, 80)
 				attack_button_instance.add_theme_font_size_override("font_size", 50)
 				attack_button_instance.text = x.button_name
@@ -158,44 +172,10 @@ func attacks_generator_p1():
 		if menu_attacks_p1.get_child_count() == 0:
 			player_end_turn_signal = true
 		
-func attacks_generator_p2():
-	if attacks_generated == false:
-		attacks_generated = true
-		var active_ship = player_two_active_ships[0]
-		menu_attacks_p2 = $"menu_layer/player_two_attacks_menu"
-		for x in active_ship.attacks:
-			if x.phase == current_phase:
-				var attack_button_instance = Button.new()
-				attack_button_instance.connect("pressed", Callable(self, "attack_chosen_p2").bind(attack_button_instance, active_ship))
-				attack_button_instance.custom_minimum_size = Vector2(250, 80)
-				attack_button_instance.add_theme_font_size_override("font_size", 50)
-				attack_button_instance.text = x.button_name
-				menu_attacks_p2.add_child(attack_button_instance)
-		offset_attacks_menu_by_number_of_attacks(menu_attacks_p2)
-		if menu_attacks_p2.get_child_count() == 0:
-			player_end_turn_signal = true
-		
 func player_end_turn():
-	var active_ship_p1 = player_one_active_ships[0]
-	var active_ship_p2 = player_two_active_ships[0]
-	if player_turn == 1:
-		player_turn = 2
-		if active_ship_p1.pursuit < active_ship_p2.pursuit:
-			phase_switch()
-		if menu_attacks_p1.get_child_count() > 0:
-			menu_attacks_p1.position.y -= menu_attacks_p1_offset_to_fix
-		for child in menu_attacks_p1.get_children():
-			child.queue_free()
-	elif player_turn == 2:
-		player_turn = 1
-		if active_ship_p2.pursuit < active_ship_p1.pursuit:
-			phase_switch()
-		if menu_attacks_p2.get_child_count() > 0:
-			menu_attacks_p2.position.y -= menu_attacks_p2_offset_to_fix
-		for child in menu_attacks_p2.get_children():
-			child.queue_free()
 	attacks_generated = false
 	player_end_turn_signal = false
+	order_of_attack_determined = false
 
 func phase_switch():
 	if current_phase < 5:
