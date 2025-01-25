@@ -156,7 +156,7 @@ func attacks_generator_p1():
 				menu_attacks_p1.add_child(attack_button_instance)
 		offset_attacks_menu_by_number_of_attacks(menu_attacks_p1)
 		if menu_attacks_p1.get_child_count() == 0:
-			player_end_turn()
+			player_end_turn_signal = true
 		
 func attacks_generator_p2():
 	if attacks_generated == false:
@@ -173,7 +173,7 @@ func attacks_generator_p2():
 				menu_attacks_p2.add_child(attack_button_instance)
 		offset_attacks_menu_by_number_of_attacks(menu_attacks_p2)
 		if menu_attacks_p2.get_child_count() == 0:
-			player_end_turn()
+			player_end_turn_signal = true
 		
 func player_end_turn():
 	var active_ship_p1 = player_one_active_ships[0]
