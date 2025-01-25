@@ -133,17 +133,16 @@ func attack_chosen_p1(attack_button, active_ship):
 	for x in active_ship.attacks:
 		if x.button_name == attack_button.text:
 			player_end_turn_signal = true
-			print(x.button_name, " ", x.shield, " ", x.armor)
+			#print(x.button_name, " ", x.shield, " ", x.armor)
 			
 func attack_chosen_p2(attack_button, active_ship):
 	for x in active_ship.attacks:
 		if x.button_name == attack_button.text:
 			player_end_turn_signal = true
-			print(x.button_name, " ", x.shield, " ", x.armor)
+			#print(x.button_name, " ", x.shield, " ", x.armor)
 
 func attacks_generator_p1():
 	if attacks_generated == false:
-		print(current_phase, " ", player_turn)
 		attacks_generated = true
 		var active_ship = player_one_active_ships[0]
 		menu_attacks_p1 = $"menu_layer/player_one_attacks_menu"
@@ -161,7 +160,6 @@ func attacks_generator_p1():
 		
 func attacks_generator_p2():
 	if attacks_generated == false:
-		print(current_phase, " ", player_turn)
 		attacks_generated = true
 		var active_ship = player_two_active_ships[0]
 		menu_attacks_p2 = $"menu_layer/player_two_attacks_menu"
