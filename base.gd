@@ -159,7 +159,8 @@ func attacks_generator():
 	if attacks_generated == false and ships_attacking_this_phase.size() > 0:
 		attacks_generated = true
 		var active_ship = ships_attacking_this_phase[0]
-		menu_attacks = $"menu_layer/player_one_attacks_menu"
+		var ship_map_position = determine_ship_position(active_ship)
+		determine_menu(ship_map_position)
 		for x in active_ship.attacks:
 			if x.phase == current_phase:
 				var attack_button_instance = Button.new()
@@ -172,7 +173,23 @@ func attacks_generator():
 		if menu_attacks.get_child_count() == 0:
 			player_end_turn_signal = true
 		
+func determine_ship_position(active_ship):
+	for x in player_one_active_ships:
+		if active_ship == x:
+			return 1
+	for x in player_two_active_ships:
+		if active_ship == x:
+			return 2
+		
+func determine_menu(ship_map_position):
+	if ship_map_position == 1:
+		menu_attacks = $"menu_layer/player_one_attacks_menu"
+	if ship_map_position == 2:
+		menu_attacks = $"menu_layer/player_two_attacks_menu"
+		
 func player_end_turn():
+	if menu_attacks.get_child_count() > 0:
+		menu_attacks.position.y -= menu_attacks_offset_to_fix
 	for x in menu_attacks.get_children():
 		x.queue_free()
 	if ships_attacking_this_phase.size() > 0:
@@ -191,14 +208,10 @@ func phase_switch():
 		current_phase = 1
 	order_of_attack_determined = false
 
-func offset_attacks_menu_by_number_of_attacks(menu_attacks):
-	#if menu_attacks.get_child_count() > 0:
-		#menu_attacks.position.y += 297
-		#menu_attacks_offset_to_fix = 297
-	#if menu_attacks.get_child_count() > 0:
-		#menu_attacks.position.y += 297
-		#menu_attacks_offset_to_fix = 297
-		pass
+func offset_attacks_menu_by_number_of_attacks(menu_attacks):	
+	if menu_attacks.get_child_count() > 0:
+		menu_attacks.position.y += 297
+		menu_attacks_offset_to_fix = 297
 		
 func send_active_ship():
 	if player_one_active_ships.size() == 0:
