@@ -169,7 +169,7 @@ func attacks_generator():
 				attack_button_instance.add_theme_font_size_override("font_size", 50)
 				attack_button_instance.text = x.button_name
 				menu_attacks.add_child(attack_button_instance)
-		offset_attacks_menu_by_number_of_attacks(menu_attacks)
+		offset_attacks_menu_by_number_of_attacks()
 		if menu_attacks.get_child_count() == 0:
 			player_end_turn_signal = true
 		
@@ -208,7 +208,7 @@ func phase_switch():
 		current_phase = 1
 	order_of_attack_determined = false
 
-func offset_attacks_menu_by_number_of_attacks(menu_attacks):	
+func offset_attacks_menu_by_number_of_attacks():	
 	if menu_attacks.get_child_count() > 0:
 		menu_attacks.position.y += 297
 		menu_attacks_offset_to_fix = 297
