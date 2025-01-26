@@ -1,5 +1,9 @@
 extends Node2D
 
+# Preload Fighter
+@onready var pirate_viper = preload("res://cards_ships/pirate_viper_1.tscn")
+@onready var pirate_thunderhead = preload("res://cards_ships/pirate_thunderhead_2.tscn")
+
 @onready var canvas_layer = $"menu_layer"
 @onready var map = $"map"
 @onready var music = $"music"
@@ -150,11 +154,37 @@ func determine_order_of_attack():
 		ships_attacking_this_phase.sort_custom(func(a, b): return a.pursuit > b.pursuit)
 		order_of_attack_determined = true
 
-func attack_chosen(attack_button, active_ship):
+func attack_chosen(attack_button, active_ship, active_ship_position):
 	for x in active_ship.attacks:
 		if x.button_name == attack_button.text:
 			player_end_turn_signal = true
-			#print(x.button_name, " ", x.shield, " ", x.armor)
+			if x.armor == null:
+				launch_fighters(x, active_ship_position)
+
+func launch_fighters(attack, active_ship_position):
+	var ship_group_to_join
+	var position_to_spawn
+	if active_ship_position == 1:
+		ship_group_to_join = player_one_active_ships
+		if ship_group_to_join.size() == 1: position_to_spawn = Vector2(328, 1203)
+		else: position_to_spawn = Vector2(1828, 1203)
+	else:
+		ship_group_to_join = player_two_active_ships
+		if ship_group_to_join.size() == 1: position_to_spawn = Vector2(328, 303)
+		else: position_to_spawn = Vector2(1828, 303)
+	for x in attack.ammo:
+		var fighter_instance = fighter_return_instance(attack.button_name)
+		ship_group_to_join.push_back(fighter_instance)
+		fighter_instance.position = position_to_spawn
+		add_child(fighter_instance)
+		print(attack.button_name, " ", "Launched!")
+	attack.ammo = 0
+
+func fighter_return_instance(fighter):
+	if fighter == "Pirate Vipers":
+		return pirate_viper.instantiate()
+	elif fighter == "Pirate Thunderheads":
+		return pirate_thunderhead.instantiate()
 
 func attacks_generator():
 	if attacks_generated == false and ships_attacking_this_phase.size() > 0:
@@ -164,9 +194,10 @@ func attacks_generator():
 		determine_menu(ship_map_position)
 		for x in active_ship.attacks:
 			if x.phase == current_phase:
+				# Perfect gate for determining proper items for attack menu
 				if x.ammo != 0:
 					var attack_button_instance = Button.new()
-					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship))
+					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship, ship_map_position))
 					attack_button_instance.custom_minimum_size = Vector2(250, 80)
 					attack_button_instance.add_theme_font_size_override("font_size", 50)
 					attack_button_instance.text = x.button_name
@@ -221,7 +252,8 @@ func offset_attacks_menus():
 func send_active_ship():
 	if player_one_active_ships.size() == 0:
 		if player_1_deck.size() > 0:
-			var index = randi() % player_1_deck.size()
+			#var index = randi() % player_1_deck.size()
+			var index = 0
 			player_one_active_ships.push_back(player_1_deck.pop_at(index))
 			var player_one_main_ship = player_one_active_ships[0]
 			player_one_main_ship.position = Vector2(1280, 1030)
@@ -234,7 +266,8 @@ func send_active_ship():
 			print("Player 2 Wins!!")
 	if player_two_active_ships.size() == 0:
 		if player_2_deck.size() > 0:
-			var index = randi() % player_2_deck.size()
+			#var index = randi() % player_2_deck.size()
+			var index = 0
 			player_two_active_ships.push_back(player_2_deck.pop_at(index))
 			var player_two_main_ship = player_two_active_ships[0]
 			player_two_main_ship.position = Vector2(1280, 410)
