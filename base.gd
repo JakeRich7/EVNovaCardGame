@@ -4,6 +4,12 @@ extends Node2D
 @onready var pirate_viper = preload("res://cards_ships/pirate_viper_1.tscn")
 @onready var pirate_thunderhead = preload("res://cards_ships/pirate_thunderhead_2.tscn")
 
+@onready var ship_position_1 = Vector2(1280, 1030)
+@onready var ship_position_2 = Vector2(1280, 410)
+@onready var ship_position_3 = Vector2(850, 1100)
+@onready var ship_position_4 = Vector2(850, 340)
+@onready var ship_position_5 = Vector2(1710, 1100)
+@onready var ship_position_6 = Vector2(1710, 340)
 @onready var canvas_layer = $"menu_layer"
 @onready var map = $"map"
 @onready var music = $"music"
@@ -166,12 +172,12 @@ func launch_fighters(attack, active_ship_position):
 	var position_to_spawn
 	if active_ship_position == 1:
 		ship_group_to_join = player_one_active_ships
-		if ship_group_to_join.size() == 1: position_to_spawn = Vector2(328, 1203)
-		else: position_to_spawn = Vector2(1828, 1203)
+		if ship_group_to_join.size() == 1: position_to_spawn = ship_position_3
+		else: position_to_spawn = ship_position_5
 	else:
 		ship_group_to_join = player_two_active_ships
-		if ship_group_to_join.size() == 1: position_to_spawn = Vector2(328, 303)
-		else: position_to_spawn = Vector2(1828, 303)
+		if ship_group_to_join.size() == 1: position_to_spawn = ship_position_4
+		else: position_to_spawn = ship_position_6
 	for x in attack.ammo:
 		var fighter_instance = fighter_return_instance(attack.button_name)
 		ship_group_to_join.push_back(fighter_instance)
@@ -206,18 +212,32 @@ func attacks_generator():
 			player_end_turn_signal = true
 		
 func determine_ship_position(active_ship):
-	for x in player_one_active_ships:
-		if active_ship == x:
-			return 1
-	for x in player_two_active_ships:
-		if active_ship == x:
-			return 2
+	if active_ship == player_one_active_ships[0]:
+		return 1
+	elif active_ship == player_two_active_ships[0]:
+		return 2
+	elif player_one_active_ships.size() > 1 and active_ship.ship_name == player_one_active_ships[1].ship_name:
+		return 3
+	elif player_two_active_ships.size() > 1 and active_ship.ship_name == player_two_active_ships[1].ship_name:
+		return 4
+	elif active_ship.ship_name == player_one_active_ships[-1].ship_name:
+		return 5
+	elif active_ship.ship_name == player_two_active_ships[-1].ship_name:
+		return 6
 		
 func determine_menu(ship_map_position):
 	if ship_map_position == 1:
 		menu_attacks = $"menu_layer/player_one_attacks_menu"
-	if ship_map_position == 2:
+	elif ship_map_position == 2:
 		menu_attacks = $"menu_layer/player_two_attacks_menu"
+	elif ship_map_position == 3:
+		menu_attacks = $"menu_layer/player_three_attacks_menu"
+	elif ship_map_position == 4:
+		menu_attacks = $"menu_layer/player_four_attacks_menu"
+	elif ship_map_position == 5:
+		menu_attacks = $"menu_layer/player_five_attacks_menu"
+	elif ship_map_position == 6:
+		menu_attacks = $"menu_layer/player_six_attacks_menu"
 		
 func player_end_turn():
 	if menu_attacks:
@@ -242,7 +262,11 @@ func phase_switch():
 func offset_attacks_menus():	
 	var menu_1 = $"menu_layer/player_one_attacks_menu"
 	var menu_2 = $"menu_layer/player_two_attacks_menu"
-	var menus_to_offset = [menu_1, menu_2]
+	var menu_3 = $"menu_layer/player_three_attacks_menu"
+	var menu_4 = $"menu_layer/player_four_attacks_menu"
+	var menu_5 = $"menu_layer/player_five_attacks_menu"
+	var menu_6 = $"menu_layer/player_six_attacks_menu"
+	var menus_to_offset = [menu_1, menu_2, menu_3, menu_4, menu_5, menu_6]
 	for menu_to_offset in menus_to_offset:
 		if menu_to_offset.get_child_count() == 2:
 			menu_to_offset.get_node("Button").queue_free()
@@ -256,7 +280,7 @@ func send_active_ship():
 			var index = 0
 			player_one_active_ships.push_back(player_1_deck.pop_at(index))
 			var player_one_main_ship = player_one_active_ships[0]
-			player_one_main_ship.position = Vector2(1280, 1030)
+			player_one_main_ship.position = ship_position_1
 			add_child(player_one_main_ship)
 			if player_1_deck.size() == 0:
 				player_one_draw_pile.queue_free()
@@ -270,7 +294,7 @@ func send_active_ship():
 			var index = 0
 			player_two_active_ships.push_back(player_2_deck.pop_at(index))
 			var player_two_main_ship = player_two_active_ships[0]
-			player_two_main_ship.position = Vector2(1280, 410)
+			player_two_main_ship.position = ship_position_2
 			add_child(player_two_main_ship)
 			if player_2_deck.size() == 0:
 				player_two_draw_pile.queue_free()
@@ -293,7 +317,7 @@ func setup_battlefield():
 		player_two_draw_pile.position.y += 410
 		add_child(player_two_draw_pile)
 		draw_pile = card_back.instantiate()
-		draw_pile.position.x += 1820
+		draw_pile.position.x += 2210
 		draw_pile.position.y += 720
 		add_child(draw_pile)
 		battlefield_setup = true

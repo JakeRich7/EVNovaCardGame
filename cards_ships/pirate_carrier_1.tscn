@@ -6,6 +6,7 @@
 script/source = "extends Sprite2D
 
 var type = \"pirate\"
+var ship_name = \"pirate_carrier_1\"
 var shields = 16
 var armor = 16
 var pursuit = 9
