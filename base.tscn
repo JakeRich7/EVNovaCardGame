@@ -22,6 +22,16 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Button" type="Button" parent="menu_layer/player_one_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_one_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
+
 [node name="player_two_attacks_menu" type="VBoxContainer" parent="menu_layer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -34,6 +44,16 @@ offset_right = 20.0
 offset_bottom = -600.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Button" type="Button" parent="menu_layer/player_two_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_two_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
 
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_0bq30")

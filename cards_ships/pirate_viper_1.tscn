@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm7f8d2jr5gr7"]
+
+[ext_resource type="Texture2D" uid="uid://bxiiyo8vhlwf3" path="res://images/pirate/viper_1.jpeg" id="1_pfaun"]
+
+[sub_resource type="GDScript" id="GDScript_ixky3"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var shields = 4
+var armor = 3
+var pursuit = 14
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"3 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 4, \"armor\": 3, \"pursuit\": null, \"ammo\": null
+	}
+]
+"
+
+[node name="pirate_viper_1" type="Sprite2D"]
+texture = ExtResource("1_pfaun")
+script = SubResource("GDScript_ixky3")
