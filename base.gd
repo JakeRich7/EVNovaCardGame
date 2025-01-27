@@ -170,16 +170,26 @@ func attack_chosen(attack_button, active_ship, active_ship_position):
 func launch_fighters(attack, active_ship_position):
 	var ship_group_to_join
 	var position_to_spawn
+	var ship_position = 0
 	if active_ship_position == 1:
 		ship_group_to_join = player_one_active_ships
-		if ship_group_to_join.size() == 1: position_to_spawn = ship_position_3
-		else: position_to_spawn = ship_position_5
+		if ship_group_to_join.size() == 1:
+			ship_position = 3
+			position_to_spawn = ship_position_3
+		else:
+			ship_position = 5
+			position_to_spawn = ship_position_5
 	else:
 		ship_group_to_join = player_two_active_ships
-		if ship_group_to_join.size() == 1: position_to_spawn = ship_position_4
-		else: position_to_spawn = ship_position_6
+		if ship_group_to_join.size() == 1:
+			ship_position = 4
+			position_to_spawn = ship_position_4
+		else:
+			ship_position = 6
+			position_to_spawn = ship_position_6
 	for x in attack.ammo:
 		var fighter_instance = fighter_return_instance(attack.button_name)
+		fighter_instance.ship_position = ship_position
 		ship_group_to_join.push_back(fighter_instance)
 		fighter_instance.position = position_to_spawn
 		add_child(fighter_instance)
@@ -196,7 +206,7 @@ func attacks_generator():
 	if attacks_generated == false and ships_attacking_this_phase.size() > 0:
 		attacks_generated = true
 		var active_ship = ships_attacking_this_phase[0]
-		var ship_map_position = determine_ship_position(active_ship)
+		var ship_map_position = active_ship.ship_position
 		determine_menu(ship_map_position)
 		for x in active_ship.attacks:
 			if x.phase == current_phase:
@@ -210,20 +220,6 @@ func attacks_generator():
 					menu_attacks.add_child(attack_button_instance)
 		if menu_attacks.get_child_count() == 0:
 			player_end_turn_signal = true
-		
-func determine_ship_position(active_ship):
-	if active_ship == player_one_active_ships[0]:
-		return 1
-	elif active_ship == player_two_active_ships[0]:
-		return 2
-	elif player_one_active_ships.size() > 1 and active_ship.ship_name == player_one_active_ships[1].ship_name:
-		return 3
-	elif player_two_active_ships.size() > 1 and active_ship.ship_name == player_two_active_ships[1].ship_name:
-		return 4
-	elif active_ship.ship_name == player_one_active_ships[-1].ship_name:
-		return 5
-	elif active_ship.ship_name == player_two_active_ships[-1].ship_name:
-		return 6
 		
 func determine_menu(ship_map_position):
 	if ship_map_position == 1:
@@ -280,6 +276,7 @@ func send_active_ship():
 			var index = 0
 			player_one_active_ships.push_back(player_1_deck.pop_at(index))
 			var player_one_main_ship = player_one_active_ships[0]
+			player_one_main_ship.ship_position = 1
 			player_one_main_ship.position = ship_position_1
 			add_child(player_one_main_ship)
 			if player_1_deck.size() == 0:
@@ -294,6 +291,7 @@ func send_active_ship():
 			var index = 0
 			player_two_active_ships.push_back(player_2_deck.pop_at(index))
 			var player_two_main_ship = player_two_active_ships[0]
+			player_two_main_ship.ship_position = 2
 			player_two_main_ship.position = ship_position_2
 			add_child(player_two_main_ship)
 			if player_2_deck.size() == 0:
