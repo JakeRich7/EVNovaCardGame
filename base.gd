@@ -302,7 +302,10 @@ func send_active_ship():
 				reset_phase()
 		else:
 			print("Player 1 Wins!!")
-	
+	# This accounts allows the game to continue if neither ship has any attacks
+	if player_one_active_ships[0].attacks.size() == 0 and player_two_active_ships[0].attacks.size() == 0:
+		print("Neither ship has any attacks! They crashed and were both destroyed...")
+		
 func reset_phase():
 	current_phase = 1
 	
