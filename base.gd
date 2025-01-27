@@ -41,6 +41,10 @@ var current_phase = 1
 var menu_attacks
 var player_end_turn_signal = false
 var order_of_attack_determined = false
+@onready var fighters_in_position_3 = 0
+@onready var fighters_in_position_4 = 0
+@onready var fighters_in_position_5 = 0
+@onready var fighters_in_position_6 = 0
 
 func _ready():
 	# Position attack menus
@@ -193,8 +197,30 @@ func launch_fighters(attack, active_ship_position):
 		ship_group_to_join.push_back(fighter_instance)
 		fighter_instance.position = position_to_spawn
 		add_child(fighter_instance)
+		fighter_adjust_counters(ship_position)
 		print(attack.button_name, " ", "Launched!")
+	print(fighters_in_position_3, fighters_in_position_4, fighters_in_position_5, fighters_in_position_6)
 	attack.ammo = 0
+
+func fighter_adjust_counters(ship_position):
+	var menu_to_show
+	if ship_position == 3:
+		fighters_in_position_3 += 1
+		menu_to_show = $"menu_layer/player_three_counter"
+		menu_to_show.text = "x" + str(fighters_in_position_3)
+	elif ship_position == 4:
+		fighters_in_position_4 += 1
+		menu_to_show = $"menu_layer/player_four_counter"
+		menu_to_show.text = "x" + str(fighters_in_position_4)
+	elif ship_position == 5:
+		fighters_in_position_5 += 1
+		menu_to_show = $"menu_layer/player_five_counter"
+		menu_to_show.text = "x" + str(fighters_in_position_5)
+	elif ship_position == 6:
+		fighters_in_position_6 += 1
+		menu_to_show = $"menu_layer/player_six_counter"
+		menu_to_show.text = "x" + str(fighters_in_position_6)
+	menu_to_show.visible = true
 
 func fighter_return_instance(fighter):
 	if fighter == "Pirate Vipers":
