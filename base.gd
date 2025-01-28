@@ -118,6 +118,10 @@ func _on_button_pressed(button):
 		x.queue_free()
 
 func _on_music_pressed():
+	if settings_instance.get_node("music").text == "Music ON":
+		settings_instance.get_node("music").text = "Music OFF"
+	elif settings_instance.get_node("music").text == "Music OFF":
+		settings_instance.get_node("music").text = "Music ON"
 	music.playing = !music.playing
 	
 func _on_quit_pressed():
