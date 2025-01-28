@@ -10,6 +10,9 @@ extends Node2D
 @onready var ship_position_4 = Vector2(850, 340)
 @onready var ship_position_5 = Vector2(1710, 1100)
 @onready var ship_position_6 = Vector2(1710, 340)
+@onready var player_draw_position_1 = Vector2(350, 1030)
+@onready var player_draw_position_2 = Vector2(350, 410)
+@onready var draw_pile_position = Vector2(2210, 720)
 @onready var canvas_layer = $"menu_layer"
 @onready var map = $"map"
 @onready var music = $"music"
@@ -19,6 +22,7 @@ const cards_ships_path = "res://cards_ships"
 @onready var menu = preload("res://menu.tscn")
 @onready var settings = preload("res://settings.tscn")
 @onready var draw_deck = []
+@onready var draw_deck_reshuffle = []
 @onready var ships_all = []
 @onready var player_1_deck = []
 @onready var player_2_deck = []
@@ -49,6 +53,8 @@ var order_of_attack_determined = false
 var attack_info_name
 var attack_info_primary_ship
 var player_which_enemy_initialized = false
+var player_wins = 0
+var end_message_printed = false
 
 func _ready():
 	# Position attack menus
@@ -142,7 +148,7 @@ func _physics_process(_delta):
 	battleloop()
 	
 func battleloop():
-	if battleloop_started == true:
+	if battleloop_started == true and player_wins == 0:
 		send_active_ship()
 		determine_order_of_attack()
 		attacks_generator()
@@ -150,6 +156,27 @@ func battleloop():
 			player_which_enemy()
 		if player_end_turn_signal == true:
 			player_end_turn()
+	else:
+		if battleloop_started == true and end_message_printed == false:
+			final_win_label()
+			print("YAAAYAYAYA!!!! Player ", player_wins, " WINSSSS!!!!")
+			end_message_printed = true
+
+func final_win_label():
+	var ship_for_final_font_color
+	if player_wins == 1:
+		ship_for_final_font_color = player_one_active_ships[0]
+	else:
+		ship_for_final_font_color = player_two_active_ships[0]
+	var label = Label.new()
+	label.text = "Player " + str(player_wins) + " Wins!"
+	label.custom_minimum_size = Vector2(350, 120)
+	label.add_theme_font_size_override("font_size", 100)
+	label.add_theme_color_override("font_color", return_font_color_by_race(attack_info_primary_ship))
+	var final_instance = menu.instantiate()
+	final_instance.position -= Vector2(25, 300)
+	final_instance.add_child(label)
+	canvas_layer.add_child(final_instance)
 
 func determine_order_of_attack():
 	if order_of_attack_determined == false:
@@ -243,13 +270,68 @@ func enemy_has_multiple_ships():
 	return false
 
 func attack(enemy_ship_name):
+	var attack_ship = attack_info_primary_ship
 	var enemy_ship = return_first_instance_of_enemy_ship_name(enemy_ship_name)
-	print(attack_info_primary_ship, " ", attack_info_name, " ", enemy_ship)
 	for x in attack_info_primary_ship.attacks:
 		if x.button_name == attack_info_name:
+			# Identifies Fighters
 			if x.armor == null:
 				launch_fighters(x, attack_info_primary_ship.ship_position)
+			# Identifies Missiles
+			elif x.pursuit != null:
+				if x.pursuit + draw_a_card() >= enemy_ship.escape + draw_a_card():
+					attack_hit(x, enemy_ship)
+				x.ammo -= 1
+			else:
+				attack_hit(x, enemy_ship)
 	player_end_turn_signal = true
+
+func attack_hit(attack_details, enemy_ship):
+	# Identifies Armor ONLY Attacks
+	if attack_details.shield != null:
+		# Identifies all other Attacks
+		if enemy_ship.shield > 0:
+			if attack_details.shield + draw_a_card() >= enemy_ship.shield + draw_a_card():
+				shield_down(enemy_ship)
+		else:
+			if attack_details.armor + draw_a_card() >= enemy_ship.armor + draw_a_card():
+				armor_down(enemy_ship)
+	else:
+		if attack_details.armor + draw_a_card() >= enemy_ship.armor + draw_a_card():
+			armor_down(enemy_ship)
+			
+func shield_down(enemy_ship):
+	enemy_ship.shield = 0
+	print(enemy_ship, " shields down!!!")
+
+func armor_down(enemy_ship):
+	if enemy_ship.ship_position == 2 or enemy_ship.ship_position == 4 or enemy_ship.ship_position == 6:
+		for x in player_two_active_ships:
+			if x.ship_name == enemy_ship.ship_name:
+				var index = player_two_active_ships.find(x)
+				player_two_active_ships.pop_at(index)
+				break
+	else:
+		for x in player_one_active_ships:
+			if x.ship_name == enemy_ship.ship_name:
+				var index = player_one_active_ships.find(x)
+				player_one_active_ships.pop_at(index)
+				break
+	remove_child(enemy_ship)
+	print(enemy_ship, " armor down!!! (destroyed!!!)")
+
+func draw_a_card():
+	if draw_deck.size() == 0:
+		for x in draw_deck_reshuffle:
+			remove_child(x)
+		draw_deck.append_array(draw_deck_reshuffle)
+		draw_deck_reshuffle.clear()
+	var index = randi() % draw_deck.size()
+	var element = draw_deck.pop_at(index)
+	element.position = draw_pile_position
+	add_child(element)
+	draw_deck_reshuffle.push_back(element)
+	return element.value
 
 func return_first_instance_of_enemy_ship_name(enemy_ship_name):
 	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
@@ -409,7 +491,7 @@ func send_active_ship():
 			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
 				reset_phase()
 		else:
-			print("Player 2 Wins!!")
+			player_wins = 2
 	if player_two_active_ships.size() == 0:
 		if player_2_deck.size() > 0:
 			#var index = randi() % player_2_deck.size()
@@ -424,7 +506,7 @@ func send_active_ship():
 			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
 				reset_phase()
 		else:
-			print("Player 1 Wins!!")
+			player_wins = 1
 	# This accounts allows the game to continue if neither ship has any attacks
 	if player_one_active_ships[0].attacks.size() == 0 and player_two_active_ships[0].attacks.size() == 0:
 		print("Neither ship has any attacks! They crashed and were both destroyed...")
@@ -435,16 +517,13 @@ func reset_phase():
 func setup_battlefield():
 	if battlefield_setup == false and players_done_choosing == true:
 		player_one_draw_pile = card_back.instantiate()
-		player_one_draw_pile.position.x += 350
-		player_one_draw_pile.position.y += 1030
+		player_one_draw_pile.position += player_draw_position_1
 		add_child(player_one_draw_pile)
 		player_two_draw_pile = card_back.instantiate()
-		player_two_draw_pile.position.x += 350
-		player_two_draw_pile.position.y += 410
+		player_two_draw_pile.position += player_draw_position_2
 		add_child(player_two_draw_pile)
 		draw_pile = card_back.instantiate()
-		draw_pile.position.x += 2210
-		draw_pile.position.y += 720
+		draw_pile.position += draw_pile_position
 		add_child(draw_pile)
 		battlefield_setup = true
 		battleloop_started = true
