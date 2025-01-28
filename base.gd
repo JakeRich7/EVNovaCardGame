@@ -149,7 +149,6 @@ func battleloop():
 
 func determine_order_of_attack():
 	if order_of_attack_determined == false:
-		print("Phase", " ", current_phase)
 		for x in player_one_active_ships:
 				var ship_attacking = false
 				for y in x.attacks:
@@ -190,6 +189,7 @@ func player_which_enemy():
 			attack_button_instance.connect("pressed", Callable(self, "attack").bind(unique_enemies_to_attack[i]))
 			attack_button_instance.custom_minimum_size = Vector2(250, 80)
 			attack_button_instance.add_theme_font_size_override("font_size", 50)
+			attack_button_instance.add_theme_color_override("font_color", return_font_color_by_race(attack_info_primary_ship))
 			attack_button_instance.text = unique_enemies_to_attack[i]
 			menu_attacks.add_child(attack_button_instance)
 		player_which_enemy_initialized = true
@@ -271,7 +271,7 @@ func player_end_turn():
 	player_which_enemy_initialized = false
 	player_end_turn_signal = false
 
-func launch_fighters(attack, active_ship_position):
+func launch_fighters(attack_selected, active_ship_position):
 	var ship_group_to_join
 	var position_to_spawn
 	var ship_position = 0
@@ -291,16 +291,14 @@ func launch_fighters(attack, active_ship_position):
 		else:
 			ship_position = 6
 			position_to_spawn = ship_position_6
-	for x in attack.ammo:
-		var fighter_instance = fighter_return_instance(attack.button_name)
+	for x in attack_selected.ammo:
+		var fighter_instance = fighter_return_instance(attack_selected.button_name)
 		fighter_instance.ship_position = ship_position
 		ship_group_to_join.push_back(fighter_instance)
 		fighter_instance.position = position_to_spawn
 		add_child(fighter_instance)
 		fighter_adjust_counters(ship_position)
-		print(attack.button_name, " ", "Launched!")
-	print(fighters_in_position_3, fighters_in_position_4, fighters_in_position_5, fighters_in_position_6)
-	attack.ammo = 0
+	attack_selected.ammo = 0
 
 func fighter_adjust_counters(ship_position):
 	var menu_to_show
@@ -342,10 +340,20 @@ func attacks_generator():
 					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship))
 					attack_button_instance.custom_minimum_size = Vector2(250, 80)
 					attack_button_instance.add_theme_font_size_override("font_size", 50)
+					attack_button_instance.add_theme_color_override("font_color", return_font_color_by_race(active_ship))
 					attack_button_instance.text = x.button_name
 					menu_attacks.add_child(attack_button_instance)
 		if menu_attacks.get_child_count() == 0:
 			player_end_turn_signal = true
+		
+func return_font_color_by_race(active_ship):
+	if active_ship.type == "alien": return "#FFD700"
+	elif active_ship.type == "auroran": return "#8B4513"
+	elif active_ship.type == "federation": return "#4682B4"
+	elif active_ship.type == "pirate": return "#D88B5E"
+	elif active_ship.type == "polaris": return "#D8BFD8"
+	elif active_ship.type == "rebel": return "#228B22"
+	elif active_ship.type == "trader": return "#A9A9A9"
 		
 func determine_menu(ship_map_position):
 	if ship_map_position == 1:
