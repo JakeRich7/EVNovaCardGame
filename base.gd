@@ -1,6 +1,6 @@
 extends Node2D
 
-# Preload Fighter
+# Preload Fighters
 @onready var pirate_viper = preload("res://cards_ships/pirate_viper_1.tscn")
 @onready var pirate_thunderhead = preload("res://cards_ships/pirate_thunderhead_2.tscn")
 
