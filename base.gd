@@ -39,12 +39,16 @@ var draw_pile
 @onready var attacks_generated = false
 var current_phase = 1
 var menu_attacks
+var player_attack_chosen = false
 var player_end_turn_signal = false
 var order_of_attack_determined = false
 @onready var fighters_in_position_3 = 0
 @onready var fighters_in_position_4 = 0
 @onready var fighters_in_position_5 = 0
 @onready var fighters_in_position_6 = 0
+var attack_info_name
+var attack_info_primary_ship
+var player_which_enemy_initialized = false
 
 func _ready():
 	# Position attack menus
@@ -138,6 +142,8 @@ func battleloop():
 		send_active_ship()
 		determine_order_of_attack()
 		attacks_generator()
+		if player_attack_chosen == true and player_which_enemy_initialized == false:
+			player_which_enemy()
 		if player_end_turn_signal == true:
 			player_end_turn()
 
@@ -164,12 +170,106 @@ func determine_order_of_attack():
 		ships_attacking_this_phase.sort_custom(func(a, b): return a.pursuit > b.pursuit)
 		order_of_attack_determined = true
 
-func attack_chosen(attack_button, active_ship, active_ship_position):
+func attack_chosen(attack_button, active_ship):
 	for x in active_ship.attacks:
 		if x.button_name == attack_button.text:
-			player_end_turn_signal = true
+			player_attack_chosen = true
+			attack_info_name = attack_button.text
+			attack_info_primary_ship = active_ship
+
+func player_which_enemy():
+	if check_for_fighter_launch():
+		attack(return_enemy_single_ship_name())
+	elif enemy_has_multiple_ships():
+		if menu_attacks:
+			for x in menu_attacks.get_children():
+				x.queue_free()
+		var unique_enemies_to_attack = return_unique_enemies()
+		for i in range(unique_enemies_to_attack.size()):
+			var attack_button_instance = Button.new()
+			attack_button_instance.connect("pressed", Callable(self, "attack").bind(unique_enemies_to_attack[i]))
+			attack_button_instance.custom_minimum_size = Vector2(250, 80)
+			attack_button_instance.add_theme_font_size_override("font_size", 50)
+			attack_button_instance.text = unique_enemies_to_attack[i]
+			menu_attacks.add_child(attack_button_instance)
+		player_which_enemy_initialized = true
+	else:
+		attack(return_enemy_single_ship_name())
+		
+func check_for_fighter_launch():
+	for x in attack_info_primary_ship.attacks:
+		if x.button_name == attack_info_name:
 			if x.armor == null:
-				launch_fighters(x, active_ship_position)
+				return true
+	return false
+
+func return_unique_enemies():
+	var unique_enemies = []
+	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
+		for x in player_two_active_ships:
+			var name_match = false
+			for y in unique_enemies:
+				if x.ship_button_name == y:
+					name_match = true
+			if name_match == false:
+				unique_enemies.push_back(x.ship_button_name)
+	else:
+		for x in player_one_active_ships:
+			var name_match = false
+			for y in unique_enemies:
+				if x.ship_button_name == y:
+					name_match = true
+			if name_match == false:
+				unique_enemies.push_back(x.ship_button_name)
+	return unique_enemies
+
+func return_enemy_single_ship_name():
+	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
+		return player_two_active_ships[0].ship_button_name
+	else:
+		return player_one_active_ships[0].ship_button_name
+			
+func enemy_has_multiple_ships():
+	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
+		if player_two_active_ships.size() > 1:
+			return true
+	else:
+		if player_one_active_ships.size() > 1:
+			return true
+	return false
+
+func attack(enemy_ship_name):
+	var enemy_ship = return_first_instance_of_enemy_ship_name(enemy_ship_name)
+	print(attack_info_primary_ship, " ", attack_info_name, " ", enemy_ship)
+	for x in attack_info_primary_ship.attacks:
+		if x.button_name == attack_info_name:
+			if x.armor == null:
+				launch_fighters(x, attack_info_primary_ship.ship_position)
+	player_end_turn_signal = true
+
+func return_first_instance_of_enemy_ship_name(enemy_ship_name):
+	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
+		for x in player_two_active_ships:
+			if x.ship_button_name == enemy_ship_name:
+				return x
+	else:
+		for x in player_one_active_ships:
+			if x.ship_button_name == enemy_ship_name:
+				return x
+
+func player_end_turn():
+	for x in menu_attacks.get_children():
+		x.queue_free()
+	if ships_attacking_this_phase.size() > 0:
+		ships_attacking_this_phase.pop_front()
+		if ships_attacking_this_phase.size() == 0:
+			phase_switch()
+	else:
+		phase_switch()
+	attacks_generated = false
+	player_attack_chosen = false
+	player_which_enemy_initialized = false
+	player_end_turn_signal = false
 
 func launch_fighters(attack, active_ship_position):
 	var ship_group_to_join
@@ -239,7 +339,7 @@ func attacks_generator():
 				# Perfect gate for determining proper items for attack menu
 				if x.ammo != 0:
 					var attack_button_instance = Button.new()
-					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship, ship_map_position))
+					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship))
 					attack_button_instance.custom_minimum_size = Vector2(250, 80)
 					attack_button_instance.add_theme_font_size_override("font_size", 50)
 					attack_button_instance.text = x.button_name
@@ -260,19 +360,6 @@ func determine_menu(ship_map_position):
 		menu_attacks = $"menu_layer/player_five_attacks_menu"
 	elif ship_map_position == 6:
 		menu_attacks = $"menu_layer/player_six_attacks_menu"
-		
-func player_end_turn():
-	if menu_attacks:
-		for x in menu_attacks.get_children():
-			x.queue_free()
-	if ships_attacking_this_phase.size() > 0:
-		ships_attacking_this_phase.pop_front()
-		if ships_attacking_this_phase.size() == 0:
-			phase_switch()
-	else:
-		phase_switch()
-	attacks_generated = false
-	player_end_turn_signal = false
 
 func phase_switch():
 	if current_phase < 5:

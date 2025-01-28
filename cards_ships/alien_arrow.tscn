@@ -7,6 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"alien\"
 var ship_name = \"alien_arrow\"
+var ship_button_name = \"Vell-os Arrow\"
 var ship_position = 0
 var shields = 16
 var armor = 3
