@@ -163,11 +163,6 @@ func battleloop():
 			end_message_printed = true
 
 func final_win_label():
-	var ship_for_final_font_color
-	if player_wins == 1:
-		ship_for_final_font_color = player_one_active_ships[0]
-	else:
-		ship_for_final_font_color = player_two_active_ships[0]
 	var label = Label.new()
 	label.text = "Player " + str(player_wins) + " Wins!"
 	label.custom_minimum_size = Vector2(350, 120)
@@ -270,7 +265,6 @@ func enemy_has_multiple_ships():
 	return false
 
 func attack(enemy_ship_name):
-	var attack_ship = attack_info_primary_ship
 	var enemy_ship = return_first_instance_of_enemy_ship_name(enemy_ship_name)
 	for x in attack_info_primary_ship.attacks:
 		if x.button_name == attack_info_name:
@@ -344,8 +338,9 @@ func return_first_instance_of_enemy_ship_name(enemy_ship_name):
 				return x
 
 func player_end_turn():
-	for x in menu_attacks.get_children():
-		x.queue_free()
+	if menu_attacks != null:
+		for x in menu_attacks.get_children():
+			x.queue_free()
 	if ships_attacking_this_phase.size() > 0:
 		ships_attacking_this_phase.pop_front()
 		if ships_attacking_this_phase.size() == 0:
@@ -479,8 +474,7 @@ func offset_attacks_menus():
 func send_active_ship():
 	if player_one_active_ships.size() == 0:
 		if player_1_deck.size() > 0:
-			#var index = randi() % player_1_deck.size()
-			var index = 0
+			var index = randi() % player_1_deck.size()
 			player_one_active_ships.push_back(player_1_deck.pop_at(index))
 			var player_one_main_ship = player_one_active_ships[0]
 			player_one_main_ship.ship_position = 1
@@ -494,8 +488,7 @@ func send_active_ship():
 			player_wins = 2
 	if player_two_active_ships.size() == 0:
 		if player_2_deck.size() > 0:
-			#var index = randi() % player_2_deck.size()
-			var index = 0
+			var index = randi() % player_2_deck.size()
 			player_two_active_ships.push_back(player_2_deck.pop_at(index))
 			var player_two_main_ship = player_two_active_ships[0]
 			player_two_main_ship.ship_position = 2

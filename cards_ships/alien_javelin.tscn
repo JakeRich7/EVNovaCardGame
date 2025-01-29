@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://b66u0mrki2uck"]
+
+[ext_resource type="Texture2D" uid="uid://ftnk83pqhat2" path="res://images/alien/arrow.jpeg" id="1_jbtqk"]
+
+[sub_resource type="GDScript" id="GDScript_ahqjg"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"alien_javelin\"
+var ship_button_name = \"Vell-os Javelin\"
+var ship_position = 0
+var shield = 15
+var armor = 4
+var pursuit = 11
+var escape = 6
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"Telepath Autumn Petal\", \"button_name\": \"Autumn Petal\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 11, \"pursuit\": null, \"ammo\": 12
+	},
+	{
+		\"name\": \"Telepath Summer Bloom\", \"button_name\": \"Summer Bloom\",
+		\"phase\": 4, \"shield\": 14, \"armor\": 14, \"pursuit\": null, \"ammo\": 15
+	},
+	{
+		\"name\": \"Telepath Flower of Spring\", \"button_name\": \"Flower Spring\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 12, \"pursuit\": null, \"ammo\": 15
+	}
+]
+"
+
+[node name="alien_javelin" type="Sprite2D"]
+texture = ExtResource("1_jbtqk")
+script = SubResource("GDScript_ahqjg")

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bog0dar20q7ml"]
+
+[ext_resource type="Texture2D" uid="uid://ftnk83pqhat2" path="res://images/alien/arrow.jpeg" id="1_8qd6g"]
+
+[sub_resource type="GDScript" id="GDScript_jkp0s"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"alien_krypt_pod\"
+var ship_button_name = \"Krypt Pod\"
+var ship_position = 0
+var shield = 18
+var armor = 18
+var pursuit = 17
+var escape = 8
+var cost = 18
+var attacks = [
+	{
+		\"name\": \"Nanites\", \"button_name\": \"Nanites\",
+		\"phase\": 4, \"shield\": null, \"armor\": 21, \"pursuit\": null, \"ammo\": null
+	}
+]
+"
+
+[node name="alien_krypt_pod" type="Sprite2D"]
+texture = ExtResource("1_8qd6g")
+script = SubResource("GDScript_jkp0s")

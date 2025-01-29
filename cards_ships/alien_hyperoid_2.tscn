@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1rh5kxbhso3n"]
+
+[ext_resource type="Texture2D" uid="uid://crouatl74w1u0" path="res://images/alien/dart.jpeg" id="1_1da28"]
+
+[sub_resource type="GDScript" id="GDScript_8crx3"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"alien_hyperoid_2\"
+var ship_button_name = \"hyperoid\"
+var ship_position = 0
+var shield = 14
+var armor = 2
+var pursuit = 8
+var escape = 4
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"Solar Lance\", \"button_name\": \"Solar Lance\",
+		\"phase\": 4, \"shield\": 14, \"armor\": 2, \"pursuit\": null, \"ammo\": null
+	}
+]
+"
+
+[node name="alien_hyperoid_2" type="Sprite2D"]
+texture = ExtResource("1_1da28")
+script = SubResource("GDScript_8crx3")

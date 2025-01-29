@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwefl468yamyq"]
+
+[ext_resource type="Texture2D" uid="uid://ftnk83pqhat2" path="res://images/alien/arrow.jpeg" id="1_lktlg"]
+
+[sub_resource type="GDScript" id="GDScript_susxi"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"alien_wraith_adult_1\"
+var ship_button_name = \"Wraith Adult\"
+var ship_position = 0
+var shield = 12
+var armor = 12
+var pursuit = 11
+var escape = 6
+var cost = 12
+var attacks = [
+	{
+		\"name\": \"Adult Wraith Grav Beam\", \"button_name\": \"Grav Beam\",
+		\"phase\": 4, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	}
+]
+"
+
+[node name="alien_wraith_adult_1" type="Sprite2D"]
+texture = ExtResource("1_lktlg")
+script = SubResource("GDScript_susxi")

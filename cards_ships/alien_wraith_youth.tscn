@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbfhblryuro7y"]
+
+[ext_resource type="Texture2D" uid="uid://ftnk83pqhat2" path="res://images/alien/arrow.jpeg" id="1_lallh"]
+
+[sub_resource type="GDScript" id="GDScript_k3y2o"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"alien_wraith_youth\"
+var ship_button_name = \"Wraith Youth\"
+var ship_position = 0
+var shield = 9
+var armor = 9
+var pursuit = 12
+var escape = 6
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"Youth Wraith Grav Beam\", \"button_name\": \"Grav Beam\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 3, \"pursuit\": null, \"ammo\": null
+	}
+]
+"
+
+[node name="alien_wraith_youth" type="Sprite2D"]
+texture = ExtResource("1_lallh")
+script = SubResource("GDScript_k3y2o")
