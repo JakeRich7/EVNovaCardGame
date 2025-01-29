@@ -17,9 +17,23 @@ var cost = 3
 var attacks = [
 	{
 		\"name\": \"3 Light Blasters\", \"button_name\": \"Light Blasters\",
-		\"phase\": 4, \"shield\": 4, \"armor\": 3, \"pursuit\": null, \"ammo\": null
+		\"phase\": 4, \"shield\": 11, \"armor\": 9, \"pursuit\": null, \"ammo\": null
 	}
 ]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
 "
 
 [node name="pirate_viper_1" type="Sprite2D"]

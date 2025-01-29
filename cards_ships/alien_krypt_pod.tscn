@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bog0dar20q7ml"]
 
-[ext_resource type="Texture2D" uid="uid://ftnk83pqhat2" path="res://images/alien/arrow.jpeg" id="1_8qd6g"]
+[ext_resource type="Texture2D" uid="uid://f070jkqb405c" path="res://images/alien/krypt_pod.jpeg" id="1_vtxo2"]
 
 [sub_resource type="GDScript" id="GDScript_jkp0s"]
 script/source = "extends Sprite2D
@@ -20,8 +20,22 @@ var attacks = [
 		\"phase\": 4, \"shield\": null, \"armor\": 21, \"pursuit\": null, \"ammo\": null
 	}
 ]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
 "
 
 [node name="alien_krypt_pod" type="Sprite2D"]
-texture = ExtResource("1_8qd6g")
+texture = ExtResource("1_vtxo2")
 script = SubResource("GDScript_jkp0s")

@@ -24,6 +24,20 @@ var attacks = [
 		\"phase\": 4, \"shield\": 12, \"armor\": 12, \"pursuit\": null, \"ammo\": 15
 	}
 ]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
 "
 
 [node name="alien_arrow" type="Sprite2D"]

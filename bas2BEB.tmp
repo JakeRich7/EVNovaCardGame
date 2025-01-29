@@ -1,0 +1,205 @@
+[gd_scene load_steps=5 format=3 uid="uid://lb5r8j0wnl4m"]
+
+[ext_resource type="AudioStream" uid="uid://tvsnkwjs7bhl" path="res://music/Mars, the Bringer of War.mp3" id="1_0bq30"]
+[ext_resource type="Script" path="res://base.gd" id="1_8slmb"]
+[ext_resource type="Texture2D" uid="uid://bx5ekhqu1tkgi" path="res://images/board.jpeg" id="2_l80rw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2r74f"]
+bg_color = Color(0.258824, 0.258824, 0.258824, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[node name="base" type="Node2D"]
+script = ExtResource("1_8slmb")
+
+[node name="menu_layer" type="CanvasLayer" parent="."]
+
+[node name="player_one_attacks_menu" type="VBoxContainer" parent="menu_layer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menu_layer/player_one_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_one_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
+
+[node name="player_two_attacks_menu" type="VBoxContainer" parent="menu_layer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -640.0
+offset_right = 20.0
+offset_bottom = -600.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menu_layer/player_two_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_two_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
+
+[node name="player_three_attacks_menu" type="VBoxContainer" parent="menu_layer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -580.5
+offset_top = -43.0
+offset_right = -279.5
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menu_layer/player_three_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_three_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
+
+[node name="player_three_counter" type="Label" parent="menu_layer"]
+visible = false
+offset_left = 980.0
+offset_top = 758.0
+offset_right = 1010.0
+offset_bottom = 800.0
+theme_override_colors/font_color = Color(0.243137, 0.498039, 0.372549, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2r74f")
+
+[node name="player_four_attacks_menu" type="VBoxContainer" parent="menu_layer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -580.5
+offset_top = -803.0
+offset_right = -279.5
+offset_bottom = -577.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menu_layer/player_four_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_four_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
+
+[node name="player_four_counter" type="Label" parent="menu_layer"]
+visible = false
+offset_left = 980.0
+offset_top = 638.0
+offset_right = 1010.0
+offset_bottom = 680.0
+theme_override_colors/font_color = Color(0.243137, 0.498039, 0.372549, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2r74f")
+
+[node name="player_five_attacks_menu" type="VBoxContainer" parent="menu_layer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 279.5
+offset_top = -43.0
+offset_right = 580.5
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menu_layer/player_five_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_five_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
+
+[node name="player_five_counter" type="Label" parent="menu_layer"]
+visible = false
+offset_left = 1840.0
+offset_top = 758.0
+offset_right = 1870.0
+offset_bottom = 800.0
+theme_override_colors/font_color = Color(0.243137, 0.498039, 0.372549, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2r74f")
+
+[node name="player_six_attacks_menu" type="VBoxContainer" parent="menu_layer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 279.5
+offset_top = -803.0
+offset_right = 580.5
+offset_bottom = -577.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="menu_layer/player_six_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button"
+
+[node name="Button2" type="Button" parent="menu_layer/player_six_attacks_menu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Button2"
+
+[node name="player_six_counter" type="Label" parent="menu_layer"]
+visible = false
+offset_left = 1840.0
+offset_top = 638.0
+offset_right = 1870.0
+offset_bottom = 680.0
+theme_override_colors/font_color = Color(0.243137, 0.498039, 0.372549, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2r74f")
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_0bq30")
+
+[node name="map" type="Sprite2D" parent="."]
+texture = ExtResource("2_l80rw")

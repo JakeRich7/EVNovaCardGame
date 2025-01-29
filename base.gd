@@ -296,7 +296,7 @@ func attack_hit(attack_details, enemy_ship):
 			
 func shield_down(enemy_ship):
 	enemy_ship.shield = 0
-	print(enemy_ship, " shields down!!!")
+	blink_manager(enemy_ship, true)
 
 func armor_down(enemy_ship):
 	if enemy_ship.ship_position == 2 or enemy_ship.ship_position == 4 or enemy_ship.ship_position == 6:
@@ -310,10 +310,24 @@ func armor_down(enemy_ship):
 			if x.ship_name == enemy_ship.ship_name:
 				var index = player_one_active_ships.find(x)
 				player_one_active_ships.pop_at(index)
+				var index_attacking = ships_attacking_this_phase.find(x)
+				ships_attacking_this_phase.pop_at(index_attacking)
 				break
+	blink_manager(enemy_ship, false)
 	remove_child(enemy_ship)
-	print(enemy_ship, " armor down!!! (destroyed!!!)")
 
+func blink_manager(enemy_ship, toggle):
+	if enemy_ship.ship_position == 3 or enemy_ship.ship_position == 5:
+		for x in player_one_active_ships:
+			if enemy_ship.ship_button_name == x.ship_button_name:
+				x.blink(toggle)
+	elif enemy_ship.ship_position == 4 or enemy_ship.ship_position == 6:
+		for x in player_two_active_ships:
+			if enemy_ship.ship_button_name == x.ship_button_name:
+				x.blink(toggle)
+	else:
+		enemy_ship.blink(toggle)
+				
 func draw_a_card():
 	if draw_deck.size() == 0:
 		for x in draw_deck_reshuffle:
@@ -455,6 +469,7 @@ func phase_switch():
 		current_phase += 1
 	else:
 		current_phase = 1
+	ships_attacking_this_phase.clear()
 	order_of_attack_determined = false
 
 func offset_attacks_menus():	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1rh5kxbhso3n"]
 
-[ext_resource type="Texture2D" uid="uid://crouatl74w1u0" path="res://images/alien/dart.jpeg" id="1_1da28"]
+[ext_resource type="Texture2D" uid="uid://d27nlukadjx05" path="res://images/alien/hyperoid_2.jpeg" id="1_axftl"]
 
 [sub_resource type="GDScript" id="GDScript_8crx3"]
 script/source = "extends Sprite2D
@@ -20,8 +20,22 @@ var attacks = [
 		\"phase\": 4, \"shield\": 14, \"armor\": 2, \"pursuit\": null, \"ammo\": null
 	}
 ]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
 "
 
 [node name="alien_hyperoid_2" type="Sprite2D"]
-texture = ExtResource("1_1da28")
+texture = ExtResource("1_axftl")
 script = SubResource("GDScript_8crx3")
