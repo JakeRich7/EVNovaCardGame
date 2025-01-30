@@ -4,6 +4,10 @@ extends Node2D
 @onready var pirate_viper = preload("res://cards_ships/pirate_viper_1.tscn")
 @onready var pirate_thunderhead = preload("res://cards_ships/pirate_thunderhead_2.tscn")
 
+@onready var menu_counter_three = $"menu_layer/player_three_counter"
+@onready var menu_counter_four = $"menu_layer/player_four_counter"
+@onready var menu_counter_five = $"menu_layer/player_five_counter"
+@onready var menu_counter_six = $"menu_layer/player_six_counter"
 @onready var ship_position_1 = Vector2(1280, 1030)
 @onready var ship_position_2 = Vector2(1280, 410)
 @onready var ship_position_3 = Vector2(850, 1100)
@@ -401,26 +405,26 @@ func launch_fighters(attack_selected, active_ship_position):
 		ship_group_to_join.push_back(fighter_instance)
 		fighter_instance.position = position_to_spawn
 		add_child(fighter_instance)
-		fighter_adjust_counters(ship_position)
+		fighter_add_to_counters(ship_position)
 	attack_selected.ammo = 0
 
-func fighter_adjust_counters(ship_position):
+func fighter_add_to_counters(ship_position):
 	var menu_to_show
 	if ship_position == 3:
 		fighters_in_position_3 += 1
-		menu_to_show = $"menu_layer/player_three_counter"
+		menu_to_show = menu_counter_three
 		menu_to_show.text = "x" + str(fighters_in_position_3)
 	elif ship_position == 4:
 		fighters_in_position_4 += 1
-		menu_to_show = $"menu_layer/player_four_counter"
+		menu_to_show = menu_counter_four
 		menu_to_show.text = "x" + str(fighters_in_position_4)
 	elif ship_position == 5:
 		fighters_in_position_5 += 1
-		menu_to_show = $"menu_layer/player_five_counter"
+		menu_to_show = menu_counter_five
 		menu_to_show.text = "x" + str(fighters_in_position_5)
 	elif ship_position == 6:
 		fighters_in_position_6 += 1
-		menu_to_show = $"menu_layer/player_six_counter"
+		menu_to_show = menu_counter_six
 		menu_to_show.text = "x" + str(fighters_in_position_6)
 	menu_to_show.visible = true
 
