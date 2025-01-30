@@ -589,7 +589,7 @@ func create_menu_options():
 	for x in deck_races:
 		var button = Button.new()
 		button.text = x
-		button.custom_minimum_size = Vector2(350, 120)
+		button.custom_minimum_size = Vector2(400, 120)
 		button.add_theme_font_size_override("font_size", 75)
 		button.connect("pressed", Callable(self, "_on_button_pressed").bind(button))
 		menu_instance.add_child(button)
