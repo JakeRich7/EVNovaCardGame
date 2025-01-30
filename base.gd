@@ -256,12 +256,19 @@ func return_enemy_single_ship_name():
 		return player_one_active_ships[0].ship_button_name
 			
 func enemy_has_multiple_ships():
+	var first_ship_name
 	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
 		if player_two_active_ships.size() > 1:
-			return true
+			first_ship_name = player_two_active_ships[0].ship_name
+			for x in player_two_active_ships:
+				if x.ship_name != first_ship_name:
+					return true
 	else:
 		if player_one_active_ships.size() > 1:
-			return true
+			first_ship_name = player_one_active_ships[0].ship_name
+			for x in player_one_active_ships:
+				if x.ship_name != first_ship_name:
+					return true
 	return false
 
 func attack(enemy_ship_name):
@@ -304,6 +311,8 @@ func armor_down(enemy_ship):
 			if x.ship_name == enemy_ship.ship_name:
 				var index = player_two_active_ships.find(x)
 				player_two_active_ships.pop_at(index)
+				var index_attacking = ships_attacking_this_phase.find(x)
+				ships_attacking_this_phase.pop_at(index_attacking)
 				break
 	else:
 		for x in player_one_active_ships:
