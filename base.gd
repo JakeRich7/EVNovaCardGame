@@ -326,6 +326,8 @@ func armor_down(enemy_ship):
 				var index_attacking = ships_attacking_this_phase.find(x)
 				ships_attacking_this_phase.pop_at(index_attacking)
 				break
+	if enemy_ship.ship_position > 2:
+		fighter_subtract_from_counters(enemy_ship.ship_position)
 	blink_manager(enemy_ship, false)
 	remove_child(enemy_ship)
 
@@ -407,6 +409,34 @@ func launch_fighters(attack_selected, active_ship_position):
 		add_child(fighter_instance)
 		fighter_add_to_counters(ship_position)
 	attack_selected.ammo = 0
+
+func fighter_subtract_from_counters(ship_position):
+	var menu_to_subtract
+	var fighters_left
+	if ship_position == 3:
+		fighters_in_position_3 -= 1
+		fighters_left = fighters_in_position_3
+		menu_to_subtract = menu_counter_three
+		menu_to_subtract.text = "x" + str(fighters_in_position_3)
+	elif ship_position == 4:
+		fighters_in_position_4 -= 1
+		menu_to_subtract = menu_counter_four
+		fighters_left = fighters_in_position_4
+		menu_to_subtract.text = "x" + str(fighters_in_position_4)
+	elif ship_position == 5:
+		fighters_in_position_5 -= 1
+		fighters_left = fighters_in_position_5
+		menu_to_subtract = menu_counter_five
+		menu_to_subtract.text = "x" + str(fighters_in_position_5)
+	elif ship_position == 6:
+		fighters_in_position_6 -= 1
+		fighters_left = fighters_in_position_6
+		menu_to_subtract = menu_counter_six
+		menu_to_subtract.text = "x" + str(fighters_in_position_6)
+	if fighters_left > 1:
+		menu_to_subtract.visible = true
+	else:
+		menu_to_subtract.visible = false
 
 func fighter_add_to_counters(ship_position):
 	var menu_to_show
