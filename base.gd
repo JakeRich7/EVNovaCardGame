@@ -4,6 +4,12 @@ extends Node2D
 @onready var pirate_viper = preload("res://cards_ships/pirate_viper_1.tscn")
 @onready var pirate_thunderhead = preload("res://cards_ships/pirate_thunderhead_2.tscn")
 
+@onready var menu_1 = $"menu_layer/player_one_attacks_menu"
+@onready var menu_2 = $"menu_layer/player_two_attacks_menu"
+@onready var menu_3 = $"menu_layer/player_three_attacks_menu"
+@onready var menu_4 = $"menu_layer/player_four_attacks_menu"
+@onready var menu_5 = $"menu_layer/player_five_attacks_menu"
+@onready var menu_6 = $"menu_layer/player_six_attacks_menu"
 @onready var menu_counter_three = $"menu_layer/player_three_counter"
 @onready var menu_counter_four = $"menu_layer/player_four_counter"
 @onready var menu_counter_five = $"menu_layer/player_five_counter"
@@ -59,6 +65,8 @@ var attack_info_primary_ship
 var player_which_enemy_initialized = false
 var player_wins = 0
 var end_message_printed = false
+var button_held = false
+var repeat_timer = 0.0
 
 func _ready():
 	# Position attack menus
@@ -142,14 +150,45 @@ func _input(event):
 		if menu_instance.get_child_count() == 0:
 			if settings_instance.visible:
 				settings_instance.hide()
+				show_attack_menus()
 			else:
+				hide_attack_menus()
 				settings_instance.show()
+	if event.is_action_pressed("return") or event.is_action_pressed("right_click") or event.is_action_pressed("space"):
+		simulate_mouse_click()
+		
+func simulate_mouse_click():
+	var click = InputEventMouseButton.new()
+	click.set_button_index(MOUSE_BUTTON_LEFT)
+	click.position = get_viewport().get_mouse_position() * .75
+	click.set_pressed(true)
+	Input.parse_input_event(click)
+		
+	var release_click = InputEventMouseButton.new()
+	release_click.set_button_index(MOUSE_BUTTON_LEFT)
+	release_click.position = click.position
+	release_click.set_pressed(false)
+	Input.parse_input_event(release_click)
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	map_movement_manager()
 	player_setup_manager()
 	setup_battlefield()
 	battleloop()
+	handle_held_inputs(delta)
+	
+func handle_held_inputs(delta):
+	if Input.is_action_pressed("return") or Input.is_action_pressed("right_click") or Input.is_action_pressed("space"):
+		repeat_timer += delta
+		if not button_held and repeat_timer >= 0.5:
+			button_held = true
+		if button_held and repeat_timer >= 0.6:
+			simulate_mouse_click()
+			repeat_timer = 0.5
+	else:
+		if button_held:
+			button_held = false
+			repeat_timer = 0.0
 	
 func battleloop():
 	if battleloop_started == true and player_wins == 0:
@@ -167,6 +206,7 @@ func battleloop():
 			end_message_printed = true
 
 func final_win_label():
+	hide_attack_menus()
 	var label = Label.new()
 	label.text = "Player " + str(player_wins) + " Wins!"
 	label.custom_minimum_size = Vector2(350, 120)
@@ -516,18 +556,28 @@ func phase_switch():
 	order_of_attack_determined = false
 
 func offset_attacks_menus():	
-	var menu_1 = $"menu_layer/player_one_attacks_menu"
-	var menu_2 = $"menu_layer/player_two_attacks_menu"
-	var menu_3 = $"menu_layer/player_three_attacks_menu"
-	var menu_4 = $"menu_layer/player_four_attacks_menu"
-	var menu_5 = $"menu_layer/player_five_attacks_menu"
-	var menu_6 = $"menu_layer/player_six_attacks_menu"
 	var menus_to_offset = [menu_1, menu_2, menu_3, menu_4, menu_5, menu_6]
 	for menu_to_offset in menus_to_offset:
 		if menu_to_offset.get_child_count() == 2:
 			menu_to_offset.get_node("Button").queue_free()
 			menu_to_offset.get_node("Button2").queue_free()
 			menu_to_offset.position.y += 330
+		
+func hide_attack_menus():
+	menu_1.visible = false
+	menu_2.visible = false
+	menu_3.visible = false
+	menu_4.visible = false
+	menu_5.visible = false
+	menu_6.visible = false
+
+func show_attack_menus():
+	menu_1.visible = true
+	menu_2.visible = true
+	menu_3.visible = true
+	menu_4.visible = true
+	menu_5.visible = true
+	menu_6.visible = true
 		
 func send_active_ship():
 	if player_one_active_ships.size() == 0:
@@ -559,8 +609,9 @@ func send_active_ship():
 		else:
 			player_wins = 1
 	# This accounts allows the game to continue if neither ship has any attacks
-	if player_one_active_ships[0].attacks.size() == 0 and player_two_active_ships[0].attacks.size() == 0:
-		print("Neither ship has any attacks! They crashed and were both destroyed...")
+	if player_one_active_ships.size() == 0 and player_two_active_ships.size() == 0:
+		if player_one_active_ships[0].attacks.size() == 0 and player_two_active_ships[0].attacks.size() == 0:
+			print("Neither ship has any attacks! They crashed and were both destroyed...")
 		
 func reset_phase():
 	current_phase = 1
