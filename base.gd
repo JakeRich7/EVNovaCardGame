@@ -425,10 +425,10 @@ func draw_a_card_missile(primary_ship_position):
 	var element = draw_deck.pop_at(index)
 	if primary_ship_position == 1 or primary_ship_position == 3 or primary_ship_position == 5:
 		element.position = draw_pile_position
-		element.position.y += 265
+		element.position.y += 355
 	else:
 		element.position = draw_pile_position
-		element.position.y -= 355
+		element.position.y -= 265
 	element.position.x += 45
 	secondary_cards_to_remove_1.push_back(element)
 	secondary_cards_to_remove_2.push_back(element)
