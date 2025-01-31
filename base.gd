@@ -69,8 +69,8 @@ var player_wins = 0
 var end_message_printed = false
 var button_held = false
 var repeat_timer = 0.0
-var secondary_cards_to_remove_1 = null
-var secondary_cards_to_remove_2 = null
+var secondary_cards_to_remove_1 = []
+var secondary_cards_to_remove_2 = []
 
 func _ready():
 	# Position attack menus
@@ -215,7 +215,6 @@ func battleloop():
 		determine_order_of_attack()
 		attacks_generator()
 		if player_attack_chosen == true and player_which_enemy_initialized == false:
-			shuffle_deck()
 			player_which_enemy()
 		if player_end_turn_signal == true:
 			player_end_turn()
@@ -269,6 +268,7 @@ func player_which_enemy():
 	if check_for_fighter_launch():
 		attack(return_enemy_single_ship_name())
 	elif enemy_has_multiple_ships():
+		shuffle_deck()
 		if menu_attacks:
 			for x in menu_attacks.get_children():
 				x.queue_free()
@@ -283,6 +283,7 @@ func player_which_enemy():
 			menu_attacks.add_child(attack_button_instance)
 		player_which_enemy_initialized = true
 	else:
+		shuffle_deck()
 		attack(return_enemy_single_ship_name())
 		
 func check_for_fighter_launch():
@@ -378,7 +379,7 @@ func armor_down(enemy_ship):
 				var index = player_two_active_ships.find(x)
 				player_two_active_ships.pop_at(index)
 				var index_attacking = ships_attacking_this_phase.find(x)
-				ships_attacking_this_phase.pop_at(index_attacking)
+				ships_attacking_this_phase.clear()
 				break
 	else:
 		for x in player_one_active_ships:
@@ -386,7 +387,7 @@ func armor_down(enemy_ship):
 				var index = player_one_active_ships.find(x)
 				player_one_active_ships.pop_at(index)
 				var index_attacking = ships_attacking_this_phase.find(x)
-				ships_attacking_this_phase.pop_at(index_attacking)
+				ships_attacking_this_phase.clear()
 				break
 	if enemy_ship.ship_position > 2:
 		fighter_subtract_from_counters(enemy_ship.ship_position)
@@ -433,10 +434,8 @@ func draw_a_card_missile(primary_ship_position):
 		element.position.y -= 355
 	element.z_index = 1
 	element.position.x += 45
-	if secondary_cards_to_remove_1 == null:
-		secondary_cards_to_remove_1 = element
-	elif secondary_cards_to_remove_2 == null:
-		secondary_cards_to_remove_2 = element
+	secondary_cards_to_remove_1.push_back(element)
+	secondary_cards_to_remove_2.push_back(element)
 	if game_speed != 0:
 		flip_a_card(primary_ship_position, element)
 	else:
@@ -445,11 +444,13 @@ func draw_a_card_missile(primary_ship_position):
 	return element.value
 	
 func shuffle_deck():
-	if secondary_cards_to_remove_1:
-		if secondary_cards_to_remove_1.get_parent(): remove_child(secondary_cards_to_remove_1)
-	if secondary_cards_to_remove_2:
-		if secondary_cards_to_remove_2.get_parent(): remove_child(secondary_cards_to_remove_2)
-	for x in draw_deck_reshuffle:
+	for x in secondary_cards_to_remove_1:
+		if x.get_parent(): remove_child(x)
+	for x in secondary_cards_to_remove_2:
+		if x.get_parent(): remove_child(x)
+	secondary_cards_to_remove_1.clear()
+	secondary_cards_to_remove_2.clear()
+	for x in draw_deck:
 		if x.get_parent(): remove_child(x)
 	draw_deck.append_array(draw_deck_reshuffle)
 	draw_deck_reshuffle.clear()
