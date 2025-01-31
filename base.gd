@@ -26,6 +26,7 @@ extends Node2D
 @onready var canvas_layer = $"menu_layer"
 @onready var map = $"map"
 @onready var music = $"music"
+@onready var game_speed = 0.1
 const cards_draw_path = "res://cards_draw"
 const cards_ships_path = "res://cards_ships"
 @onready var card_back = preload("res://card_back.tscn")
@@ -68,6 +69,8 @@ var player_wins = 0
 var end_message_printed = false
 var button_held = false
 var repeat_timer = 0.0
+var secondary_cards_to_remove_1 = null
+var secondary_cards_to_remove_2 = null
 
 func _ready():
 	# Position attack menus
@@ -86,6 +89,7 @@ func _ready():
 	canvas_layer.add_child(settings_instance)
 	# Creates settings menu listeners
 	settings_instance.get_node("music").pressed.connect(_on_music_pressed)
+	settings_instance.get_node("speed").pressed.connect(_on_speed_pressed)
 	settings_instance.get_node("quit").pressed.connect(_on_quit_pressed)
 	# Initializes and places all draw cards in deck
 	var dir_deck = DirAccess.open(cards_draw_path)
@@ -143,6 +147,20 @@ func _on_music_pressed():
 		settings_instance.get_node("music").text = "Music ON"
 	music.playing = !music.playing
 	
+func _on_speed_pressed():
+	var dart = "Dart"
+	var arrow = "Arrow"
+	var javelin = "Javelin"
+	if settings_instance.get_node("speed").text == dart:
+		settings_instance.get_node("speed").text = javelin
+		game_speed = 0.3
+	elif settings_instance.get_node("speed").text == javelin:
+		settings_instance.get_node("speed").text = arrow
+		game_speed = 0.1
+	elif settings_instance.get_node("speed").text == arrow:
+		settings_instance.get_node("speed").text = dart
+		game_speed = 0
+	
 func _on_quit_pressed():
 	get_tree().quit()
 
@@ -197,13 +215,13 @@ func battleloop():
 		determine_order_of_attack()
 		attacks_generator()
 		if player_attack_chosen == true and player_which_enemy_initialized == false:
+			shuffle_deck()
 			player_which_enemy()
 		if player_end_turn_signal == true:
 			player_end_turn()
 	else:
 		if battleloop_started == true and end_message_printed == false:
 			final_win_label()
-			print("YAAAYAYAYA!!!! Player ", player_wins, " WINSSSS!!!!")
 			end_message_printed = true
 
 func final_win_label():
@@ -325,7 +343,7 @@ func attack(enemy_ship_name):
 				launch_fighters(x, attack_info_primary_ship.ship_position)
 			# Identifies Missiles
 			elif x.pursuit != null:
-				if x.pursuit + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.escape + draw_a_card(enemy_ship.ship_position):
+				if x.pursuit + draw_a_card_missile(attack_info_primary_ship.ship_position) >= enemy_ship.escape + draw_a_card_missile(enemy_ship.ship_position):
 					attack_hit(x, enemy_ship)
 				x.ammo -= 1
 			else:
@@ -337,12 +355,15 @@ func attack_hit(attack_details, enemy_ship):
 	if attack_details.shield != null:
 		# Identifies all other Attacks
 		if enemy_ship.shield > 0:
+			# Identifies Shield
 			if attack_details.shield + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.shield + draw_a_card(enemy_ship.ship_position):
 				shield_down(enemy_ship)
 		else:
+			# Identifies Armor
 			if attack_details.armor + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.armor + draw_a_card(enemy_ship.ship_position):
 				armor_down(enemy_ship)
 	else:
+		# Identifies Pass-Through-Shield attacks (Nanites, etc...)
 		if attack_details.armor + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.armor + draw_a_card(enemy_ship.ship_position):
 			armor_down(enemy_ship)
 			
@@ -385,11 +406,6 @@ func blink_manager(enemy_ship, toggle):
 		enemy_ship.blink(toggle)
 				
 func draw_a_card(primary_ship_position):
-	if draw_deck.size() == 1:
-		for x in draw_deck_reshuffle:
-			remove_child(x)
-		draw_deck.append_array(draw_deck_reshuffle)
-		draw_deck_reshuffle.clear()
 	var index = randi() % draw_deck.size()
 	var element = draw_deck.pop_at(index)
 	if primary_ship_position == 1 or primary_ship_position == 3 or primary_ship_position == 5:
@@ -398,9 +414,77 @@ func draw_a_card(primary_ship_position):
 	else:
 		element.position = draw_pile_position
 		element.position.y -= 310
-	add_child(element)
+	element.z_index = 2
+	if game_speed != 0:
+		flip_a_card(primary_ship_position, element)
+	else:
+		if element.get_parent() == null: add_child(element)
 	draw_deck_reshuffle.push_back(element)
 	return element.value
+	
+func draw_a_card_missile(primary_ship_position):
+	var index = randi() % draw_deck.size()
+	var element = draw_deck.pop_at(index)
+	if primary_ship_position == 1 or primary_ship_position == 3 or primary_ship_position == 5:
+		element.position = draw_pile_position
+		element.position.y += 265
+	else:
+		element.position = draw_pile_position
+		element.position.y -= 355
+	element.z_index = 1
+	element.position.x += 45
+	if secondary_cards_to_remove_1 == null:
+		secondary_cards_to_remove_1 = element
+	elif secondary_cards_to_remove_2 == null:
+		secondary_cards_to_remove_2 = element
+	if game_speed != 0:
+		flip_a_card(primary_ship_position, element)
+	else:
+		if element.get_parent() == null: add_child(element)
+	draw_deck_reshuffle.push_back(element)
+	return element.value
+	
+func shuffle_deck():
+	if secondary_cards_to_remove_1:
+		if secondary_cards_to_remove_1.get_parent(): remove_child(secondary_cards_to_remove_1)
+	if secondary_cards_to_remove_2:
+		if secondary_cards_to_remove_2.get_parent(): remove_child(secondary_cards_to_remove_2)
+	for x in draw_deck_reshuffle:
+		if x.get_parent(): remove_child(x)
+	draw_deck.append_array(draw_deck_reshuffle)
+	draw_deck_reshuffle.clear()
+	
+func flip_a_card(primary_ship_position, front_card):
+	# Card back cover is used to cover previously flipped cards
+	var card_back_cover = card_back.instantiate()
+	# Card back temp is the card back that is flipped
+	var card_back_temp = card_back.instantiate()
+	# Determines which draw pile to use (Front card has already been positioned)
+	if primary_ship_position == 1 or primary_ship_position == 3 or primary_ship_position == 5:
+		card_back_cover.position = draw_pile_position
+		card_back_cover.position.y += 310
+		card_back_temp.position = draw_pile_position
+		card_back_temp.position.y += 310
+	else:
+		card_back_cover.position = draw_pile_position
+		card_back_cover.position.y -= 310
+		card_back_temp.position = draw_pile_position
+		card_back_temp.position.y -= 310
+	add_child(card_back_cover)
+	add_child(card_back_temp)
+	# Back card flip
+	var tween_back = create_tween()
+	tween_back.tween_property(card_back_temp, "scale", Vector2(0, 1), game_speed)
+	await get_tree().create_timer(game_speed).timeout
+	card_back_temp.queue_free()
+	# Front card flip
+	front_card.scale = Vector2(0, 1)
+	if front_card.get_parent() == null: add_child(front_card)
+	var tween_front = create_tween()
+	tween_front.tween_property(front_card, "scale", Vector2(1, 1), game_speed)
+	await get_tree().create_timer(game_speed).timeout
+	# Cleanup of card back cover
+	card_back_cover.queue_free()
 
 func return_first_instance_of_enemy_ship_name(enemy_ship_name):
 	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
@@ -617,7 +701,8 @@ func send_active_ship():
 	# This accounts allows the game to continue if neither ship has any attacks
 	if player_one_active_ships.size() == 0 and player_two_active_ships.size() == 0:
 		if player_one_active_ships[0].attacks.size() == 0 and player_two_active_ships[0].attacks.size() == 0:
-			print("Neither ship has any attacks! They crashed and were both destroyed...")
+			player_one_active_ships.pop_at(0)
+			player_two_active_ships.pop_at(0)
 		
 func reset_phase():
 	current_phase = 1

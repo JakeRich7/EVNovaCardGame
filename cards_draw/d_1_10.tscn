@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://br28lj1cs26pm"]
+
+[ext_resource type="Texture2D" uid="uid://blsxh26kcqwyp" path="res://images/z_d1_extra/tile_2_5.jpeg" id="1_dtdkk"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_ls3b1"]
+
+[node name="d1_10" type="Sprite2D"]
+texture = ExtResource("1_dtdkk")
+script = ExtResource("2_ls3b1")

@@ -19,6 +19,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Music ON"
 
+[node name="speed" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Arrow"
+
 [node name="quit" type="Button" parent="."]
 custom_minimum_size = Vector2(350, 120)
 layout_mode = 2
