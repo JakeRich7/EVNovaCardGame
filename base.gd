@@ -46,7 +46,8 @@ var menu_instance
 var settings_instance
 var player_one_draw_pile
 var player_two_draw_pile
-var draw_pile
+var draw_pile_1
+var draw_pile_2
 @onready var player_one_active_ships = []
 @onready var player_two_active_ships = []
 @onready var ships_attacking_this_phase = []
@@ -324,7 +325,7 @@ func attack(enemy_ship_name):
 				launch_fighters(x, attack_info_primary_ship.ship_position)
 			# Identifies Missiles
 			elif x.pursuit != null:
-				if x.pursuit + draw_a_card() >= enemy_ship.escape + draw_a_card():
+				if x.pursuit + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.escape + draw_a_card(enemy_ship.ship_position):
 					attack_hit(x, enemy_ship)
 				x.ammo -= 1
 			else:
@@ -336,13 +337,13 @@ func attack_hit(attack_details, enemy_ship):
 	if attack_details.shield != null:
 		# Identifies all other Attacks
 		if enemy_ship.shield > 0:
-			if attack_details.shield + draw_a_card() >= enemy_ship.shield + draw_a_card():
+			if attack_details.shield + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.shield + draw_a_card(enemy_ship.ship_position):
 				shield_down(enemy_ship)
 		else:
-			if attack_details.armor + draw_a_card() >= enemy_ship.armor + draw_a_card():
+			if attack_details.armor + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.armor + draw_a_card(enemy_ship.ship_position):
 				armor_down(enemy_ship)
 	else:
-		if attack_details.armor + draw_a_card() >= enemy_ship.armor + draw_a_card():
+		if attack_details.armor + draw_a_card(attack_info_primary_ship.ship_position) >= enemy_ship.armor + draw_a_card(enemy_ship.ship_position):
 			armor_down(enemy_ship)
 			
 func shield_down(enemy_ship):
@@ -383,15 +384,20 @@ func blink_manager(enemy_ship, toggle):
 	else:
 		enemy_ship.blink(toggle)
 				
-func draw_a_card():
-	if draw_deck.size() == 0:
+func draw_a_card(primary_ship_position):
+	if draw_deck.size() == 1:
 		for x in draw_deck_reshuffle:
 			remove_child(x)
 		draw_deck.append_array(draw_deck_reshuffle)
 		draw_deck_reshuffle.clear()
 	var index = randi() % draw_deck.size()
 	var element = draw_deck.pop_at(index)
-	element.position = draw_pile_position
+	if primary_ship_position == 1 or primary_ship_position == 3 or primary_ship_position == 5:
+		element.position = draw_pile_position
+		element.position.y += 310
+	else:
+		element.position = draw_pile_position
+		element.position.y -= 310
 	add_child(element)
 	draw_deck_reshuffle.push_back(element)
 	return element.value
@@ -624,9 +630,14 @@ func setup_battlefield():
 		player_two_draw_pile = card_back.instantiate()
 		player_two_draw_pile.position += player_draw_position_2
 		add_child(player_two_draw_pile)
-		draw_pile = card_back.instantiate()
-		draw_pile.position += draw_pile_position
-		add_child(draw_pile)
+		draw_pile_1 = card_back.instantiate()
+		draw_pile_1.position += draw_pile_position
+		draw_pile_1.position.y += 310
+		add_child(draw_pile_1)
+		draw_pile_2 = card_back.instantiate()
+		draw_pile_2.position += draw_pile_position
+		draw_pile_2.position.y -= 310
+		add_child(draw_pile_2)
 		battlefield_setup = true
 		battleloop_started = true
 
