@@ -378,7 +378,6 @@ func armor_down(enemy_ship):
 			if x.ship_name == enemy_ship.ship_name:
 				var index = player_two_active_ships.find(x)
 				player_two_active_ships.pop_at(index)
-				var index_attacking = ships_attacking_this_phase.find(x)
 				ships_attacking_this_phase.clear()
 				break
 	else:
@@ -386,7 +385,6 @@ func armor_down(enemy_ship):
 			if x.ship_name == enemy_ship.ship_name:
 				var index = player_one_active_ships.find(x)
 				player_one_active_ships.pop_at(index)
-				var index_attacking = ships_attacking_this_phase.find(x)
 				ships_attacking_this_phase.clear()
 				break
 	if enemy_ship.ship_position > 2:
@@ -415,7 +413,6 @@ func draw_a_card(primary_ship_position):
 	else:
 		element.position = draw_pile_position
 		element.position.y -= 310
-	element.z_index = 2
 	if game_speed != 0:
 		flip_a_card(primary_ship_position, element)
 	else:
@@ -432,7 +429,6 @@ func draw_a_card_missile(primary_ship_position):
 	else:
 		element.position = draw_pile_position
 		element.position.y -= 355
-	element.z_index = 1
 	element.position.x += 45
 	secondary_cards_to_remove_1.push_back(element)
 	secondary_cards_to_remove_2.push_back(element)
