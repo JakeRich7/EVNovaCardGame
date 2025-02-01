@@ -20,6 +20,26 @@ script = ExtResource("1_8slmb")
 
 [node name="menu_layer" type="CanvasLayer" parent="."]
 
+[node name="player_one_deck_counter" type="Label" parent="menu_layer"]
+visible = false
+offset_left = 50.0
+offset_top = 947.0
+offset_right = 80.0
+offset_bottom = 989.0
+theme_override_colors/font_color = Color(0.243137, 0.498039, 0.372549, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2r74f")
+
+[node name="player_two_deck_counter" type="Label" parent="menu_layer"]
+visible = false
+offset_left = 50.0
+offset_top = 427.0
+offset_right = 80.0
+offset_bottom = 469.0
+theme_override_colors/font_color = Color(0.243137, 0.498039, 0.372549, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_2r74f")
+
 [node name="player_one_attacks_menu" type="VBoxContainer" parent="menu_layer"]
 anchors_preset = 8
 anchor_left = 0.5

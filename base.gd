@@ -4,6 +4,10 @@ extends Node2D
 @onready var pirate_viper = preload("res://cards_ships/pirate_viper_1.tscn")
 @onready var pirate_thunderhead = preload("res://cards_ships/pirate_thunderhead_2.tscn")
 
+@onready var player_one_deck_counter = $"menu_layer/player_one_deck_counter"
+@onready var player_one_deck_count = 0
+@onready var player_two_deck_counter = $"menu_layer/player_two_deck_counter"
+@onready var player_two_deck_count = 0
 @onready var menu_1 = $"menu_layer/player_one_attacks_menu"
 @onready var menu_2 = $"menu_layer/player_two_attacks_menu"
 @onready var menu_3 = $"menu_layer/player_three_attacks_menu"
@@ -37,7 +41,7 @@ const cards_ships_path = "res://cards_ships"
 @onready var ships_all = []
 @onready var player_1_deck = []
 @onready var player_2_deck = []
-@onready var deck_races = ["Pirate", "Alien"]
+@onready var deck_races = ["Alien", "Pirate"]
 @onready var player_two_choose = false
 @onready var player_two_setup = false
 @onready var battlefield_setup = false
@@ -679,6 +683,11 @@ func send_active_ship():
 				player_one_draw_pile.queue_free()
 			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
 				reset_phase()
+			if player_1_deck.size() < 2:
+				player_one_deck_counter.visible = false
+			else:
+				player_one_deck_count -= 1 
+				player_one_deck_counter.text = "x " + str(player_1_deck.size())
 		else:
 			player_wins = 2
 	if player_two_active_ships.size() == 0:
@@ -693,6 +702,11 @@ func send_active_ship():
 				player_two_draw_pile.queue_free()
 			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
 				reset_phase()
+			if player_2_deck.size() < 2:
+				player_two_deck_counter.visible = false
+			else:
+				player_two_deck_count -= 1 
+				player_two_deck_counter.text = "x " + str(player_2_deck.size())
 		else:
 			player_wins = 1
 	# This accounts allows the game to continue if neither ship has any attacks
@@ -722,6 +736,13 @@ func setup_battlefield():
 		add_child(draw_pile_2)
 		battlefield_setup = true
 		battleloop_started = true
+		# Populates deck counters
+		player_one_deck_counter.text = "x " + str(player_1_deck.size())
+		player_one_deck_count = player_1_deck.size()
+		player_one_deck_counter.visible = true
+		player_two_deck_counter.text = "x " + str(player_2_deck.size())
+		player_two_deck_count = player_2_deck.size()
+		player_two_deck_counter.visible = true
 
 func player_setup_manager():
 	if player_two_choose == true and player_two_setup == false:
