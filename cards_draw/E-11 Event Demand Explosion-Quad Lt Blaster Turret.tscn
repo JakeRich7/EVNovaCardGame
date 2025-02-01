@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpvs85ykfeo4t"]
+
+[ext_resource type="Texture2D" uid="uid://l6lmvpiw8h56" path="res://images/E-11 Event Demand Explosion-Quad Lt Blaster Turret.png" id="1_u8ae6"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_r32cd"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_u8ae6")
+script = ExtResource("2_r32cd")
