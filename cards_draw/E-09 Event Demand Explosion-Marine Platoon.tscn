@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://daicxwsor8ocg"]
+
+[ext_resource type="Texture2D" uid="uid://d0rkollsr6l1j" path="res://images/E-09 Event Demand Explosion-Marine Platoon.png" id="1_r4i7g"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_0cuea"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_r4i7g")
+script = ExtResource("2_0cuea")
