@@ -152,17 +152,17 @@ func _on_music_pressed():
 	music.playing = !music.playing
 	
 func _on_speed_pressed():
-	var dart = "Dart"
-	var arrow = "Arrow"
-	var javelin = "Javelin"
-	if settings_instance.get_node("speed").text == dart:
-		settings_instance.get_node("speed").text = javelin
+	var fastest = "Fastest"
+	var fast = "Fast"
+	var normal = "Normal"
+	if settings_instance.get_node("speed").text == fastest:
+		settings_instance.get_node("speed").text = normal
 		game_speed = 0.3
-	elif settings_instance.get_node("speed").text == javelin:
-		settings_instance.get_node("speed").text = arrow
+	elif settings_instance.get_node("speed").text == normal:
+		settings_instance.get_node("speed").text = fast
 		game_speed = 0.1
-	elif settings_instance.get_node("speed").text == arrow:
-		settings_instance.get_node("speed").text = dart
+	elif settings_instance.get_node("speed").text == fast:
+		settings_instance.get_node("speed").text = fastest
 		game_speed = 0
 	
 func _on_quit_pressed():
