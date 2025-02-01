@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgyr2q0nw5a83"]
-
-[ext_resource type="Texture2D" uid="uid://bjnp40lnwcgic" path="res://images/z_d1_extra/tile_1_5.jpeg" id="1_hehb0"]
-[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_a0sie"]
-
-[node name="d1_6" type="Sprite2D"]
-texture = ExtResource("1_hehb0")
-script = ExtResource("2_a0sie")
