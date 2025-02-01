@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddct6np7tgqrj"]
+
+[ext_resource type="Texture2D" uid="uid://bwexu8hk4k8bo" path="res://images/E-03 Event Auroran Incursion-Thunderhead Heavy Fighter.png" id="1_ecatu"]
+
+[sub_resource type="GDScript" id="GDScript_acgf6"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"thunderhead\"
+var ship_button_name = \"Thunderhead\"
+var ship_position = 0
+var shield = 6
+var armor = 6
+var pursuit = 13
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Thunderhead Lances\", \"button_name\": \"Thunderhead Lances\",
+		\"phase\": 5, \"shield\": 18, \"armor\": 18, \"pursuit\": null, \"ammo\": null
+	},
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ecatu")
+script = SubResource("GDScript_acgf6")

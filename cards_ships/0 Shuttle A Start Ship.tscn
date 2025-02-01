@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0rb872bv1ie8"]
+
+[ext_resource type="Texture2D" uid="uid://bawcnq4wroo42" path="res://images/0 Shuttle A Start Ship.png" id="1_jtgf5"]
+
+[sub_resource type="GDScript" id="GDScript_8i830"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"0 Shuttle A Start Ship\"
+var ship_button_name = \"Shuttle A\"
+var ship_position = 0
+var shield = 3
+var armor = 3
+var pursuit = 11
+var escape = 6
+var cost = 2
+var attacks = [
+	{
+		\"name\": \"Light Blaster\", \"button_name\": \"Light Blaster\",
+		\"phase\": 4, \"shield\": 8, \"armor\": 8, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_jtgf5")
+script = SubResource("GDScript_8i830")

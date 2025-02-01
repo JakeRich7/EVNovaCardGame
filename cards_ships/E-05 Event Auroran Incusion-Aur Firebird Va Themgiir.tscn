@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://wepg1algbuva"]
+
+[ext_resource type="Texture2D" uid="uid://b04iai64bqqu3" path="res://images/E-05 Event Auroran Incusion-Aur Firebird Va Themgiir.png" id="1_emdhl"]
+
+[sub_resource type="GDScript" id="GDScript_yqa3l"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"E-05 Event Auroran Incusion-Aur Firebird Va Themgiir\"
+var ship_button_name = \"Firebird\"
+var ship_position = 0
+var shield = 3
+var armor = 4
+var pursuit = 14
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Hail Chaingun\", \"button_name\": \"Hail Chaingun\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 17, \"pursuit\": null, \"ammo\": 3
+	},
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_emdhl")
+script = SubResource("GDScript_yqa3l")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq2v8xjbaxtvf"]
+
+[ext_resource type="Texture2D" uid="uid://dqrs831cj3bxj" path="res://images/E-06 Event Demand Explosion-Civ Radar Jammer.png" id="1_fadgv"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_450ts"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_fadgv")
+script = ExtResource("2_450ts")

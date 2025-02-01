@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://da8thg0wlkxwe"]
+
+[ext_resource type="Texture2D" uid="uid://bqjaiifnm7efu" path="res://images/E-04 Event Auroran Incursion-Viper Heavy Fighter.png" id="1_7o55w"]
+
+[sub_resource type="GDScript" id="GDScript_adrpw"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"E-04 Event Auroran Incursion-Viper Heavy Fighter\"
+var ship_button_name = \"Viper\"
+var ship_position = 0
+var shield = 3
+var armor = 3
+var pursuit = 14
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	},
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_7o55w")
+script = SubResource("GDScript_adrpw")
