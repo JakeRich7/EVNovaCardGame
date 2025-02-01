@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c7msmb5d1n13o"
+path="res://.godot/imported/M-R-10 Answer Polaris Summons-Medium Blaster Turret.png-0cc78b9e1c449c1d6e577a01fe6e64ab.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://images/M-R-10 Answer Polaris Summons-Medium Blaster Turret.png"
+dest_files=["res://.godot/imported/M-R-10 Answer Polaris Summons-Medium Blaster Turret.png-0cc78b9e1c449c1d6e577a01fe6e64ab.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
