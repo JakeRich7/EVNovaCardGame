@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://tu2jebh45kww"]
+
+[ext_resource type="Texture2D" uid="uid://p04o2dn355jn" path="res://images/M-D-18 Delivery Mission Snowmelt-Rebel Valkyrie V.png" id="1_hf75y"]
+
+[sub_resource type="GDScript" id="GDScript_arq1n"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-D-18 Delivery Mission Snowmelt-Rebel Valkyrie V\"
+var ship_button_name = \"Valkyrie V\"
+var ship_position = 0
+var shield = 13
+var armor = 9
+var pursuit = 13
+var escape = 7
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 100mm Railguns\", \"button_name\": \"100mm Railguns\",
+		\"phase\": 1, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Hellhound Missile\", \"button_name\": \"Hellhound Missile\",
+		\"phase\": 2, \"shield\": 15, \"armor\": 23, \"pursuit\": 15, \"ammo\": 10
+	},
+	{
+		\"name\": \"200mm Railgun\", \"button_name\": \"200mm Railgun\",
+		\"phase\": 2, \"shield\": 12, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Wraith Cannons\", \"button_name\": \"Wraith Cannons\",
+		\"phase\": 3, \"shield\": 19, \"armor\": 20, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Lt. Blaster Turrets\", \"button_name\": \"Quad Lt. Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_hf75y")
+script = SubResource("GDScript_arq1n")

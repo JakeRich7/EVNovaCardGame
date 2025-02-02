@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://xms7b2ok7csn"]
+
+[ext_resource type="Texture2D" uid="uid://b01afhw0y6osb" path="res://images/M-A-08 Hunt Down Heraan Traitor-Fusion Pulse Cannon.png" id="1_33ae3"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_lphnt"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_33ae3")
+script = ExtResource("2_lphnt")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6h1p45c8i7i6"]
+
+[ext_resource type="Texture2D" uid="uid://wlavg8yr8ed1" path="res://images/M-A-10 Cause Havoc for Dani House-150mm Railgun.png" id="1_mgvjt"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_v2vbd"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mgvjt")
+script = ExtResource("2_v2vbd")

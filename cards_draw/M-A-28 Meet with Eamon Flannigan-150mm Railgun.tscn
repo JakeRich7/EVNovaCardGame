@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdy2fgiuxoksf"]
+
+[ext_resource type="Texture2D" uid="uid://ct0rff4xfsgyy" path="res://images/M-A-28 Meet with Eamon Flannigan-150mm Railgun.png" id="1_aywh3"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_rfaci"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_aywh3")
+script = ExtResource("2_rfaci")

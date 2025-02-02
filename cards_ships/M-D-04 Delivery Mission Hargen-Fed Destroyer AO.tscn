@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://ptltf3pa47wn"]
+
+[ext_resource type="Texture2D" uid="uid://bh0qcmum7tsnm" path="res://images/M-D-04 Delivery Mission Hargen-Fed Destroyer AO.png" id="1_etfyo"]
+
+[sub_resource type="GDScript" id="GDScript_rvyho"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-D-04 Delivery Mission Hargen-Fed Destroyer AO\"
+var ship_button_name = \"Destroyer\"
+var ship_position = 0
+var shield = 14
+var armor = 14
+var pursuit = 9
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"4 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 17, \"armor\": 19, \"pursuit\": 17, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Light Blaster Turrets\", \"button_name\": \"Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 10, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 24, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_etfyo")
+script = SubResource("GDScript_rvyho")

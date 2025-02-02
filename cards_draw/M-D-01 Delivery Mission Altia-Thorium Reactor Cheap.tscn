@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://n7uanecbcg08"]
+
+[ext_resource type="Texture2D" uid="uid://djr1kbgnj7dh7" path="res://images/M-D-01 Delivery Mission Altia-Thorium Reactor Cheap.png" id="1_vlmp4"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_vntor"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_vlmp4")
+script = ExtResource("2_vntor")

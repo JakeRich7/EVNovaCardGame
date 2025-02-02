@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi1v2isu5nj6j"]
+
+[ext_resource type="Texture2D" uid="uid://chdp00d5jwsgs" path="res://images/M-A-03 Take Bazara to Dominance-Chaingun Ammo.png" id="1_1slc1"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_n4um3"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_1slc1")
+script = ExtResource("2_n4um3")

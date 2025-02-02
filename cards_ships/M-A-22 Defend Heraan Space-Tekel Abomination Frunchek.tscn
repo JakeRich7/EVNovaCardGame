@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnffmqpun5bek"]
+
+[ext_resource type="Texture2D" uid="uid://cvgpfui0e6mrt" path="res://images/M-A-22 Defend Heraan Space-Tekel Abomination Frunchek.png" id="1_hawgb"]
+
+[sub_resource type="GDScript" id="GDScript_m8igd"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"M-A-22 Defend Heraan Space-Tekel Abomination Frunchek\"
+var ship_button_name = \"Abomination\"
+var ship_position = 0
+var shield = 7
+var armor = 9
+var pursuit = 10
+var escape = 5
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"5 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 19, \"armor\": 25, \"pursuit\": 19, \"ammo\": 2
+	},
+	{
+		\"name\": \"3 Fusion Pulse Turrets\", \"button_name\": \"Fusion Pulse Turrets\",
+		\"phase\": 3, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_hawgb")
+script = SubResource("GDScript_m8igd")

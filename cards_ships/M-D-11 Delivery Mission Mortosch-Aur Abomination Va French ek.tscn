@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckmiwkkmn28uu"]
+
+[ext_resource type="Texture2D" uid="uid://coktyfw28asy3" path="res://images/M-D-11 Delivery Mission Mortosch-Aur Abomination Va French ek.png" id="1_dwseb"]
+
+[sub_resource type="GDScript" id="GDScript_h4d62"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"M-D-11 Delivery Mission Mortosch-Aur Abomination Va French ek\"
+var ship_button_name = \"Abomination\"
+var ship_position = 0
+var shield = 7
+var armor = 9
+var pursuit = 11
+var escape = 6
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 13, \"ammo\": 1
+	},
+	{
+		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 2
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dwseb")
+script = SubResource("GDScript_h4d62")

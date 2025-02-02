@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnlruf0njckfr"]
+
+[ext_resource type="Texture2D" uid="uid://cukmeefadqqxb" path="res://images/M-A-30 Return to Heraan to Claim Victory-Storm Chaingun.png" id="1_0ljg7"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_al86y"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_0ljg7")
+script = ExtResource("2_al86y")

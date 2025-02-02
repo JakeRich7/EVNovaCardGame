@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl2jn0iw4me3r"]
+
+[ext_resource type="Texture2D" uid="uid://dqhbqssomn0ky" path="res://images/M-D-13 Delivery Mission Notas-Fed Destroyer HMV.png" id="1_ikk1s"]
+
+[sub_resource type="GDScript" id="GDScript_xphih"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-D-13 Delivery Mission Notas-Fed Destroyer HMV\"
+var ship_button_name = \"Destroyer\"
+var ship_position = 0
+var shield = 14
+var armor = 13
+var pursuit = 10
+var escape = 5
+var cost = 8
+var attacks = [
+	{
+		\"name\": \"Hellhound Missiles\", \"button_name\": \"Hellhound Missiles\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 26, \"pursuit\": 16, \"ammo\": 10
+	},
+	{
+		\"name\": \"2 EMP Torpedo Tubes\", \"button_name\": \"EMP Torpedo Tubes\",
+		\"phase\": 3, \"shield\": 38, \"armor\": 14, \"pursuit\": 9, \"ammo\": 5
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Medium Blaster Turrets\", \"button_name\": \"Medium Blaster Turrets\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ikk1s")
+script = SubResource("GDScript_xphih")

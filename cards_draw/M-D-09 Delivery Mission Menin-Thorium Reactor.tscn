@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0fm1dxyfmqr8"]
+
+[ext_resource type="Texture2D" uid="uid://pf5wqtaqyj2g" path="res://images/M-D-09 Delivery Mission Menin-Thorium Reactor.png" id="1_0edc6"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_1y2f5"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_0edc6")
+script = ExtResource("2_1y2f5")

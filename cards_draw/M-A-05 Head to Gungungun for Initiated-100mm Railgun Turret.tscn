@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgskr8al3k44d"]
+
+[ext_resource type="Texture2D" uid="uid://c6qqycybwmk5a" path="res://images/M-A-05 Head to Gungungun for Initiated-100mm Railgun Turret.png" id="1_urawr"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_obvxh"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_urawr")
+script = ExtResource("2_obvxh")

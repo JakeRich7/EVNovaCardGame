@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dduk8niaboan1"]
+
+[ext_resource type="Texture2D" uid="uid://drmnr05i3ppx" path="res://images/M-D-06 Delivery Mission Honor-Titanium Lattice.png" id="1_032xj"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_cheme"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_032xj")
+script = ExtResource("2_cheme")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://vwwgo2ibm0hp"]
+
+[ext_resource type="Texture2D" uid="uid://cvatqs2xa08jc" path="res://images/M-A-13 Escort Moash Dignitary-Auroran IR Jammer.png" id="1_drow2"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_8a6p6"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_drow2")
+script = ExtResource("2_8a6p6")

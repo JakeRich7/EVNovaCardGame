@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://qfgb08rog6u2"]
+
+[ext_resource type="Texture2D" uid="uid://bn5274vp4k61x" path="res://images/M-D-03 Delivery Mission Fermia-Pirate Starbridge C.png" id="1_br0ll"]
+
+[sub_resource type="GDScript" id="GDScript_mqsoy"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-D-03 Delivery Mission Fermia-Pirate Starbridge C\"
+var ship_button_name = \"Starbridge C\"
+var ship_position = 0
+var shield = 11
+var armor = 6
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 2
+	},
+	{
+		\"name\": \"3 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 14, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 23, \"pursuit\": null, \"ammo\": 3
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_br0ll")
+script = SubResource("GDScript_mqsoy")

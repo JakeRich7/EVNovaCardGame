@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ueoryigy8pa6"]
+
+[ext_resource type="Texture2D" uid="uid://dtxntr0r5e1yk" path="res://images/M-A-23 Duel with Moash Thurokiir-100mm Railgun.png" id="1_kyewa"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_k1id2"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_kyewa")
+script = ExtResource("2_k1id2")

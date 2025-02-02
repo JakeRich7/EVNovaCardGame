@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://co50ei1n24mud"]
+
+[ext_resource type="Texture2D" uid="uid://bmognryqm1rne" path="res://images/M-D-05 Delivery Mission Herald-Pirate Argosy Blockade Runner.png" id="1_d2a3f"]
+
+[sub_resource type="GDScript" id="GDScript_2maix"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-D-05 Delivery Mission Herald-Pirate Argosy Blockade Runner\"
+var ship_button_name = \"Argosy\"
+var ship_position = 0
+var shield = 9
+var armor = 11
+var pursuit = 11
+var escape = 6
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 4
+	},
+	{
+		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 23, \"pursuit\": null, \"ammo\": 8
+	},
+	{
+		\"name\": \"2 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 8
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_d2a3f")
+script = SubResource("GDScript_2maix")

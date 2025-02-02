@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci3s5wd0tl3td"]
+
+[ext_resource type="Texture2D" uid="uid://jdxvrmljnw4x" path="res://images/M-A-25 Explore Rebellion Proposal-Auto Eject.png" id="1_ppwoa"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_m326u"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ppwoa")
+script = ExtResource("2_m326u")

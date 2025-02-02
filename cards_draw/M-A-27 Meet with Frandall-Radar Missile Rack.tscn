@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://rllho5tw4mmd"]
+
+[ext_resource type="Texture2D" uid="uid://cwktij02hqsef" path="res://images/M-A-27 Meet with Frandall-Radar Missile Rack.png" id="1_2m48d"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_qn7qy"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_2m48d")
+script = ExtResource("2_qn7qy")

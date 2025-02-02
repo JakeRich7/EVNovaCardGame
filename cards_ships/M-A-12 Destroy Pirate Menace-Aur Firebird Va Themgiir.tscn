@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://s5gelggw4kj5"]
+
+[ext_resource type="Texture2D" uid="uid://bpfrhxakbnp07" path="res://images/M-A-12 Destroy Pirate Menace-Aur Firebird Va Themgiir.png" id="1_xcdb0"]
+
+[sub_resource type="GDScript" id="GDScript_ad486"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"M-A-12 Destroy Pirate Menace-Aur Firebird Va Themgiir\"
+var ship_button_name = \"Firebird\"
+var ship_position = 0
+var shield = 3
+var armor = 4
+var pursuit = 14
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 17, \"pursuit\": null, \"ammo\": 3
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_xcdb0")
+script = SubResource("GDScript_ad486")

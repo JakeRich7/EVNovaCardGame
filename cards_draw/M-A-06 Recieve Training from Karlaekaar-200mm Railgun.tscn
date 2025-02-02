@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2dsqbfr6d8x0"]
+
+[ext_resource type="Texture2D" uid="uid://n1xd4r1ddix1" path="res://images/M-A-06 Recieve Training from Karlaekaar-200mm Railgun.png" id="1_no3a6"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_0l3po"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_no3a6")
+script = ExtResource("2_0l3po")

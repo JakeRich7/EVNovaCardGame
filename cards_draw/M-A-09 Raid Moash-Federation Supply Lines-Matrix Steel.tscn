@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3vummtdo6seu"]
+
+[ext_resource type="Texture2D" uid="uid://k5dtmjk1wm1f" path="res://images/M-A-09 Raid Moash-Federation Supply Lines-Matrix Steel.png" id="1_b44j1"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_ywb8n"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_b44j1")
+script = ExtResource("2_ywb8n")

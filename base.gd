@@ -590,9 +590,9 @@ func fighter_add_to_counters(ship_position):
 	menu_to_show.visible = true
 
 func fighter_return_instance(fighter):
-	if fighter == "Pirate Vipers":
+	if fighter == "Pirate Viper Bay":
 		return pirate_viper.instantiate()
-	elif fighter == "Pirate Thunderheads":
+	elif fighter == "Pirate Thunderhead Bay":
 		return pirate_thunderhead.instantiate()
 
 func attacks_generator():
