@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://2rh47bd3v38"]
+
+[ext_resource type="Texture2D" uid="uid://sonnof08ubgy" path="res://images/M-DF-11 Ferry Mission Helen-The Unrelenting.png" id="1_8hwut"]
+
+[sub_resource type="GDScript" id="GDScript_oi31n"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DF-11 Ferry Mission Helen-The Unrelenting\"
+var ship_button_name = \"The Unrelenting\"
+var ship_position = 0
+var shield = 16
+var armor = 16
+var pursuit = 9
+var escape = 4
+var cost = 0
+var attacks = [
+	{
+		\"name\": \"4 Pirate Viper Bays\", \"button_name\": \"Pirate Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 16
+	},
+	{
+		\"name\": \"2 Pirate Thunderhead Bays\", \"button_name\": \"Pirate Thunderhead Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
+	},
+	{
+		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 Hellhound Missiles\", \"button_name\": \"Hellhound Missiles\",
+		\"phase\": 2, \"shield\": 21, \"armor\": 29, \"pursuit\": 17, \"ammo\": 7
+	},
+	{
+		\"name\": \"2 EMP Torpedo Tubes\", \"button_name\": \"EMP Torpedo Tubes\",
+		\"phase\": 3, \"shield\": 38, \"armor\": 14, \"pursuit\": 9, \"ammo\": 4
+	},
+	{
+		\"name\": \"4 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 26, \"armor\": 22, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_8hwut")
+script = SubResource("GDScript_oi31n")

@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpe0qkgwa6js0"]
+
+[ext_resource type="Texture2D" uid="uid://i4g2ydev73aa" path="res://images/M-DF-10 Ferry Mission Goliath-Rebel Heavy Destroyer.png" id="1_w0d7m"]
+
+[sub_resource type="GDScript" id="GDScript_rdapk"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-DF-10 Ferry Mission Goliath-Rebel Heavy Destroyer\"
+var ship_button_name = \"Heavy Destroyer\"
+var ship_position = 0
+var shield = 14
+var armor = 14
+var pursuit = 8
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"2 Grav Missiles\", \"button_name\": \"Grav Missiles\",
+		\"phase\": 1, \"shield\": 16, \"armor\": 23, \"pursuit\": 17, \"ammo\": 15
+	},
+	{
+		\"name\": \"2 Hellhound Missiles\", \"button_name\": \"Hellhound Missiles\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 26, \"pursuit\": 16, \"ammo\": 15
+	},
+	{
+		\"name\": \"2 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 15, \"pursuit\": 15, \"ammo\": 3
+	},
+	{
+		\"name\": \"2 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Heavy Blaster Turret\", \"button_name\": \"Heavy Blaster Turret\",
+		\"phase\": 3, \"shield\": 17, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Medium Blaster Turrets\", \"button_name\": \"Medium Blaster Turrets\",
+		\"phase\": 4, \"shield\": 17, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Turrets\", \"button_name\": \"Quad Light Turrets\",
+		\"phase\": 4, \"shield\": 18, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_w0d7m")
+script = SubResource("GDScript_rdapk")

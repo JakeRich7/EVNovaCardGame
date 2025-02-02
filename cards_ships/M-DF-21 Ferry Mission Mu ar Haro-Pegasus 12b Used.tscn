@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1mfg58wu57hn"]
+
+[ext_resource type="Texture2D" uid="uid://cc50njamrymum" path="res://images/M-DF-21 Ferry Mission Mu ar Haro-Pegasus 12b Used.png" id="1_62vwb"]
+
+[sub_resource type="GDScript" id="GDScript_t88cp"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"M-DF-21 Ferry Mission Mu ar Haro-Pegasus 12b Used\"
+var ship_button_name = \"Pegasus 12b\"
+var ship_position = 0
+var shield = 10
+var armor = 5
+var pursuit = 7
+var escape = 3
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"Medium Blaster Turret\", \"button_name\": \"Medium Blaster Turret\",
+		\"phase\": 3, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_62vwb")
+script = SubResource("GDScript_t88cp")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://byjja36qaqp13"]
+
+[ext_resource type="Texture2D" uid="uid://dy7oo8qa33m47" path="res://images/M-DF-07 Ferry Mission Gem-Pirate Valkyrie IV.png" id="1_127j5"]
+
+[sub_resource type="GDScript" id="GDScript_okrl5"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DF-07 Ferry Mission Gem-Pirate Valkyrie IV\"
+var ship_button_name = \"Valkyrie IV\"
+var ship_position = 0
+var shield = 12
+var armor = 8
+var pursuit = 13
+var escape = 7
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"100mm Railgun\", \"button_name\": \"100mm Railgun\",
+		\"phase\": 1, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Hellhound Missiles\", \"button_name\": \"Hellhound Missiles\",
+		\"phase\": 2, \"shield\": 15, \"armor\": 23, \"pursuit\": 15, \"ammo\": 10
+	},
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 8
+	},
+	{
+		\"name\": \"2 100mm Railgun Turrets\", \"button_name\": \"100mm Railgun Turrets\",
+		\"phase\": 2, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Ion Particle Cannons\", \"button_name\": \"Ion Particle Cannons\",
+		\"phase\": 4, \"shield\": 23, \"armor\": 17, \"pursuit\": null, \"ammo\": 5
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_127j5")
+script = SubResource("GDScript_okrl5")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://boexmwlq14i5x"]
+
+[ext_resource type="Texture2D" uid="uid://cs83d7bbi8nk2" path="res://images/M-D-23 Delivery Mission Xyon-Fed Destroyer MV.png" id="1_v3f2h"]
+
+[sub_resource type="GDScript" id="GDScript_1aua2"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-D-23 Delivery Mission Xyon-Fed Destroyer MV\"
+var ship_button_name = \"Destroyer\"
+var ship_position = 0
+var shield = 14
+var armor = 13
+var pursuit = 8
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"4 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 17, \"armor\": 22, \"pursuit\": 18, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 15, \"pursuit\": 15, \"ammo\": 1
+	},
+	{
+		\"name\": \"3 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 23, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"PD Quad Light Blaster Turret\", \"button_name\": \"Quad Light Blaster Turret\",
+		\"phase\": 4, \"shield\": 14, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_v3f2h")
+script = SubResource("GDScript_1aua2")

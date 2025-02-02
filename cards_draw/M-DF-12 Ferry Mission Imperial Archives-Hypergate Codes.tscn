@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://o4quge12jjfv"]
+
+[ext_resource type="Texture2D" uid="uid://kpw8cqb18sen" path="res://images/M-DF-12 Ferry Mission Imperial Archives-Hypergate Codes.png" id="1_2by21"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_7mx6h"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_2by21")
+script = ExtResource("2_7mx6h")

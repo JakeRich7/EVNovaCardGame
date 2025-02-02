@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1vdwkbjs1l1"]
+
+[ext_resource type="Texture2D" uid="uid://bvurncgapryfx" path="res://images/M-DF-24 Ferry Mission Serenity-Polaris Scarab CD.png" id="1_aycgo"]
+
+[sub_resource type="GDScript" id="GDScript_20um5"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"M-DF-24 Ferry Mission Serenity-Polaris Scarab CD\"
+var ship_button_name = \"Scarab CD\"
+var ship_position = 0
+var shield = 16
+var armor = 12
+var pursuit = 10
+var escape = 5
+var cost = 9
+var attacks = [
+	{
+		\"name\": \"2 Polaran Torpedoes\", \"button_name\": \"Polaran Torpedoes\",
+		\"phase\": 1, \"shield\": 30, \"armor\": 30, \"pursuit\": 19, \"ammo\": 15
+	},
+	{
+		\"name\": \"Manta Bay\", \"button_name\": \"Manta Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
+	},
+	{
+		\"name\": \"2 Capacitor Pulse Lasers\", \"button_name\": \"Capacitor Pulse Lasers\",
+		\"phase\": 4, \"shield\": 27, \"armor\": 24, \"pursuit\": null, \"ammo\": 10
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_aycgo")
+script = SubResource("GDScript_20um5")

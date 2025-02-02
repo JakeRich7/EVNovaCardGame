@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq2v8mnyrve5h"]
+
+[ext_resource type="Texture2D" uid="uid://cnapqa3dr4dj2" path="res://images/M-DF-23 Ferry Mission Ryll-Rebel Starbridge E.png" id="1_jlhir"]
+
+[sub_resource type="GDScript" id="GDScript_ov64l"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-DF-23 Ferry Mission Ryll-Rebel Starbridge E\"
+var ship_button_name = \"Starbridge E\"
+var ship_position = 0
+var shield = 14
+var armor = 8
+var pursuit = 13
+var escape = 7
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"Hellhound Missile\", \"button_name\": \"Hellhound Missile\",
+		\"phase\": 2, \"shield\": 15, \"armor\": 23, \"pursuit\": 15, \"ammo\": 30
+	},
+	{
+		\"name\": \"2 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Wraith Cannon\", \"button_name\": \"Wraith Cannon\",
+		\"phase\": 3, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": 20
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Quad Lt. Blaster Turret\", \"button_name\": \"Quad Lt. Blaster Turret\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_jlhir")
+script = SubResource("GDScript_ov64l")
