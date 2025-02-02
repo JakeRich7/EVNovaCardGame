@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn6f1np8uw3y2"]
+
+[ext_resource type="Texture2D" uid="uid://do8rvb4jaa8c2" path="res://images/E-50 Event Space Derelict-Auto Eject.png" id="1_homxx"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_bvegw"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_homxx")
+script = ExtResource("2_bvegw")

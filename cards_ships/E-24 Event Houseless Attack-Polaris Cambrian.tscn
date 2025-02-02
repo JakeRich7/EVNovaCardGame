@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bngn2ip7ti8x0"]
+
+[ext_resource type="Texture2D" uid="uid://lqywqsjwfja4" path="res://images/E-24 Event Houseless Attack-Polaris Cambrian.png" id="1_72det"]
+
+[sub_resource type="GDScript" id="GDScript_rhmk7"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"E-24 Event Houseless Attack-Polaris Cambrian\"
+var ship_button_name = \"Cambrien\"
+var ship_position = 0
+var shield = 13
+var armor = 4
+var pursuit = 8
+var escape = 4
+var cost = 7
+var attacks = []
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_72det")
+script = SubResource("GDScript_rhmk7")

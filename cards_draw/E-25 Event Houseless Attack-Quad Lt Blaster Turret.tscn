@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmn2prik4g4uj"]
+
+[ext_resource type="Texture2D" uid="uid://bt5twlo4at6om" path="res://images/E-25 Event Houseless Attack-Quad Lt Blaster Turret.png" id="1_odm7v"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_7iq5c"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_odm7v")
+script = ExtResource("2_7iq5c")

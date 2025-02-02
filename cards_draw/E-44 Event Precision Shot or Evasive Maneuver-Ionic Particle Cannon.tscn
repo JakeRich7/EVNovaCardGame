@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwil24sa5j5d2"]
+
+[ext_resource type="Texture2D" uid="uid://r8yl6cc7asfu" path="res://images/E-44 Event Precision Shot or Evasive Maneuver-Ionic Particle Cannon.png" id="1_ar302"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_jqfys"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ar302")
+script = ExtResource("2_jqfys")

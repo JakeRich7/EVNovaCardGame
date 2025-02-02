@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdpco4eh5urbd"]
+
+[ext_resource type="Texture2D" uid="uid://cwxr4kn2rae0f" path="res://images/E-26 Event Pirate Scourge-Fusion Pulse Cannon.png" id="1_uc6wy"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_e15q0"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_uc6wy")
+script = ExtResource("2_e15q0")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu3ur28i2s706"]
+
+[ext_resource type="Texture2D" uid="uid://d3wp2gqtd86p1" path="res://images/E-33 Event Polaris Attack-Fusion Pulse Cannon.png" id="1_dqggo"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_nm3jl"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dqggo")
+script = ExtResource("2_nm3jl")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://14dicw2v0q1b"]
+
+[ext_resource type="Texture2D" uid="uid://eg2sntafjcxm" path="res://images/E-46 Event Rebel Strike-Marine Platoon.png" id="1_owiqv"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_2qjv3"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_owiqv")
+script = ExtResource("2_2qjv3")

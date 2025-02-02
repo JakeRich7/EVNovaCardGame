@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://du2e3f3vdyitv"]
+
+[ext_resource type="Texture2D" uid="uid://dw1r1aanmio1t" path="res://images/E-47 Event Rebel Strike-Modified Starbridge E.png" id="1_pqvri"]
+
+[sub_resource type="GDScript" id="GDScript_6s2bj"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"E-47 Event Rebel Strike-Modified Starbridge E\"
+var ship_button_name = \"Starbridge E\"
+var ship_position = 0
+var shield = 15
+var armor = 10
+var pursuit = 13
+var escape = 7
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"2 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 4
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"PD Quad Light Blaster Turret\", \"button_name\": \"Quad Light Blaster Turret\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_pqvri")
+script = SubResource("GDScript_6s2bj")

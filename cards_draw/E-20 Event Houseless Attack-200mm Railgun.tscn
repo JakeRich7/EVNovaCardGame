@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bopc3csvldxno"]
+
+[ext_resource type="Texture2D" uid="uid://c4wyyciu16ddq" path="res://images/E-20 Event Houseless Attack-200mm Railgun.png" id="1_dc0k7"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_cqnbb"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dc0k7")
+script = ExtResource("2_cqnbb")

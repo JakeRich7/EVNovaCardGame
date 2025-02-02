@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdtsh1btss7ld"]
+
+[ext_resource type="Texture2D" uid="uid://dquu8n42v3vfq" path="res://images/E-43 Event Precision Shot or Evasive Maneuver-Illegal IR Missile Launcher.png" id="1_43mqt"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_kw387"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_43mqt")
+script = ExtResource("2_kw387")

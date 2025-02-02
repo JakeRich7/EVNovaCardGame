@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://8e7ju1jcyoo7"]
+
+[ext_resource type="Texture2D" uid="uid://bb1iawnk3bq6q" path="res://images/E-15 Event Federation Incursion-Fusion Pulse Cannon.png" id="1_ww7bn"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_m2orh"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ww7bn")
+script = ExtResource("2_m2orh")

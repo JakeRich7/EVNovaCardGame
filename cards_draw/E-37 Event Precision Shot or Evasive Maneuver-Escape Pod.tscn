@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://622estuhdn4j"]
+
+[ext_resource type="Texture2D" uid="uid://crbs0pkcvxe4t" path="res://images/E-37 Event Precision Shot or Evasive Maneuver-Escape Pod.png" id="1_lxwks"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_lymfv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_lxwks")
+script = ExtResource("2_lymfv")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcnfs25828i6v"]
+
+[ext_resource type="Texture2D" uid="uid://x3iw36886nio" path="res://images/E-18 Event Federation Incursion-Starbridge C.png" id="1_utacp"]
+
+[sub_resource type="GDScript" id="GDScript_k7d1t"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"E-18 Event Federation Incursion-Starbridge C\"
+var ship_button_name = \"Starbridge C\"
+var ship_position = 0
+var shield = 13
+var armor = 6
+var pursuit = 11
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"3 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": 18, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Medium Blaster Turrets\", \"button_name\": \"Medium Blaster Turrets\",
+		\"phase\": 3, \"shield\": 15, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 12, \"pursuit\": null, \"ammo\": null
+	},
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_utacp")
+script = SubResource("GDScript_k7d1t")

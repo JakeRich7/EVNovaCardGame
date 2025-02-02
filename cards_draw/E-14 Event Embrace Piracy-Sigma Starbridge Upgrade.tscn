@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsta10tderrna"]
+
+[ext_resource type="Texture2D" uid="uid://bvi1po3g63w2a" path="res://images/E-14 Event Embrace Piracy-Sigma Starbridge Upgrade.png" id="1_dfipf"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_b1ntb"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dfipf")
+script = ExtResource("2_b1ntb")

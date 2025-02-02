@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqtr3yfh11wfw"]
+
+[ext_resource type="Texture2D" uid="uid://cy2xk03ndge8y" path="res://images/E-36 Event Precision Shot or Evasive Maneuver-Auto Eject.png" id="1_d8t7g"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_w4g7s"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_d8t7g")
+script = ExtResource("2_w4g7s")

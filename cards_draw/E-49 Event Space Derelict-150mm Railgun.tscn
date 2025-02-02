@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjth5i8wjutvb"]
+
+[ext_resource type="Texture2D" uid="uid://dwa75gpdldg4k" path="res://images/E-49 Event Space Derelict-150mm Railgun.png" id="1_00r2k"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_meg6r"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_00r2k")
+script = ExtResource("2_meg6r")

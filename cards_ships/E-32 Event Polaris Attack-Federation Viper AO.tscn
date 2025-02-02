@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddmb7smwq16gm"]
+
+[ext_resource type="Texture2D" uid="uid://dugcgw400dkn6" path="res://images/E-32 Event Polaris Attack-Federation Viper AO.png" id="1_mn1u4"]
+
+[sub_resource type="GDScript" id="GDScript_nly0r"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"E-32 Event Polaris Attack-Federation Viper AO\"
+var ship_button_name = \"Viper\"
+var ship_position = 0
+var shield = 5
+var armor = 3
+var pursuit = 14
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 23, \"pursuit\": null, \"ammo\": 3
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mn1u4")
+script = SubResource("GDScript_nly0r")

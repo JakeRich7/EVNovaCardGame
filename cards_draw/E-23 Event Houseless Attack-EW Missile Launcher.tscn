@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd4ly4i0uyiy1"]
+
+[ext_resource type="Texture2D" uid="uid://3da22h2n0sli" path="res://images/E-23 Event Houseless Attack-EW Missile Launcher.png" id="1_j1nty"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_dq2qy"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_j1nty")
+script = ExtResource("2_dq2qy")

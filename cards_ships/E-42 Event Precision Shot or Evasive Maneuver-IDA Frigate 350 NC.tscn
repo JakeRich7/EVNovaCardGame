@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://paxi8fhdyw66"]
+
+[ext_resource type="Texture2D" uid="uid://clvgyo7ox6of2" path="res://images/E-42 Event Precision Shot or Evasive Maneuver-IDA Frigate 350 NC.png" id="1_tl1ar"]
+
+[sub_resource type="GDScript" id="GDScript_1k222"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"E-42 Event Precision Shot or Evasive Maneuver-IDA Frigate 350 NC\"
+var ship_button_name = \"IDA Frigate\"
+var ship_position = 0
+var shield = 11
+var armor = 13
+var pursuit = 8
+var escape = 4
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"Raven Turret\", \"button_name\": \"Raven Turret\",
+		\"phase\": 2, \"shield\": 11, \"armor\": 13, \"pursuit\": 14, \"ammo\": 10
+	},
+	{
+		\"name\": \"2 Medium Blaster Turrets\", \"button_name\": \"Medium Blaster Turrets\",
+		\"phase\": 3, \"shield\": 15, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_tl1ar")
+script = SubResource("GDScript_1k222")

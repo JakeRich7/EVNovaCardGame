@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://27qsjlft5crt"]
+
+[ext_resource type="Texture2D" uid="uid://cnyjmeu4d0pt2" path="res://images/E-27 Event Pirate Scourge-Pirate Argosy Stolen Tech.png" id="1_vrfqp"]
+
+[sub_resource type="GDScript" id="GDScript_ptn35"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"E-27 Event Pirate Scourge-Pirate Argosy Stolen Tech\"
+var ship_button_name = \"Argosy\"
+var ship_position = 0
+var shield = 6
+var armor = 9
+var pursuit = 9
+var escape = 4
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"Raven Pod\", \"button_name\": \"Raven Pod\",
+		\"phase\": 1, \"shield\": 7, \"armor\": 10, \"pursuit\": 10, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 20, \"pursuit\": null, \"ammo\": 40
+	},
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_vrfqp")
+script = SubResource("GDScript_ptn35")
