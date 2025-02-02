@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbu5cka114dhe"]
+
+[ext_resource type="Texture2D" uid="uid://b58jfdmpu0guj" path="res://images/M-A-01 Make the Codec Run-Phoenix Bay.png" id="1_n5tas"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_wsqto"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_n5tas")
+script = ExtResource("2_wsqto")

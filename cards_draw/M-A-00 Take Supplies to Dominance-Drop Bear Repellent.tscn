@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxhflgbrjffkf"]
+
+[ext_resource type="Texture2D" uid="uid://b2t4b8yf3o10h" path="res://images/M-A-00 Take Supplies to Dominance-Drop Bear Repellent.png" id="1_ks5hw"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_r6ty3"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ks5hw")
+script = ExtResource("2_r6ty3")

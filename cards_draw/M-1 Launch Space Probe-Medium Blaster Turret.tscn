@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://coje44s020bos"]
+
+[ext_resource type="Texture2D" uid="uid://dneh2kvh8n3pg" path="res://images/M-1 Launch Space Probe-Medium Blaster Turret.png" id="1_v685n"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_vygec"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_v685n")
+script = ExtResource("2_vygec")
