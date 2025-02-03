@@ -1,8 +1,15 @@
 extends Node2D
 
 # Preload Fighters
-@onready var pirate_viper = preload("res://cards_ships/pirate_viper_1.tscn")
-@onready var pirate_thunderhead = preload("res://cards_ships/pirate_thunderhead_2.tscn")
+@onready var thunderhead = preload("res://cards_ships/E-03 Event Auroran Incursion-Thunderhead Heavy Fighter.tscn")
+@onready var pirate_viper = preload("res://cards_ships/M-R-23 Capture Commander Krane-Pirate Viper.tscn")
+@onready var pirate_thunderhead = preload("res://cards_ships/M-SS-3 Sigma Shipyards 02a-Pirate Thunderhead.tscn")
+@onready var firebird = preload("res://cards_ships/M-A-11 Start Dechtakars Service-Auroran Firebird Thamgir.tscn")
+@onready var phoenix = preload("res://cards_ships/P-A-15 Eguit-Aur Phoenix Va Thamgiir.tscn")
+@onready var viper = preload("res://cards_ships/M-F-18 Scout Moash Space-Federation Viper.tscn")
+@onready var anaconda = preload("res://cards_ships/M-F-08 Bring in Dissident-Federation Anaconda.tscn")
+@onready var rebel_viper = preload("res://cards_ships/M-R-05 Rescue Rebel Operative-Rebel Viper.tscn")
+
 
 @onready var player_one_deck_counter = $"menu_layer/player_one_deck_counter"
 @onready var player_one_deck_count = 0

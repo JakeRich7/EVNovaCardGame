@@ -20,7 +20,7 @@ var attacks = [
 		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 2
 	},
 	{
-		\"name\": \"Viper Bay\", \"button_name\": \"iper Bay\",
+		\"name\": \"Viper Bay\", \"button_name\": \"Viper Bay\",
 		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
 	},
 	{

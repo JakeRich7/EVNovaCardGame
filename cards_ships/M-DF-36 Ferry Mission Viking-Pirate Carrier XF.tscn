@@ -20,7 +20,7 @@ var attacks = [
 		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 16
 	},
 	{
-		\"name\": \"2 Pir. Thunderhead Bays\", \"button_name\": \"Thunderhead Bay\",
+		\"name\": \"2 Pir. Thunderhead Bays\", \"button_name\": \"Pirate Thunderhead Bay\",
 		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
 	},
 	{

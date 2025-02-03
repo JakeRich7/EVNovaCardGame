@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"pirate\"
 var ship_name = \"M-D-15 Delivery Mission Pyrogenisis-Manticore Light Carrier\"
-var ship_button_name = \"\"
+var ship_button_name = \"Manticore Light Carrier\"
 var ship_position = 0
 var shield = 12
 var armor = 13

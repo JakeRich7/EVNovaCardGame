@@ -16,7 +16,7 @@ var escape = 5
 var cost = 15
 var attacks = [
 	{
-		\"name\": \"Pirate Viper Bay\", \"button_name\": \"Viper Bay\",
+		\"name\": \"Pirate Viper Bay\", \"button_name\": \"Pirate Viper Bay\",
 		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
 	},
 	{
