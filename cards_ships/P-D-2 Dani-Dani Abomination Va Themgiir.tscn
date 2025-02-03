@@ -17,7 +17,7 @@ var cost = 4
 var attacks = [
 	{
 		\"name\": \"3 Radar Missiles\", \"button_name\": \"Radar Missiles\",
-		\"phase\": 2, \"shield\": 15, \"armor\": 20, \"pursuit\": 17, \"ammo\": null
+		\"phase\": 2, \"shield\": 15, \"armor\": 20, \"pursuit\": 17, \"ammo\": 17
 	},
 	{
 		\"name\": \"2 Fusion Pulse Batteries\", \"button_name\": \"Fusion Pulse Batteries\",

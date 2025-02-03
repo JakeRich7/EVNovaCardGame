@@ -9,7 +9,7 @@ extends Node2D
 @onready var viper = preload("res://cards_ships/M-F-18 Scout Moash Space-Federation Viper.tscn")
 @onready var anaconda = preload("res://cards_ships/M-F-08 Bring in Dissident-Federation Anaconda.tscn")
 @onready var rebel_viper = preload("res://cards_ships/M-R-05 Rescue Rebel Operative-Rebel Viper.tscn")
-
+@onready var manta = preload("res://cards_ships/M-P-09 Take Muhari to Port Kane-Polaris Manta.tscn")
 
 @onready var player_one_deck_counter = $"menu_layer/player_one_deck_counter"
 @onready var player_one_deck_count = 0
@@ -48,7 +48,7 @@ const cards_ships_path = "res://cards_ships"
 @onready var ships_all = []
 @onready var player_1_deck = []
 @onready var player_2_deck = []
-@onready var deck_races = ["Alien", "Pirate"]
+@onready var deck_races = ["Alien", "Auroran", "Federation", "Pirate", "Polaris", "Rebel", "Trader"]
 @onready var player_two_choose = false
 @onready var player_two_setup = false
 @onready var battlefield_setup = false
@@ -130,8 +130,13 @@ func _ready():
 func _on_button_pressed(button):
 	# Adds all ships to players deck
 	var type_to_search
-	if button.text == "Pirate": type_to_search = "pirate"
-	elif button.text == "Alien": type_to_search = "alien"
+	if button.text == "Alien": type_to_search = "alien"
+	elif button.text == "Auroran": type_to_search = "auroran"
+	elif button.text == "Federation": type_to_search = "federation"
+	elif button.text == "Pirate": type_to_search = "pirate"
+	elif button.text == "Polaris": type_to_search = "polaris"
+	elif button.text == "Rebel": type_to_search = "rebel"
+	elif button.text == "Trader": type_to_search = "trader"
 	if player_two_choose == true:
 		for x in ships_all:
 			if x.type == type_to_search:
@@ -597,10 +602,24 @@ func fighter_add_to_counters(ship_position):
 	menu_to_show.visible = true
 
 func fighter_return_instance(fighter):
-	if fighter == "Pirate Viper Bay":
+	if fighter == "Thunderhead Bay":
+		return thunderhead.instantiate()
+	elif fighter == "Pirate Viper Bay":
 		return pirate_viper.instantiate()
 	elif fighter == "Pirate Thunderhead Bay":
 		return pirate_thunderhead.instantiate()
+	elif fighter == "Phoenix Bay":
+		return phoenix.instantiate()
+	elif fighter == "Firebird Bay":
+		return firebird.instantiate()
+	elif fighter == "Viper Bay":
+		return viper.instantiate()
+	elif fighter == "Anaconda Bay":
+		return anaconda.instantiate()
+	elif fighter == "Rebel Viper Bay":
+		return viper.instantiate()
+	elif fighter == "Manta Bay":
+		return manta.instantiate()
 
 func attacks_generator():
 	if attacks_generated == false and ships_attacking_this_phase.size() > 0:
