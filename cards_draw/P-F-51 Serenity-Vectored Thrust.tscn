@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3kycvqrv74eq"]
+
+[ext_resource type="Texture2D" uid="uid://b0jblaq5tmg4a" path="res://images/P-F-51 Serenity-Vectored Thrust.png" id="1_c40ws"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_aeu4w"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_c40ws")
+script = ExtResource("2_aeu4w")

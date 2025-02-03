@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cievlqlg8nk5b"]
+
+[ext_resource type="Texture2D" uid="uid://bb76ud3vbvugx" path="res://images/P-F-57 Snowmelt-Sigma Mount Upgrade.png" id="1_bwgft"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_3wrok"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_bwgft")
+script = ExtResource("2_3wrok")

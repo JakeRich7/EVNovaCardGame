@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bodewrein05ew"]
+
+[ext_resource type="Texture2D" uid="uid://bi07yrxq2ydte" path="res://images/P-F-63 Syracuse-Thunderhead Lt Destroyer.png" id="1_at7to"]
+
+[sub_resource type="GDScript" id="GDScript_ibevt"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"P-F-63 Syracuse-Thunderhead Lt Destroyer\"
+var ship_button_name = \"Thunderhead Lt. Destroyer\"
+var ship_position = 0
+var shield = 6
+var armor = 8
+var pursuit = 12
+var escape = 6
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"4 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 17, \"armor\": 22, \"pursuit\": 18, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Ion Particle Cannons\", \"button_name\": \"Ion Particle Cannons\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 13, \"pursuit\": null, \"ammo\": 2
+	},
+	{
+		\"name\": \"Medium Blaster\", \"button_name\": \"Medium Blaster\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 9, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_at7to")
+script = SubResource("GDScript_ibevt")

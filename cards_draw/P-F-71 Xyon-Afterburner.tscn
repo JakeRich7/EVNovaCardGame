@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bud1ybwtclkbf"]
+
+[ext_resource type="Texture2D" uid="uid://cj1aihgpy3fsj" path="res://images/P-F-71 Xyon-Afterburner.png" id="1_p8rq0"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_ja8wm"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_p8rq0")
+script = ExtResource("2_ja8wm")

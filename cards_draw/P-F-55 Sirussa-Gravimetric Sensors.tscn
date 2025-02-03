@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhvop75ywh50w"]
+
+[ext_resource type="Texture2D" uid="uid://dcrskjti85g7" path="res://images/P-F-55 Sirussa-Gravimetric Sensors.png" id="1_2bn4p"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_qh0en"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_2bn4p")
+script = ExtResource("2_qh0en")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbvu1rct4ptm"]
+
+[ext_resource type="Texture2D" uid="uid://bgs6ji4r6ve1i" path="res://images/P-F-56 Skye-Escape Pod.png" id="1_tqaxv"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_bqf8v"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_tqaxv")
+script = ExtResource("2_bqf8v")

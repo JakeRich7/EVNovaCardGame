@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccp7ggpctg3c2"]
+
+[ext_resource type="Texture2D" uid="uid://bucxjxk3v8h0q" path="res://images/P-H-07 Heraan LP Eyeya-Herran Carrier Va Ytreck.png" id="1_3g0gg"]
+
+[sub_resource type="GDScript" id="GDScript_8ak2r"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-H-07 Heraan LP Eyeya-Herran Carrier Va Ytreck\"
+var ship_button_name = \"Carrier Va Ytreck\"
+var ship_position = 0
+var shield = 11
+var armor = 23
+var pursuit = 7
+var escape = 3
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"6 Firebird Bays\", \"button_name\": \"Firebird Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 36
+	},
+	{
+		\"name\": \"4 Phoenix Bays\", \"button_name\": \"Phoenix Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 12
+	},
+	{
+		\"name\": \"6 100mm Railgun Turrets\", \"button_name\": \"100mm Railgun Turrets\",
+		\"phase\": 2, \"shield\": 24, \"armor\": 25, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 24, \"pursuit\": null, \"ammo\": 6
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_3g0gg")
+script = SubResource("GDScript_8ak2r")

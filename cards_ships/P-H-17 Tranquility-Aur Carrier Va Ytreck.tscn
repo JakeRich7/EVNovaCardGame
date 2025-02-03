@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://brbk5232bfs3g"]
+
+[ext_resource type="Texture2D" uid="uid://odd1gw0jbupt" path="res://images/P-H-17 Tranquility-Aur Carrier Va Ytreck.png" id="1_hbmus"]
+
+[sub_resource type="GDScript" id="GDScript_j67o0"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-H-17 Tranquility-Aur Carrier Va Ytreck\"
+var ship_button_name = \"Carrier Va Ytreck\"
+var ship_position = 0
+var shield = 10
+var armor = 21
+var pursuit = 6
+var escape = 3
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"Firebird Bay\", \"button_name\": \"Firebird Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 6
+	},
+	{
+		\"name\": \"3 Phoenix Bays\", \"button_name\": \"Phoenix Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 9
+	},
+	{
+		\"name\": \"150mm Railguns\", \"button_name\": \"150mm Railguns\",
+		\"phase\": 1, \"shield\": 14, \"armor\": 18, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 100mm Railgun Turrets\", \"button_name\": \"100mm Railgun Turrets\",
+		\"phase\": 2, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Fusion Pulse Turrets\", \"button_name\": \"Fusion Pulse Turrets\",
+		\"phase\": 3, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 24, \"pursuit\": null, \"ammo\": 6
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_hbmus")
+script = SubResource("GDScript_j67o0")

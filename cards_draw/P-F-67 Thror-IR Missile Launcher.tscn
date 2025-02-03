@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://braqhe5yfcqer"]
+
+[ext_resource type="Texture2D" uid="uid://c16yxrd051770" path="res://images/P-F-67 Thror-IR Missile Launcher.png" id="1_lx1f5"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_nj3u2"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_lx1f5")
+script = ExtResource("2_nj3u2")

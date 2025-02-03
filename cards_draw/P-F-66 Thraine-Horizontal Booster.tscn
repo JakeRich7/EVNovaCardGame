@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhsy7of7qsg53"]
+
+[ext_resource type="Texture2D" uid="uid://bi2p8bo7hmqbs" path="res://images/P-F-66 Thraine-Horizontal Booster.png" id="1_i16gs"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_a50kq"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_i16gs")
+script = ExtResource("2_a50kq")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c11xhaecib3mq"]
+
+[ext_resource type="Texture2D" uid="uid://c3kvk3woq2kw5" path="res://images/P-F-58 Space Dock I-Gli Tech Wraith Cannon.png" id="1_x4082"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_70rxq"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_x4082")
+script = ExtResource("2_70rxq")

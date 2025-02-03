@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfas36owqh5d6"]
+
+[ext_resource type="Texture2D" uid="uid://daps1d1ijb2vf" path="res://images/P-H-08 Heraan LP Heraan-Asteroid Miner.png" id="1_3lsac"]
+
+[sub_resource type="GDScript" id="GDScript_ap67k"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-H-08 Heraan LP Heraan-Asteroid Miner\"
+var ship_button_name = \"Asteroid Miner\"
+var ship_position = 0
+var shield = 5
+var armor = 3
+var pursuit = 9
+var escape = 4
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"4 Mining Blasters\", \"button_name\": \"Mining Blasters\",
+		\"phase\": 5, \"shield\": 10, \"armor\": 10, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_3lsac")
+script = SubResource("GDScript_ap67k")

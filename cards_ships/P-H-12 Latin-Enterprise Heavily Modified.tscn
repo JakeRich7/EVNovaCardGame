@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://1xnja87uxtqm"]
+
+[ext_resource type="Texture2D" uid="uid://soe81qc82s6h" path="res://images/P-H-12 Latin-Enterprise Heavily Modified.png" id="1_qb5mq"]
+
+[sub_resource type="GDScript" id="GDScript_tdnrd"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-H-12 Latin-Enterprise Heavily Modified\"
+var ship_button_name = \"Enterprise, Heavily Modified\"
+var ship_position = 0
+var shield = 10
+var armor = 14
+var pursuit = 8
+var escape = 4
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"1 100mm Railgun Turret\", \"button_name\": \"100mm Railgun Turret\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 3, \"shield\": 13, \"armor\": 15, \"pursuit\": 15, \"ammo\": 2
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_qb5mq")
+script = SubResource("GDScript_tdnrd")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://6ac63dbue1mo"]
+
+[ext_resource type="Texture2D" uid="uid://d2aemr423i8vf" path="res://images/P-F-54 Sirius Prime-Fed Cloaking Device.png" id="1_8lmtu"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_k6tto"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_8lmtu")
+script = ExtResource("2_k6tto")

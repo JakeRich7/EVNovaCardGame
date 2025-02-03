@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2750psumc061"]
+
+[ext_resource type="Texture2D" uid="uid://huu2vcarfun8" path="res://images/P-F-64 Tau II-Radar Missile Rack.png" id="1_xqico"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_a2ifd"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_xqico")
+script = ExtResource("2_a2ifd")

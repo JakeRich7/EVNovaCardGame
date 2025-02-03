@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn63nag84kgsn"]
+
+[ext_resource type="Texture2D" uid="uid://c1bmqk3ny1g3s" path="res://images/P-F-65 Tau Prime-Shield Buffer.png" id="1_x7cuv"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_yy4vw"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_x7cuv")
+script = ExtResource("2_yy4vw")
