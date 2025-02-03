@@ -391,20 +391,26 @@ func shield_down(enemy_ship):
 	blink_manager(enemy_ship, true)
 
 func armor_down(enemy_ship):
+	# Removes ship from player 2 active ships
 	if enemy_ship.ship_position == 2 or enemy_ship.ship_position == 4 or enemy_ship.ship_position == 6:
 		for x in player_two_active_ships:
 			if x.ship_name == enemy_ship.ship_name:
 				var index = player_two_active_ships.find(x)
 				player_two_active_ships.pop_at(index)
-				ships_attacking_this_phase.clear()
 				break
+	# Removes ship from player 1 active ships
 	else:
 		for x in player_one_active_ships:
 			if x.ship_name == enemy_ship.ship_name:
 				var index = player_one_active_ships.find(x)
 				player_one_active_ships.pop_at(index)
-				ships_attacking_this_phase.clear()
 				break
+	# Removes ship from this phase attacking queue
+	for x in ships_attacking_this_phase:
+		if x.ship_name == enemy_ship.ship_name:
+			var index = ships_attacking_this_phase.find(x)
+			ships_attacking_this_phase.pop_at(index)
+			break
 	if enemy_ship.ship_position > 2:
 		fighter_subtract_from_counters(enemy_ship.ship_position)
 	blink_manager(enemy_ship, false)
