@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://shymhlcef1vp"]
+
+[ext_resource type="Texture2D" uid="uid://dh3cvo2xljvkq" path="res://images/P-M-08 Moash LP II-Moash IFF Projector.png" id="1_djenp"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_6wooa"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_djenp")
+script = ExtResource("2_6wooa")

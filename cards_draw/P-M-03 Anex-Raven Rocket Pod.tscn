@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvi3diyvxlqnt"]
+
+[ext_resource type="Texture2D" uid="uid://d08v0kdp02dot" path="res://images/P-M-03 Anex-Raven Rocket Pod.png" id="1_ihf3o"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_hoipk"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ihf3o")
+script = ExtResource("2_hoipk")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://f57uusrc2wct"]
+
+[ext_resource type="Texture2D" uid="uid://14mq3er2ibx4" path="res://images/P-M-10 Moash LP IV-Moash Cruiser Dechanik.png" id="1_dplr1"]
+
+[sub_resource type="GDScript" id="GDScript_nk7et"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-M-10 Moash LP IV-Moash Cruiser Dechanik\"
+var ship_button_name = \"Cruiser Dechanik\"
+var ship_position = 0
+var shield = 7
+var armor = 19
+var pursuit = 7
+var escape = 4
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"2 100mm Railguns\", \"button_name\": \"100mm Railguns\",
+		\"phase\": 1, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 16, \"armor\": 21, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": 18, \"ammo\": 3
+	},
+	{
+		\"name\": \"2 Fusion Pulse Batteries\", \"button_name\": \"Fusion Pulse Batteries\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 14, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 15, \"pursuit\": null, \"ammo\": 5
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dplr1")
+script = SubResource("GDScript_nk7et")

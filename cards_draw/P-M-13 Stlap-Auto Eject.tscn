@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfera3ym2a2ns"]
+
+[ext_resource type="Texture2D" uid="uid://dnkcv8rif4hqo" path="res://images/P-M-13 Stlap-Auto Eject.png" id="1_ahxor"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_va6el"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ahxor")
+script = ExtResource("2_va6el")
