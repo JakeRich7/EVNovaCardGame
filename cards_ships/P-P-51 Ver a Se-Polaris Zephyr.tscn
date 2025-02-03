@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqlx2ecwkwdm"]
+
+[ext_resource type="Texture2D" uid="uid://dffjc1ch7eogh" path="res://images/P-P-51 Ver a Se-Polaris Zephyr.png" id="1_ie8b2"]
+
+[sub_resource type="GDScript" id="GDScript_fk5ci"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-51 Ver a Se-Polaris Zephyr\"
+var ship_button_name = \"Zephyr\"
+var ship_position = 0
+var shield = 8
+var armor = 14
+var pursuit = 11
+var escape = 6
+var cost = 9
+var attacks = [
+	{
+		\"name\": \"Wraith Cannon\", \"button_name\": \"Wraith Cannon\",
+		\"phase\": 3, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": 20
+	},
+	{
+		\"name\": \"BioRelay Laser Turret\", \"button_name\": \"BioRelay Laser Turret\",
+		\"phase\": 4, \"shield\": 17, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ie8b2")
+script = SubResource("GDScript_fk5ci")

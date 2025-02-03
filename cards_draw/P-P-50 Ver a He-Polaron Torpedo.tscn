@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://jmewog5uu5si"]
+
+[ext_resource type="Texture2D" uid="uid://ctlv00o822gpt" path="res://images/P-P-50 Ver a He-Polaron Torpedo.png" id="1_wb01y"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_7rdye"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_wb01y")
+script = ExtResource("2_7rdye")

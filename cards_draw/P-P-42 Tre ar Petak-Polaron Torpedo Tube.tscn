@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp5fs7pt26vo2"]
+
+[ext_resource type="Texture2D" uid="uid://dm40nclwriou6" path="res://images/P-P-42 Tre ar Petak-Polaron Torpedo Tube.png" id="1_eqlw3"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_b41sq"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_eqlw3")
+script = ExtResource("2_b41sq")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://btdncm6iulpxg"]
+
+[ext_resource type="Texture2D" uid="uid://dheu8s0eusvnu" path="res://images/P-P-20 Nil a Ya-Polaron M Torpedo.png" id="1_mq1vk"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_it2b8"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mq1vk")
+script = ExtResource("2_it2b8")

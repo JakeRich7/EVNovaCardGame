@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg56oqr7uqdh6"]
+
+[ext_resource type="Texture2D" uid="uid://xt4l5hkr5di4" path="res://images/P-P-44 Tre ar Vano-Polaris Sprite.png" id="1_w55mb"]
+
+[sub_resource type="GDScript" id="GDScript_q15lo"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-44 Tre ar Vano-Polaris Sprite\"
+var ship_button_name = \"Sprite\"
+var ship_position = 0
+var shield = 9
+var armor = 3
+var pursuit = 9
+var escape = 5
+var cost = 5
+var attacks = []
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_w55mb")
+script = SubResource("GDScript_q15lo")

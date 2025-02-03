@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://di7bfyaobnf8a"]
+
+[ext_resource type="Texture2D" uid="uid://c3ld1fxg3u8wh" path="res://images/P-P-24 Nil ar Nina Polaris Striker CD.png" id="1_n1gn4"]
+
+[sub_resource type="GDScript" id="GDScript_2mps7"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-24 Nil ar Nina Polaris Striker CD\"
+var ship_button_name = \"Striker CD\"
+var ship_position = 0
+var shield = 13
+var armor = 9
+var pursuit = 12
+var escape = 6
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"Wraith Cannon\", \"button_name\": \"Wraith Cannon\",
+		\"phase\": 3, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": 30
+	},
+	{
+		\"name\": \"BioRelay Laser\", \"button_name\": \"BioRelay Laser\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_n1gn4")
+script = SubResource("GDScript_2mps7")

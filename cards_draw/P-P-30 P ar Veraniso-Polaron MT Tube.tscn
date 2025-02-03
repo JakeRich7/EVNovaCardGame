@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bib7vgc74x4qw"]
+
+[ext_resource type="Texture2D" uid="uid://bivqxs3yjldsw" path="res://images/P-P-30 P ar Veraniso-Polaron MT Tube.png" id="1_vycec"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_pq0ji"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_vycec")
+script = ExtResource("2_pq0ji")

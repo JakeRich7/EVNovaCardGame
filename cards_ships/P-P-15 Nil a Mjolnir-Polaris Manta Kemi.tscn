@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://ex8ijjdt65wh"]
+
+[ext_resource type="Texture2D" uid="uid://blju5fgnw0l6i" path="res://images/P-P-15 Nil a Mjolnir-Polaris Manta Kemi.png" id="1_bmjih"]
+
+[sub_resource type="GDScript" id="GDScript_2a3j2"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-15 Nil a Mjolnir-Polaris Manta Kemi\"
+var ship_button_name = \"Manta Kemi\"
+var ship_position = 0
+var shield = 6
+var armor = 4
+var pursuit = 15
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"BioRelay Laser\", \"button_name\": \"BioRelay Laser\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_bmjih")
+script = SubResource("GDScript_2a3j2")

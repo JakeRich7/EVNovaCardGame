@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvu0aouj6sv2b"]
+
+[ext_resource type="Texture2D" uid="uid://bouucxbpj7t74" path="res://images/P-P-35 Tre a Se-Pol Dragon Nil kimas.png" id="1_35cyp"]
+
+[sub_resource type="GDScript" id="GDScript_ed3uq"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-35 Tre a Se-Pol Dragon Nil kimas\"
+var ship_button_name = \"Dragon Nil'kimas\"
+var ship_position = 0
+var shield = 12
+var armor = 9
+var pursuit = 11
+var escape = 6
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"3 Wraith Cannons\", \"button_name\": \"Wraith Cannons\",
+		\"phase\": 3, \"shield\": 22, \"armor\": 23, \"pursuit\": null, \"ammo\": 30
+	},
+	{
+		\"name\": \"2 BioRelay Laser Turrets\", \"button_name\": \"BioRelay Laser Turrets\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_35cyp")
+script = SubResource("GDScript_ed3uq")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2cljbu3n6umw"]
+
+[ext_resource type="Texture2D" uid="uid://uswrm0qsh73s" path="res://images/P-P-46 Tre ar Vilarn-Polaris Wraithi.png" id="1_k84l6"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_s37ua"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_k84l6")
+script = ExtResource("2_s37ua")

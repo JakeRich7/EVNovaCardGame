@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bke2n2w42fkte"]
+
+[ext_resource type="Texture2D" uid="uid://5wscj047n6j3" path="res://images/P-P-45 Tre ar Varia-Polaris Wraith Cannon.png" id="1_1ygai"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_h6nkk"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_1ygai")
+script = ExtResource("2_h6nkk")

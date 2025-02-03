@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2um2rw5w5g3j"]
+
+[ext_resource type="Texture2D" uid="uid://q4fqsl1pi1lj" path="res://images/P-P-11 Mu ar Haro-Polaris Striker Nil kimas.png" id="1_ma8ig"]
+
+[sub_resource type="GDScript" id="GDScript_emev6"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-11 Mu ar Haro-Polaris Striker Nil kimas\"
+var ship_button_name = \"Striker Nil'kimas\"
+var ship_position = 0
+var shield = 14
+var armor = 10
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 Wraith Cannons\", \"button_name\": \"Wraith Cannons\",
+		\"phase\": 3, \"shield\": 19, \"armor\": 20, \"pursuit\": null, \"ammo\": 30
+	},
+	{
+		\"name\": \"2 BioRelay Lasers\", \"button_name\": \"BioRelay Lasers\",
+		\"phase\": 4, \"shield\": 18, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ma8ig")
+script = SubResource("GDScript_emev6")

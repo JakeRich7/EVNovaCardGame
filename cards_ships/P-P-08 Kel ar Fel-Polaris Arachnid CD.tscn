@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://daf7378gonc1b"]
+
+[ext_resource type="Texture2D" uid="uid://b1bi6k0utxu0r" path="res://images/P-P-08 Kel ar Fel-Polaris Arachnid CD.png" id="1_cgxqe"]
+
+[sub_resource type="GDScript" id="GDScript_ts3r6"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-08 Kel ar Fel-Polaris Arachnid CD\"
+var ship_button_name = \"Arachnid CD\"
+var ship_position = 0
+var shield = 15
+var armor = 11
+var pursuit = 11
+var escape = 5
+var cost = 8
+var attacks = [
+	{
+		\"name\": \"Polaron Torpedo\", \"button_name\": \"Polaron Torpedo\",
+		\"phase\": 1, \"shield\": 25, \"armor\": 25, \"pursuit\": 18, \"ammo\": 15
+	},
+	{
+		\"name\": \"Capacitor Pulse Laser\", \"button_name\": \"Capacitor Pulse Laser\",
+		\"phase\": 4, \"shield\": 23, \"armor\": 19, \"pursuit\": null, \"ammo\": 12
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_cgxqe")
+script = SubResource("GDScript_ts3r6")

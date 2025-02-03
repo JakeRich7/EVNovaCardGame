@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://yvsa1jmj1lbo"]
+
+[ext_resource type="Texture2D" uid="uid://byhdwtanln6um" path="res://images/P-P-36 Tre a Se-Pol Raven Nil kimas.png" id="1_yaonq"]
+
+[sub_resource type="GDScript" id="GDScript_6iw8r"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"P-P-36 Tre a Se-Pol Raven Nil kimas\"
+var ship_button_name = \"Raven Nil'kimas\"
+var ship_position = 0
+var shield = 22
+var armor = 17
+var pursuit = 11
+var escape = 5
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"2 Polaran MT Tubes\", \"button_name\": \"Polaran MT Tubes\",
+		\"phase\": 1, \"shield\": 31, \"armor\": 31, \"pursuit\": 21, \"ammo\": 5
+	},
+	{
+		\"name\": \"2 Manta Bays\", \"button_name\": \"Manta Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 8
+	},
+	{
+		\"name\": \"4 Capacitor Pulse Lasers\", \"button_name\": \"Capacitor Pulse Lasers\",
+		\"phase\": 4, \"shield\": 35, \"armor\": 31, \"pursuit\": null, \"ammo\": 15
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_yaonq")
+script = SubResource("GDScript_6iw8r")

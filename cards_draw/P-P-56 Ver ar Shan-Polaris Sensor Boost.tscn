@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dktiu4wp183aa"]
+
+[ext_resource type="Texture2D" uid="uid://bdgvjf02a8t78" path="res://images/P-P-56 Ver ar Shan-Polaris Sensor Boost.png" id="1_pi7ps"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_mklpn"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_pi7ps")
+script = ExtResource("2_mklpn")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnkh4wbd8elai"]
+
+[ext_resource type="Texture2D" uid="uid://r8crbe4n1ty4" path="res://images/P-P-27 P a He-Spun Diamond.png" id="1_s7om5"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_5pdpq"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_s7om5")
+script = ExtResource("2_5pdpq")

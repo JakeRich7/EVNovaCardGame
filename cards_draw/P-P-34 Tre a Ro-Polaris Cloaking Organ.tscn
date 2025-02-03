@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bomenv2d7ykka"]
+
+[ext_resource type="Texture2D" uid="uid://ctko1odh8tnvn" path="res://images/P-P-34 Tre a Ro-Polaris Cloaking Organ.png" id="1_qipjd"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_uw2kb"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_qipjd")
+script = ExtResource("2_uw2kb")

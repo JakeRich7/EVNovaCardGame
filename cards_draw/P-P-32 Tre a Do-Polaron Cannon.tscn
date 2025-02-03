@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsaf6yoqgfo3i"]
+
+[ext_resource type="Texture2D" uid="uid://44u55ubm4odr" path="res://images/P-P-32 Tre a Do-Polaron Cannon.png" id="1_628k0"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_gelyb"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_628k0")
+script = ExtResource("2_gelyb")
