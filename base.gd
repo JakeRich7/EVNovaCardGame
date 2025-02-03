@@ -111,6 +111,7 @@ func _ready():
 			var scene_path = cards_draw_path + "/" + file_name_deck
 			var packed_scene = load(scene_path)
 			var instance = packed_scene.instantiate()
+			instance.scale = Vector2(.78, .78)
 			draw_deck.push_back(instance)
 		file_name_deck = dir_deck.get_next()
 	# Initializes and places all ships in an array
@@ -122,6 +123,7 @@ func _ready():
 			var scene_path = cards_ships_path + "/" + file_name
 			var packed_scene = load(scene_path)
 			var instance = packed_scene.instantiate()
+			instance.scale = Vector2(.78, .78)
 			ships_all.push_back(instance)
 		file_name = dir.get_next()
 	# Creates menu options to select from for player 1
@@ -429,6 +431,7 @@ func draw_a_card(primary_ship_position):
 	else:
 		element.position = draw_pile_position
 		element.position.y -= 310
+	element.scale = Vector2(.78, .78)
 	if game_speed != 0:
 		flip_a_card(primary_ship_position, element)
 	else:
@@ -445,6 +448,7 @@ func draw_a_card_missile(primary_ship_position):
 	else:
 		element.position = draw_pile_position
 		element.position.y -= 265
+	element.scale = Vector2(.78, .78)
 	element.position.x += 45
 	secondary_cards_to_remove_1.push_back(element)
 	secondary_cards_to_remove_2.push_back(element)
@@ -491,10 +495,10 @@ func flip_a_card(primary_ship_position, front_card):
 	await get_tree().create_timer(game_speed).timeout
 	card_back_temp.queue_free()
 	# Front card flip
-	front_card.scale = Vector2(0, 1)
+	front_card.scale = Vector2(0, .78)
 	if front_card.get_parent() == null: add_child(front_card)
 	var tween_front = create_tween()
-	tween_front.tween_property(front_card, "scale", Vector2(1, 1), game_speed)
+	tween_front.tween_property(front_card, "scale", Vector2(.78, .78), game_speed)
 	await get_tree().create_timer(game_speed).timeout
 	# Cleanup of card back cover
 	card_back_cover.queue_free()
@@ -549,6 +553,7 @@ func launch_fighters(attack_selected, active_ship_position):
 		fighter_instance.ship_position = ship_position
 		ship_group_to_join.push_back(fighter_instance)
 		fighter_instance.position = position_to_spawn
+		fighter_instance.scale = Vector2(.78, .78)
 		add_child(fighter_instance)
 		fighter_add_to_counters(ship_position)
 	attack_selected.ammo = 0
