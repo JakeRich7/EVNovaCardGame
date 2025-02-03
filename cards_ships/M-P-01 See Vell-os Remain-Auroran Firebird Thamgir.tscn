@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6dfgkdwaeoe7"]
+
+[ext_resource type="Texture2D" uid="uid://ci16dvrujaeuy" path="res://images/M-P-01 See Vell-os Remain-Auroran Firebird Thamgir.png" id="1_8dnb5"]
+
+[sub_resource type="GDScript" id="GDScript_8h84d"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"M-P-01 See Vell-os Remain-Auroran Firebird Thamgir\"
+var ship_button_name = \"Firebird\"
+var ship_position = 0
+var shield = 3
+var armor = 4
+var pursuit = 14
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"2 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 20, \"pursuit\": null, \"ammo\": 5
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_8dnb5")
+script = SubResource("GDScript_8h84d")

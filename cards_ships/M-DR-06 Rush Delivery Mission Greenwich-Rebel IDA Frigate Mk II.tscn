@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://fyaqrm4ms2bn"]
+
+[ext_resource type="Texture2D" uid="uid://dnd84kpxrl6kg" path="res://images/M-DR-06 Rush Delivery Mission Greenwich-Rebel IDA Frigate Mk II.png" id="1_ruiin"]
+
+[sub_resource type="GDScript" id="GDScript_e4q4k"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-DR-06 Rush Delivery Mission Greenwich-Rebel IDA Frigate Mk II\"
+var ship_button_name = \"IDA Frigate Mk II\"
+var ship_position = 0
+var shield = 13
+var armor = 14
+var pursuit = 9
+var escape = 4
+var cost = 9
+var attacks = [
+	{
+		\"name\": \"2 Grav Missiles\", \"button_name\": \"Grav Missiles\",
+		\"phase\": 1, \"shield\": 16, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Rebel Viper Bays\", \"button_name\": \"Rebel Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 8
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Lt. blaster Turret\", \"button_name\": \"Quad Lt. blaster Turret\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ruiin")
+script = SubResource("GDScript_e4q4k")

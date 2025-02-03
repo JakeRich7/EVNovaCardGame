@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwcsibgs6bnbx"]
+
+[ext_resource type="Texture2D" uid="uid://cbvmx7aol3ygw" path="res://images/M-P-06 Watch Wraith Talks-Heavy Blaster Turret.png" id="1_21t53"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_d362k"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_21t53")
+script = ExtResource("2_d362k")

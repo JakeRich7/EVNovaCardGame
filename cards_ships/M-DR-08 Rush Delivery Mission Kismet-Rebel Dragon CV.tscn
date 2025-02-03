@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://batxlbyann5vs"]
+
+[ext_resource type="Texture2D" uid="uid://b4jk68j3lg4cd" path="res://images/M-DR-08 Rush Delivery Mission Kismet-Rebel Dragon CV.png" id="1_bdplv"]
+
+[sub_resource type="GDScript" id="GDScript_b01vc"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-DR-08 Rush Delivery Mission Kismet-Rebel Dragon CV\"
+var ship_button_name = \"Dragon CV\"
+var ship_position = 0
+var shield = 13
+var armor = 8
+var pursuit = 11
+var escape = 6
+var cost = 8
+var attacks = [
+	{
+		\"name\": \"3 Rebel Viper Bays\", \"button_name\": \"Rebel Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 12
+	},
+	{
+		\"name\": \"2 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Wraith Cannons\", \"button_name\": \"Wraith Cannons\",
+		\"phase\": 3, \"shield\": 19, \"armor\": 20, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"BioRelay Laser\", \"button_name\": \"BioRelay Laser\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_bdplv")
+script = SubResource("GDScript_b01vc")

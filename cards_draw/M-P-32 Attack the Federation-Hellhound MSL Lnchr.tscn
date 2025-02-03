@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2hcknbc1u5o6"]
+
+[ext_resource type="Texture2D" uid="uid://cmfhap4n1w7p5" path="res://images/M-P-32 Attack the Federation-Hellhound MSL Lnchr.png" id="1_i8laq"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_4pe5k"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_i8laq")
+script = ExtResource("2_4pe5k")

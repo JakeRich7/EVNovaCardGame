@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh8c8tondudc1"]
+
+[ext_resource type="Texture2D" uid="uid://blkiefjnco0jx" path="res://images/M-DF-35 Ferry Mission Ver ar Roqu-Shuttle B.png" id="1_aks5i"]
+
+[sub_resource type="GDScript" id="GDScript_7srmg"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"M-DF-35 Ferry Mission Ver ar Roqu-Shuttle B\"
+var ship_button_name = \"Shuttle B\"
+var ship_position = 0
+var shield = 3
+var armor = 3
+var pursuit = 12
+var escape = 6
+var cost = 2
+var attacks = [
+	{
+		\"name\": \"IR Missle\", \"button_name\": \"IR Missle\",
+		\"phase\": 2, \"shield\": 10, \"armor\": 15, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 9, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_aks5i")
+script = SubResource("GDScript_7srmg")

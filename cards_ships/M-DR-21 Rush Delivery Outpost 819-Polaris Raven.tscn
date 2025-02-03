@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvahal0thtv3p"]
+
+[ext_resource type="Texture2D" uid="uid://4ybtqps1k6u1" path="res://images/M-DR-21 Rush Delivery Outpost 819-Polaris Raven.png" id="1_7vk4q"]
+
+[sub_resource type="GDScript" id="GDScript_qxbt4"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"M-DR-21 Rush Delivery Outpost 819-Polaris Raven\"
+var ship_button_name = \"Raven\"
+var ship_position = 0
+var shield = 21
+var armor = 15
+var pursuit = 9
+var escape = 5
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"2 Polaran MT Tubes\", \"button_name\": \"Polaran MT Tubes\",
+		\"phase\": 1, \"shield\": 31, \"armor\": 31, \"pursuit\": 21, \"ammo\": 5
+	},
+	{
+		\"name\": \"2 Manta Bays\", \"button_name\": \"Manta Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 8
+	},
+	{
+		\"name\": \"2 Capacitor Pulse Lasers\", \"button_name\": \"Capacitor Pulse Lasers\",
+		\"phase\": 4, \"shield\": 27, \"armor\": 23, \"pursuit\": null, \"ammo\": 15
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_7vk4q")
+script = SubResource("GDScript_qxbt4")

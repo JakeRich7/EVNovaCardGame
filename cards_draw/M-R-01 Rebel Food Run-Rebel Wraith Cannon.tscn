@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://chcr7kn0p8j5c"]
+
+[ext_resource type="Texture2D" uid="uid://dv6ynkbvgk4ag" path="res://images/M-R-01 Rebel Food Run-Rebel Wraith Cannon.png" id="1_mixed"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_7i4t3"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mixed")
+script = ExtResource("2_7i4t3")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg00ew0pjlb5e"]
+
+[ext_resource type="Texture2D" uid="uid://cx3hc2mombj2n" path="res://images/M-DR-11 Rush Delivery Mission Rigel III-Rebel Radar Jammer.png" id="1_fi5jl"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_sdcxn"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_fi5jl")
+script = ExtResource("2_sdcxn")

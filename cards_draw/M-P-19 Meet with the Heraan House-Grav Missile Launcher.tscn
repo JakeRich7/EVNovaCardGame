@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqtxyovt0y5o6"]
+
+[ext_resource type="Texture2D" uid="uid://dg54x16k578kh" path="res://images/M-P-19 Meet with the Heraan House-Grav Missile Launcher.png" id="1_ymetd"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_801vx"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ymetd")
+script = ExtResource("2_801vx")

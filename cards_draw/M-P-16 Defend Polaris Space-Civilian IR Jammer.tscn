@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bacposu6h1qiq"]
+
+[ext_resource type="Texture2D" uid="uid://df2daq85kau5l" path="res://images/M-P-16 Defend Polaris Space-Civilian IR Jammer.png" id="1_ln7lj"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_hyh76"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ln7lj")
+script = ExtResource("2_hyh76")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckqn1h2ymqcd5"]
+
+[ext_resource type="Texture2D" uid="uid://cxr3gxvwd8jaa" path="res://images/M-DU-09 Urgent Mission Mairim-Manticore Hvy Weapons.png" id="1_ulsqg"]
+
+[sub_resource type="GDScript" id="GDScript_6i6oh"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DU-09 Urgent Mission Mairim-Manticore Hvy Weapons\"
+var ship_button_name = \"Manticore Hvy. Weapons\"
+var ship_position = 0
+var shield = 11
+var armor = 12
+var pursuit = 9
+var escape = 5
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"2 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 EMP Torpedo Tube\", \"button_name\": \"EMP Torpedo Tube\",
+		\"phase\": 3, \"shield\": 38, \"armor\": 14, \"pursuit\": 9, \"ammo\": 5
+	},
+	{
+		\"name\": \"8 Ion Particle Cannons\", \"button_name\": \"Ion Particle Cannons\",
+		\"phase\": 4, \"shield\": 31, \"armor\": 25, \"pursuit\": null, \"ammo\": 7
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ulsqg")
+script = SubResource("GDScript_6i6oh")

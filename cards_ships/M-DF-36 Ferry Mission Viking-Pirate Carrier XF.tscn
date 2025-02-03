@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw6vepfpxto6w"]
+
+[ext_resource type="Texture2D" uid="uid://dfhtm6kgeu17w" path="res://images/M-DF-36 Ferry Mission Viking-Pirate Carrier XF.png" id="1_7024e"]
+
+[sub_resource type="GDScript" id="GDScript_soep2"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DF-36 Ferry Mission Viking-Pirate Carrier XF\"
+var ship_button_name = \"Carrier XF\"
+var ship_position = 0
+var shield = 14
+var armor = 16
+var pursuit = 8
+var escape = 4
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"4 Pirate Viper Bays\", \"button_name\": \"Pirate Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 16
+	},
+	{
+		\"name\": \"2 Pir. Thunderhead Bays\", \"button_name\": \"Thunderhead Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
+	},
+	{
+		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"EMP Torpedo Tube\", \"button_name\": \"EMP Torpedo Tube\",
+		\"phase\": 3, \"shield\": 34, \"armor\": 10, \"pursuit\": 8, \"ammo\": 4
+	},
+	{
+		\"name\": \"3 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 23, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_7024e")
+script = SubResource("GDScript_soep2")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://fb0oqa6qhby5"]
+
+[ext_resource type="Texture2D" uid="uid://b5p0e38d8dl5t" path="res://images/M-F-10 Moment of Truth-Fed Sensor Boost.png" id="1_nrkgu"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_tmswg"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_nrkgu")
+script = ExtResource("2_tmswg")

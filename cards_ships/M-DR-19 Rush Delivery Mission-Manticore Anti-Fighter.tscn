@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3y8y35c2nm7o"]
+
+[ext_resource type="Texture2D" uid="uid://ekvs0mogu8h4" path="res://images/M-DR-19 Rush Delivery Mission-Manticore Anti-Fighter.png" id="1_1wdkf"]
+
+[sub_resource type="GDScript" id="GDScript_0wya5"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DR-19 Rush Delivery Mission-Manticore Anti-Fighter\"
+var ship_button_name = \"Manticore Anti-Fighter\"
+var ship_position = 0
+var shield = 12
+var armor = 13
+var pursuit = 9
+var escape = 5
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"EMP Torpedo tube\", \"button_name\": \"EMP Torpedo tube\",
+		\"phase\": 3, \"shield\": 34, \"armor\": 10, \"pursuit\": 8, \"ammo\": 8
+	},
+	{
+		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 17, \"pursuit\": null, \"ammo\": 5
+	},
+	{
+		\"name\": \"8 Ion Particle Cannons\", \"button_name\": \"Ion Particle Cannons\",
+		\"phase\": 4, \"shield\": 31, \"armor\": 25, \"pursuit\": null, \"ammo\": 7
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_1wdkf")
+script = SubResource("GDScript_0wya5")

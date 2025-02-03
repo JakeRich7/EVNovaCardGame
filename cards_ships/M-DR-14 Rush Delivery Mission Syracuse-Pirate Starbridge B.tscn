@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://0husyqd8dxnj"]
+
+[ext_resource type="Texture2D" uid="uid://no32xnax3ei8" path="res://images/M-DR-14 Rush Delivery Mission Syracuse-Pirate Starbridge B.png" id="1_x34ws"]
+
+[sub_resource type="GDScript" id="GDScript_43w4o"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DR-14 Rush Delivery Mission Syracuse-Pirate Starbridge B\"
+var ship_button_name = \"Starbridge B\"
+var ship_position = 0
+var shield = 11
+var armor = 6
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 10, \"armor\": 15, \"pursuit\": 16, \"ammo\": 3
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_x34ws")
+script = SubResource("GDScript_43w4o")

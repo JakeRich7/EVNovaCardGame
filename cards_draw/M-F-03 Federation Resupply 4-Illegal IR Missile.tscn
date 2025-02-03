@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c468c8uaidipa"]
+
+[ext_resource type="Texture2D" uid="uid://dca5ypydf23xd" path="res://images/M-F-03 Federation Resupply 4-Illegal IR Missile.png" id="1_l1smv"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_74vx3"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_l1smv")
+script = ExtResource("2_74vx3")

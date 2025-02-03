@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bntc6taqmu54x"]
+
+[ext_resource type="Texture2D" uid="uid://een78yps4jpo" path="res://images/M-F-00 Federation Resupply 1-Mass Expansion.png" id="1_fnoib"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_6dirw"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_fnoib")
+script = ExtResource("2_6dirw")

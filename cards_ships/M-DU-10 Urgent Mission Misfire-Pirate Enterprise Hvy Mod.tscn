@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://c44hsjf0y3xk"]
+
+[ext_resource type="Texture2D" uid="uid://drbccmb8jknih" path="res://images/M-DU-10 Urgent Mission Misfire-Pirate Enterprise Hvy Mod.png" id="1_s4kvh"]
+
+[sub_resource type="GDScript" id="GDScript_xg7yf"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DU-10 Urgent Mission Misfire-Pirate Enterprise Hvy Mod\"
+var ship_button_name = \"Enterprise, Hvy. Mod.\"
+var ship_position = 0
+var shield = 9
+var armor = 14
+var pursuit = 8
+var escape = 4
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 EMP Torpedo Tubes\", \"button_name\": \"EMP Torpedo Tubes\",
+		\"phase\": 3, \"shield\": 34, \"armor\": 10, \"pursuit\": 9, \"ammo\": 4
+	},
+	{
+		\"name\": \"4 Ion Particle Cannons\", \"button_name\": \"Ion Particle Cannons\",
+		\"phase\": 4, \"shield\": 23, \"armor\": 17, \"pursuit\": null, \"ammo\": 5
+	},
+	{
+		\"name\": \"3 PD Quad Lt. Blaster Turrets\", \"button_name\": \"Quad Lt. Blaster Turrets\",
+		\"phase\": 4, \"shield\": 20, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_s4kvh")
+script = SubResource("GDScript_xg7yf")

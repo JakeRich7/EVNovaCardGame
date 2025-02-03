@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://btdgfj13d81pp"]
+
+[ext_resource type="Texture2D" uid="uid://d1scmromvuu81" path="res://images/M-F-25 Lead Attack on Rebels-Gravimetric Missile.png" id="1_v4bhl"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_ks7nv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_v4bhl")
+script = ExtResource("2_ks7nv")

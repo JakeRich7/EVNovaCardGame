@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7ruf1sfo5a45"]
+
+[ext_resource type="Texture2D" uid="uid://dukqp4r8gbjcu" path="res://images/M-DU-08 Urgent Mission Lodestone-Pir Enterprise Stolen Tech.png" id="1_mmpi8"]
+
+[sub_resource type="GDScript" id="GDScript_qgp3i"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DU-08 Urgent Mission Lodestone-Pir Enterprise Stolen Tech\"
+var ship_button_name = \"Enterprise\"
+var ship_position = 0
+var shield = 10
+var armor = 12
+var pursuit = 8
+var escape = 4
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 150mm Railguns\", \"button_name\": \"150mm Railguns\",
+		\"phase\": 1, \"shield\": 14, \"armor\": 18, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Fusion Pulse Turret\", \"button_name\": \"Fusion Pulse Turret\",
+		\"phase\": 3, \"shield\": 11, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mmpi8")
+script = SubResource("GDScript_qgp3i")

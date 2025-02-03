@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctnwji3e204ie"]
+
+[ext_resource type="Texture2D" uid="uid://d1fn80gjtl8yy" path="res://images/M-F-14 Rescue Rebel Agent-Thunderhead Gunboat.png" id="1_a46c5"]
+
+[sub_resource type="GDScript" id="GDScript_d1d3v"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"M-F-14 Rescue Rebel Agent-Thunderhead Gunboat\"
+var ship_button_name = \"Thunderhead\"
+var ship_position = 0
+var shield = 6
+var armor = 7
+var pursuit = 11
+var escape = 6
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Thunderhead Lances\", \"button_name\": \"Thunderhead Lances\",
+		\"phase\": 5, \"shield\": 18, \"armor\": 18, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_a46c5")
+script = SubResource("GDScript_d1d3v")

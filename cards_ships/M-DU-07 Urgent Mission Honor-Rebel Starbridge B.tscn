@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://brrffqv4a2oc1"]
+
+[ext_resource type="Texture2D" uid="uid://d2obk16vcpoex" path="res://images/M-DU-07 Urgent Mission Honor-Rebel Starbridge B.png" id="1_4opt7"]
+
+[sub_resource type="GDScript" id="GDScript_r8mw7"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-DU-07 Urgent Mission Honor-Rebel Starbridge B\"
+var ship_button_name = \"Starbridge B\"
+var ship_position = 0
+var shield = 11
+var armor = 6
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 Grav Missiles\", \"button_name\": \"Grav Missiles\",
+		\"phase\": 1, \"shield\": 16, \"armor\": 23, \"pursuit\": 17, \"ammo\": 8
+	},
+	{
+		\"name\": \"3 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 15, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Light Blaster Turret\", \"button_name\": \"Light Blaster Turret\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 8, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_4opt7")
+script = SubResource("GDScript_r8mw7")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://lp5y4d5n5k8w"]
+
+[ext_resource type="Texture2D" uid="uid://du1871ob0kf0m" path="res://images/M-DF-31 Ferry Mission Tre ar Vano-Pirate Enterprise Hvy Mod.png" id="1_vg8mu"]
+
+[sub_resource type="GDScript" id="GDScript_0et8o"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DF-31 Ferry Mission Tre ar Vano-Pirate Enterprise Hvy Mod\"
+var ship_button_name = \"Enterprise, Hvy. Mod.\"
+var ship_position = 0
+var shield = 9
+var armor = 12
+var pursuit = 9
+var escape = 5
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 11, \"ammo\": 3
+	},
+	{
+		\"name\": \"3 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 23, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 22, \"armor\": 26, \"pursuit\": null, \"ammo\": 3
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_vg8mu")
+script = SubResource("GDScript_0et8o")

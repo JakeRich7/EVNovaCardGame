@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://clkc7j42q7etp"]
+
+[ext_resource type="Texture2D" uid="uid://cwr5raik2vvyo" path="res://images/M-DF-33 Ferry Mission Ver a He-Radar Missile Rack.png" id="1_iemus"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_gb7bc"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_iemus")
+script = ExtResource("2_gb7bc")

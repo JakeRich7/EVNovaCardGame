@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://csxk75su6s8iw"]
+
+[ext_resource type="Texture2D" uid="uid://bthxmkd5vawuq" path="res://images/M-DF-25 Ferry Mission Skye-Pirate Carrier Upg.png" id="1_rxest"]
+
+[sub_resource type="GDScript" id="GDScript_rlivw"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DF-25 Ferry Mission Skye-Pirate Carrier Upg\"
+var ship_button_name = \"Carrier Upg.\"
+var ship_position = 0
+var shield = 9
+var armor = 14
+var pursuit = 8
+var escape = 4
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"4 Pirate Viper Bays\", \"button_name\": \"Pirate Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 16
+	},
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 3
+	},
+	{
+		\"name\": \"EMP Torpedo Tubes\", \"button_name\": \"EMP Torpedo Tubes\",
+		\"phase\": 3, \"shield\": 34, \"armor\": 10, \"pursuit\": 16, \"ammo\": 3
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"6 Medium Blaster Turrets\", \"button_name\": \"Medium Blaster Turrets\",
+		\"phase\": 4, \"shield\": 21, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Lt. Blaster Turrets\", \"button_name\": \"Quad Lt. Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_rxest")
+script = SubResource("GDScript_rlivw")

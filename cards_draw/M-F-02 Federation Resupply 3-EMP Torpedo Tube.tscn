@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqpah5f7f82ts"]
+
+[ext_resource type="Texture2D" uid="uid://dtmxhwp5fto42" path="res://images/M-F-02 Federation Resupply 3-EMP Torpedo Tube.png" id="1_ihyno"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_nwf2n"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ihyno")
+script = ExtResource("2_nwf2n")

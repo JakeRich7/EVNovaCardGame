@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://7i5unwrq1h7l"]
+
+[ext_resource type="Texture2D" uid="uid://dcwf08ihcwo2b" path="res://images/M-P-26 Observe Bureau & Moash-Fed Anaconda LMV.png" id="1_wrfmx"]
+
+[sub_resource type="GDScript" id="GDScript_lfd5q"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-P-26 Observe Bureau & Moash-Fed Anaconda LMV\"
+var ship_button_name = \"Anaconda LMV\"
+var ship_position = 0
+var shield = 6
+var armor = 3
+var pursuit = 13
+var escape = 6
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"3 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 9, \"armor\": 12, \"pursuit\": 16, \"ammo\": 2
+	},
+	{
+		\"name\": \"3 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 10, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_wrfmx")
+script = SubResource("GDScript_lfd5q")

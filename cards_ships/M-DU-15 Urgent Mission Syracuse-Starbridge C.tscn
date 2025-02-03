@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://n4ldk2osncxk"]
+
+[ext_resource type="Texture2D" uid="uid://l5cw5e302d4f" path="res://images/M-DU-15 Urgent Mission Syracuse-Starbridge C.png" id="1_hna2x"]
+
+[sub_resource type="GDScript" id="GDScript_n60nj"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"M-DU-15 Urgent Mission Syracuse-Starbridge C\"
+var ship_button_name = \"Starbridge C\"
+var ship_position = 0
+var shield = 11
+var armor = 5
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"3 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 9, \"armor\": 12, \"pursuit\": 15, \"ammo\": 2
+	},
+	{
+		\"name\": \"Hellhound Missile\", \"button_name\": \"Hellhound Missile\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 26, \"pursuit\": 15, \"ammo\": 10
+	},
+	{
+		\"name\": \"3 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_hna2x")
+script = SubResource("GDScript_n60nj")

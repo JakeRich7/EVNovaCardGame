@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw7amcvlawgrh"]
+
+[ext_resource type="Texture2D" uid="uid://d2gxtivnmtmos" path="res://images/M-F-22 Further Instructions-Sigma Mass Addition.png" id="1_11kjx"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_jt17c"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_11kjx")
+script = ExtResource("2_jt17c")

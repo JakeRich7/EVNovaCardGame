@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://en5jhbs3upmo"]
+
+[ext_resource type="Texture2D" uid="uid://bpejbiua8gucr" path="res://images/M-P-20 Consult the Vellos-Battery Pack.png" id="1_s3acv"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_fcoqo"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_s3acv")
+script = ExtResource("2_fcoqo")

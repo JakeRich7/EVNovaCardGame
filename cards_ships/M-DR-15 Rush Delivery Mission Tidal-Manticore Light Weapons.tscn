@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgoo3i75sxdko"]
+
+[ext_resource type="Texture2D" uid="uid://dt0xqan08bdp6" path="res://images/M-DR-15 Rush Delivery Mission Tidal-Manticore Light Weapons.png" id="1_l2m46"]
+
+[sub_resource type="GDScript" id="GDScript_y2rw2"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DR-15 Rush Delivery Mission Tidal-Manticore Light Weapons\"
+var ship_button_name = \"Manticore Light Weapons\"
+var ship_position = 0
+var shield = 12
+var armor = 13
+var pursuit = 8
+var escape = 4
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"3 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 17, \"armor\": 17, \"pursuit\": 16, \"ammo\": 4
+	},
+	{
+		\"name\": \"3 Light Blaster Turrets\", \"button_name\": \"Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 15, \"armor\": 12, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"8 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 27, \"armor\": 25, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 PD Quad Lt. Blaster Turrets\", \"button_name\": \"Quad Lt. Blaster Turrets\",
+		\"phase\": 4, \"shield\": 20, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_l2m46")
+script = SubResource("GDScript_y2rw2")

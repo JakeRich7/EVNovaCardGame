@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7x6o8ep6ccsu"]
+
+[ext_resource type="Texture2D" uid="uid://c63bm8g8yc8cs" path="res://images/M-DR-05 Rush Delivery Mission Georgia-Manticore.png" id="1_vhodh"]
+
+[sub_resource type="GDScript" id="GDScript_d46ae"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-DR-05 Rush Delivery Mission Georgia-Manticore\"
+var ship_button_name = \"Manticore\"
+var ship_position = 0
+var shield = 12
+var armor = 14
+var pursuit = 8
+var escape = 4
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"2 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 12, \"armor\": 17, \"pursuit\": 17, \"ammo\": 2
+	},
+	{
+		\"name\": \"EMP Torpedo Tube\", \"button_name\": \"EMP Torpedo Tube\",
+		\"phase\": 3, \"shield\": 34, \"armor\": 10, \"pursuit\": 8, \"ammo\": 8
+	},
+	{
+		\"name\": \"8 Ion Particle Cannons\", \"button_name\": \"Ion Particle Cannons\",
+		\"phase\": 4, \"shield\": 31, \"armor\": 25, \"pursuit\": null, \"ammo\": 7
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_vhodh")
+script = SubResource("GDScript_d46ae")

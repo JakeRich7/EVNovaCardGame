@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://db38abjp4f5gn"]
+
+[ext_resource type="Texture2D" uid="uid://6x642m58p5tn" path="res://images/M-P-28 Return to Kelar Iy-Federation Viper.png" id="1_3ncwp"]
+
+[sub_resource type="GDScript" id="GDScript_02aay"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-P-28 Return to Kelar Iy-Federation Viper\"
+var ship_button_name = \"Viper\"
+var ship_position = 0
+var shield = 5
+var armor = 3
+var pursuit = 14
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"3 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 8, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_3ncwp")
+script = SubResource("GDScript_02aay")

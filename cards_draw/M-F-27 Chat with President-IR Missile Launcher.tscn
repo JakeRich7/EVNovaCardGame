@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbde36nvh3pos"]
+
+[ext_resource type="Texture2D" uid="uid://d10dcf5r4nyxq" path="res://images/M-F-27 Chat with President-IR Missile Launcher.png" id="1_b1ypq"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_qxgl7"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_b1ypq")
+script = ExtResource("2_qxgl7")

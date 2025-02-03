@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://gua1cfnff8p2"]
+
+[ext_resource type="Texture2D" uid="uid://blh5ig2mljqrs" path="res://images/M-F-16 Deliver Agent to Bureau-Carbon Fiber.png" id="1_73yj2"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_g5co4"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_73yj2")
+script = ExtResource("2_g5co4")

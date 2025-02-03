@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcnvs46fyit85"]
+
+[ext_resource type="Texture2D" uid="uid://ca5ntp56dwwv4" path="res://images/M-P-24 Pass on Info-Civ Radar Jammer.png" id="1_y3cqn"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_vy1to"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_y3cqn")
+script = ExtResource("2_vy1to")

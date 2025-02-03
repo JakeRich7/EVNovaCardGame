@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dve2j40nacxoo"]
+
+[ext_resource type="Texture2D" uid="uid://dkuttnaqftkr1" path="res://images/M-P-04 Explore Wraith Space-Fed Sensor Boost.png" id="1_37kof"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_sbky7"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_37kof")
+script = ExtResource("2_sbky7")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://s7k5papo24ap"]
+
+[ext_resource type="Texture2D" uid="uid://kkvw68tm60rq" path="res://images/M-F-11 Infiltrate the Rebels-Heavy Blaster Turret.png" id="1_u2kbm"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_x422k"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_u2kbm")
+script = ExtResource("2_x422k")

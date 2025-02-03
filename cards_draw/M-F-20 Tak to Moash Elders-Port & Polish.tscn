@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbkh5q1vb4jf5"]
+
+[ext_resource type="Texture2D" uid="uid://dhvynsmrn8ys1" path="res://images/M-F-20 Tak to Moash Elders-Port & Polish.png" id="1_a7igc"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_3wk64"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_a7igc")
+script = ExtResource("2_3wk64")

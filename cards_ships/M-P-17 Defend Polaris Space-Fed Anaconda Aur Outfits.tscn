@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6n0qiw7xcjvo"]
+
+[ext_resource type="Texture2D" uid="uid://bwahbulov22sd" path="res://images/M-P-17 Defend Polaris Space-Fed Anaconda Aur Outfits.png" id="1_5hx17"]
+
+[sub_resource type="GDScript" id="GDScript_esywv"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-P-17 Defend Polaris Space-Fed Anaconda Aur Outfits\"
+var ship_button_name = \"Anaconda Aur. Outfits\"
+var ship_position = 0
+var shield = 6
+var armor = 3
+var pursuit = 13
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 3
+	},
+	{
+		\"name\": \"3 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 14, \"armor\": 5, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_5hx17")
+script = SubResource("GDScript_esywv")

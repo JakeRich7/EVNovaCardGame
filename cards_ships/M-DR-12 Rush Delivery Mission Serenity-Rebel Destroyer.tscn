@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://crj8e1jtt7svi"]
+
+[ext_resource type="Texture2D" uid="uid://d071s60cj8gml" path="res://images/M-DR-12 Rush Delivery Mission Serenity-Rebel Destroyer.png" id="1_y4obh"]
+
+[sub_resource type="GDScript" id="GDScript_gtkii"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-DR-12 Rush Delivery Mission Serenity-Rebel Destroyer\"
+var ship_button_name = \"Destroyer\"
+var ship_position = 0
+var shield = 14
+var armor = 14
+var pursuit = 8
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"2 Grav Missiles\", \"button_name\": \"Grav Missiles\",
+		\"phase\": 1, \"shield\": 13, \"armor\": 20, \"pursuit\": 17, \"ammo\": 15
+	},
+	{
+		\"name\": \"2 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 15, \"pursuit\": 15, \"ammo\": 5
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 18, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_y4obh")
+script = SubResource("GDScript_gtkii")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpwlatmxq536b"]
+
+[ext_resource type="Texture2D" uid="uid://cloy5v1efs8oe" path="res://images/M-P-33 Finish off the Federation-Ionic Particle Cannon.png" id="1_equ76"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_hqscv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_equ76")
+script = ExtResource("2_hqscv")

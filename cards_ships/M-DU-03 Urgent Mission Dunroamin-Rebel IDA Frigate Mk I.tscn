@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhra0mmve0ra7"]
+
+[ext_resource type="Texture2D" uid="uid://c1ttbud6q0c77" path="res://images/M-DU-03 Urgent Mission Dunroamin-Rebel IDA Frigate Mk I.png" id="1_iul41"]
+
+[sub_resource type="GDScript" id="GDScript_dqteb"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-DU-03 Urgent Mission Dunroamin-Rebel IDA Frigate Mk I\"
+var ship_button_name = \"IDA Frigate Mk I\"
+var ship_position = 0
+var shield = 13
+var armor = 14
+var pursuit = 9
+var escape = 4
+var cost = 8
+var attacks = [
+	{
+		\"name\": \"2 Grav Missiles\", \"button_name\": \"Grav Missiles\",
+		\"phase\": 1, \"shield\": 16, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Rebel Viper Bay\", \"button_name\": \"Rebel Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"PD Quad Lt. Blaster Turret\", \"button_name\": \"Quad Lt. Blaster Turret\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_iul41")
+script = SubResource("GDScript_dqteb")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b88yy4rf3yb5h"]
+
+[ext_resource type="Texture2D" uid="uid://daw7f6n5hlovh" path="res://images/M-F-24 Carry Reply to Rebels-Cargo Expansion.png" id="1_0w0wc"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_wqwxe"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_0w0wc")
+script = ExtResource("2_wqwxe")

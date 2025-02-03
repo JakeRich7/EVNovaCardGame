@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://drmtlh6tkcjgv"]
+
+[ext_resource type="Texture2D" uid="uid://ba57lhmqaogx" path="res://images/M-P-10 Reinforce Polaris Agent-Polaron Torpedo.png" id="1_kgvdi"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_8hbee"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_kgvdi")
+script = ExtResource("2_8hbee")

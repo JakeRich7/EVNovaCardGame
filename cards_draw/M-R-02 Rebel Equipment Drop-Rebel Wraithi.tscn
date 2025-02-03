@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo8kckdja0cvk"]
+
+[ext_resource type="Texture2D" uid="uid://bu1fi63xpiphj" path="res://images/M-R-02 Rebel Equipment Drop-Rebel Wraithi.png" id="1_23wc8"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_i20cr"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_23wc8")
+script = ExtResource("2_i20cr")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://x6niq03n0k2q"]
+
+[ext_resource type="Texture2D" uid="uid://cg3aiqut6l3rm" path="res://images/M-DU-04 Urgent Mission Etrusca-Auroran Drop Bear.png" id="1_otfd8"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_0ogu2"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_otfd8")
+script = ExtResource("2_0ogu2")

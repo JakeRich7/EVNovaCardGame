@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dru8qhbh3oeqh"]
+
+[ext_resource type="Texture2D" uid="uid://ddkaoslfg3mao" path="res://images/M-F-29 Scout Polaris Space-Radar Missile.png" id="1_3tsh6"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_eh83x"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_3tsh6")
+script = ExtResource("2_eh83x")

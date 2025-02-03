@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bebp820dlxisq"]
+
+[ext_resource type="Texture2D" uid="uid://dol8ui3dmllem" path="res://images/M-P-25 Alert Rimertans-Enterprise.png" id="1_nesf7"]
+
+[sub_resource type="GDScript" id="GDScript_dtuce"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"M-P-25 Alert Rimertans-Enterprise\"
+var ship_button_name = \"Enterprise\"
+var ship_position = 0
+var shield = 9
+var armor = 12
+var pursuit = 8
+var escape = 4
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"1 Fusion Pulse Turret\", \"button_name\": \"Fusion Pulse Turret\",
+		\"phase\": 3, \"shield\": 11, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_nesf7")
+script = SubResource("GDScript_dtuce")

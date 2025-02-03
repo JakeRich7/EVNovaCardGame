@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd6a180o403ow"]
+
+[ext_resource type="Texture2D" uid="uid://dpjljs02n5hiq" path="res://images/M-F-18 Scout Moash Space-Federation Viper.png" id="1_chumf"]
+
+[sub_resource type="GDScript" id="GDScript_84inv"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-F-18 Scout Moash Space-Federation Viper\"
+var ship_button_name = \"Viper\"
+var ship_position = 0
+var shield = 5
+var armor = 3
+var pursuit = 14
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"3 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 8, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_chumf")
+script = SubResource("GDScript_84inv")

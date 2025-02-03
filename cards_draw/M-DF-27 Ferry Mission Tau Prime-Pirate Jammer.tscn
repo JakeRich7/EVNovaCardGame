@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbq5sf2skoife"]
+
+[ext_resource type="Texture2D" uid="uid://ckfvxf8osx5w8" path="res://images/M-DF-27 Ferry Mission Tau Prime-Pirate Jammer.png" id="1_q4rky"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_1la2u"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_q4rky")
+script = ExtResource("2_1la2u")

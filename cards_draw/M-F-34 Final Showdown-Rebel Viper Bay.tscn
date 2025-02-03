@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnmumcid4d4ub"]
+
+[ext_resource type="Texture2D" uid="uid://cvf0jngwy5ctx" path="res://images/M-F-34 Final Showdown-Rebel Viper Bay.png" id="1_jh8fx"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_50eey"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_jh8fx")
+script = ExtResource("2_50eey")

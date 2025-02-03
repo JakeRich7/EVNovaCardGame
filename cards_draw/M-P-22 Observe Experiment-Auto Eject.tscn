@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmxvbocsrvynl"]
+
+[ext_resource type="Texture2D" uid="uid://bnnmqiddkai2t" path="res://images/M-P-22 Observe Experiment-Auto Eject.png" id="1_lp4xk"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_4tpnp"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_lp4xk")
+script = ExtResource("2_4tpnp")

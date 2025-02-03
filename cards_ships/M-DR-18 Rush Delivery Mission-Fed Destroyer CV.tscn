@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbkfu7cb5vw2k"]
+
+[ext_resource type="Texture2D" uid="uid://l5agtgpyr5sq" path="res://images/M-DR-18 Rush Delivery Mission-Fed Destroyer CV.png" id="1_iahem"]
+
+[sub_resource type="GDScript" id="GDScript_xuwwc"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"M-DR-18 Rush Delivery Mission-Fed Destroyer CV\"
+var ship_button_name = \"Destroyer CV\"
+var ship_position = 0
+var shield = 14
+var armor = 13
+var pursuit = 8
+var escape = 4
+var cost = 8
+var attacks = [
+	{
+		\"name\": \"Viper Bay\", \"button_name\": \"Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_iahem")
+script = SubResource("GDScript_xuwwc")

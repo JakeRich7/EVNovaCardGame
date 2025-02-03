@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxfiiueo0y111"]
+
+[ext_resource type="Texture2D" uid="uid://3jqfstmqre0t" path="res://images/M-F-19 Distract Moash House-Hellhound MSL Lnchr.png" id="1_oye8v"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_1qdfs"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_oye8v")
+script = ExtResource("2_1qdfs")

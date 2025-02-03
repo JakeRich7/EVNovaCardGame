@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://drjkmn81m8hin"]
+
+[ext_resource type="Texture2D" uid="uid://denyy8gs52wfc" path="res://images/M-F-05 Federation Resupply 6-Heavy Blaster Turret.png" id="1_q061c"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_u5keg"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_q061c")
+script = ExtResource("2_u5keg")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba1w0nxxre8yi"]
+
+[ext_resource type="Texture2D" uid="uid://c7i3mb3f8q2ln" path="res://images/M-F-33 Destroy Polaris Ships-Rebel IR Jammer.png" id="1_iva6b"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_vn4fv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_iva6b")
+script = ExtResource("2_vn4fv")

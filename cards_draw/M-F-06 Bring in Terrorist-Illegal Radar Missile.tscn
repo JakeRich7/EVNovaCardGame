@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bylyp260rcg5y"]
+
+[ext_resource type="Texture2D" uid="uid://bla5ty4um2iom" path="res://images/M-F-06 Bring in Terrorist-Illegal Radar Missile.png" id="1_hl4nd"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_b1c77"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_hl4nd")
+script = ExtResource("2_b1c77")

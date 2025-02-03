@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://e5p62m6vcnc7"]
+
+[ext_resource type="Texture2D" uid="uid://lkxbbq6yescr" path="res://images/M-P-23 Capture Vellos-Carbon Fiber.png" id="1_g3nkp"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_alitb"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_g3nkp")
+script = ExtResource("2_alitb")

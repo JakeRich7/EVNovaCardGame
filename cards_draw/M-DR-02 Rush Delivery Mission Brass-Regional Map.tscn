@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://qes5khcx4um7"]
+
+[ext_resource type="Texture2D" uid="uid://cdbxtl6pqeri2" path="res://images/M-DR-02 Rush Delivery Mission Brass-Regional Map.png" id="1_mcw74"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_3rn4j"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mcw74")
+script = ExtResource("2_3rn4j")

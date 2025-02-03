@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2qmvmbjt0qfq"]
+
+[ext_resource type="Texture2D" uid="uid://di0hjwwmjtrqp" path="res://images/M-F-04 Federation Resupply 5-Viper Bay.png" id="1_ebgv4"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_1ujma"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ebgv4")
+script = ExtResource("2_1ujma")

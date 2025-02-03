@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://drxbygr1lvsra"]
+
+[ext_resource type="Texture2D" uid="uid://bh2eo1qsw4mm4" path="res://images/M-P-11 More Reinforcements-Radar Missile.png" id="1_ul100"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_gcs31"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ul100")
+script = ExtResource("2_gcs31")

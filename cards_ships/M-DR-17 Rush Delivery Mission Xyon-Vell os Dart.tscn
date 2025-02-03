@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://qguowtai7opj"]
+
+[ext_resource type="Texture2D" uid="uid://cgylgxvcq1nsu" path="res://images/M-DR-17 Rush Delivery Mission Xyon-Vell os Dart.png" id="1_optpg"]
+
+[sub_resource type="GDScript" id="GDScript_o52ed"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"M-DR-17 Rush Delivery Mission Xyon-Vell os Dart\"
+var ship_button_name = \"Dart\"
+var ship_position = 0
+var shield = 9
+var armor = 2
+var pursuit = 16
+var escape = 8
+var cost = 0
+var attacks = [
+	{
+		\"name\": \"Telepath Flower of Spring\", \"button_name\": \"Flower of Spring\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 12, \"pursuit\": null, \"ammo\": 5
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_optpg")
+script = SubResource("GDScript_o52ed")

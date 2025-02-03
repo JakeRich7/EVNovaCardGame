@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxysni6rxkdau"]
+
+[ext_resource type="Texture2D" uid="uid://duhmt57neeqk8" path="res://images/M-P-31 Take Polaris Council to Iuso-Fusion Reactor.png" id="1_dydsf"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_kav1p"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dydsf")
+script = ExtResource("2_kav1p")
