@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt3hcqcacb84d"]
+
+[ext_resource type="Texture2D" uid="uid://dk6vs001svd5f" path="res://images/P-F-22 Herald-Solar Panels.png" id="1_tkdw8"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_k65pb"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_tkdw8")
+script = ExtResource("2_k65pb")

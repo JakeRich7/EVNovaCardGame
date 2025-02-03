@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c70spivyehelr"]
+
+[ext_resource type="Texture2D" uid="uid://dqfssbypdr7ll" path="res://images/P-F-28 Las Vegas-Thunderhead Lance.png" id="1_bm21u"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_4vl1x"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_bm21u")
+script = ExtResource("2_4vl1x")

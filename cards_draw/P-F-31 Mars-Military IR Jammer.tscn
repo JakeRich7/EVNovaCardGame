@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ekrfsot7mf5j"]
+
+[ext_resource type="Texture2D" uid="uid://dgepc2rgd6wbw" path="res://images/P-F-31 Mars-Military IR Jammer.png" id="1_w1088"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_xkmhv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_w1088")
+script = ExtResource("2_xkmhv")

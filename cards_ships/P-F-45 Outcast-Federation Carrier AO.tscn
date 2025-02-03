@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuj2lqvccdksf"]
+
+[ext_resource type="Texture2D" uid="uid://y51ustjcmlwg" path="res://images/P-F-45 Outcast-Federation Carrier AO.png" id="1_g243e"]
+
+[sub_resource type="GDScript" id="GDScript_y6awp"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"P-F-45 Outcast-Federation Carrier AO\"
+var ship_button_name = \"Carrier AO\"
+var ship_position = 0
+var shield = 19
+var armor = 17
+var pursuit = 7
+var escape = 4
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"2 Anaconda Bays\", \"button_name\": \"Anaconda Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
+	},
+	{
+		\"name\": \"3 Viper Bays\", \"button_name\": \"Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 12
+	},
+	{
+		\"name\": \"2 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_g243e")
+script = SubResource("GDScript_y6awp")

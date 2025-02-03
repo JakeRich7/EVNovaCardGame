@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://56h2monqebkc"]
+
+[ext_resource type="Texture2D" uid="uid://cbqhrf5tk7aam" path="res://images/P-F-38 Nil a He-Fission Reactor Cheap.png" id="1_085ke"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_kkmsy"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_085ke")
+script = ExtResource("2_kkmsy")

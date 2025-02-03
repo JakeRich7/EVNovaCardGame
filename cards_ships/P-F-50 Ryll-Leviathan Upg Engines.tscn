@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc0dh2kabpk04"]
+
+[ext_resource type="Texture2D" uid="uid://cbywjxmj7k6cb" path="res://images/P-F-50 Ryll-Leviathan Upg Engines.png" id="1_buquo"]
+
+[sub_resource type="GDScript" id="GDScript_51omg"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-F-50 Ryll-Leviathan Upg Engines\"
+var ship_button_name = \"Leviathan, Upg. Engines\"
+var ship_position = 0
+var shield = 12
+var armor = 7
+var pursuit = 6
+var escape = 3
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"4 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 26, \"armor\": 22, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_buquo")
+script = SubResource("GDScript_51omg")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://my2bny3t2cv5"]
+
+[ext_resource type="Texture2D" uid="uid://bcmxlvdxppicy" path="res://images/P-F-48 Rauther-Raven Rocket Turret.png" id="1_5b3ew"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_64yjv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_5b3ew")
+script = ExtResource("2_64yjv")

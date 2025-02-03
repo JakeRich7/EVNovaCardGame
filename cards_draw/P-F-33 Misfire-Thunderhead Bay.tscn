@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://do7ju85il36qw"]
+
+[ext_resource type="Texture2D" uid="uid://do54n0wph3vfa" path="res://images/P-F-33 Misfire-Thunderhead Bay.png" id="1_f2boa"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_3p77l"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_f2boa")
+script = ExtResource("2_3p77l")

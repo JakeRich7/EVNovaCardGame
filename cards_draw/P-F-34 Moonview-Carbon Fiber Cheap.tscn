@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b82601bchcqxd"]
+
+[ext_resource type="Texture2D" uid="uid://c4kkg21ngoxli" path="res://images/P-F-34 Moonview-Carbon Fiber Cheap.png" id="1_b04r5"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_t40rr"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_b04r5")
+script = ExtResource("2_t40rr")

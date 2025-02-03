@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3uiml0lb5y2g"]
+
+[ext_resource type="Texture2D" uid="uid://ciuph4vpcs1wp" path="res://images/P-F-37 Nil a Do-Etheric Wake Missile.png" id="1_ewls2"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_8hmgk"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ewls2")
+script = ExtResource("2_8hmgk")

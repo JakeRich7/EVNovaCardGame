@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://do5603qvhvet5"]
+
+[ext_resource type="Texture2D" uid="uid://dcw8uriw1kml6" path="res://images/P-F-24 Kerensky-Military IR Jammer Cheap.png" id="1_oihhd"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_f5tfw"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_oihhd")
+script = ExtResource("2_f5tfw")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4g1qwaqgylv0"]
+
+[ext_resource type="Texture2D" uid="uid://bm26uxrabmjsn" path="res://images/P-F-30 Mairim-Fed PT Boat HAV.png" id="1_8w7h7"]
+
+[sub_resource type="GDScript" id="GDScript_rdybe"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"P-F-30 Mairim-Fed PT Boat HAV\"
+var ship_button_name = \"PT Boat HAV\"
+var ship_position = 0
+var shield = 11
+var armor = 9
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 14, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Hellhound Missiles\", \"button_name\": \"Hellhound Missiles\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 26, \"pursuit\": 16, \"ammo\": 5
+	},
+	{
+		\"name\": \"2 Light Blaster Turrets\", \"button_name\": \"Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 10, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 9, \"armor\": 9, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"PD Quad Lt. Blaster Turret\", \"button_name\": \"Quad Lt. Blaster Turret\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_8w7h7")
+script = SubResource("GDScript_rdybe")
