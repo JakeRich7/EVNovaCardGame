@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddupqepfm7xu0"]
+
+[ext_resource type="Texture2D" uid="uid://bq5nf6m82jk8i" path="res://images/TR-10 Trade Route Equipment-Sigma Mass Addition.png" id="1_pm2iy"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_cwp80"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_pm2iy")
+script = ExtResource("2_cwp80")

@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctibjhqihejsi"]
+
+[ext_resource type="Texture2D" uid="uid://bgp0ko8u70bay" path="res://images/TR-43 Trade Route Opals-Starbridge B.png" id="1_b32ra"]
+
+[sub_resource type="GDScript" id="GDScript_upumg"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"TR-43 Trade Route Opals-Starbridge B\"
+var ship_button_name = \"Starbridge B\"
+var ship_position = 0
+var shield = 12
+var armor = 5
+var pursuit = 11
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 3
+	},
+	{
+		\"name\": \"3 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 9, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_b32ra")
+script = SubResource("GDScript_upumg")

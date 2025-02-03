@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cubewhj0sjx7e"]
+
+[ext_resource type="Texture2D" uid="uid://c52ojvtdyyso7" path="res://images/TR-25 Trade Route Industrial-Viper Auroran Outfits.png" id="1_kvk81"]
+
+[sub_resource type="GDScript" id="GDScript_1ulqk"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"TR-25 Trade Route Industrial-Viper Auroran Outfits\"
+var ship_button_name = \"Viper, Auroran Outfits\"
+var ship_position = 0
+var shield = 5
+var armor = 3
+var pursuit = 17
+var escape = 7
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 19, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 20, \"pursuit\": null, \"ammo\": 3
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_kvk81")
+script = SubResource("GDScript_1ulqk")

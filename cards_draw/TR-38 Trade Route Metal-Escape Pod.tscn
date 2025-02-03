@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://btgnuhal8a4u5"]
+
+[ext_resource type="Texture2D" uid="uid://dhtk4wgvetehx" path="res://images/TR-38 Trade Route Metal-Escape Pod.png" id="1_x2ov1"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_ftw1u"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_x2ov1")
+script = ExtResource("2_ftw1u")

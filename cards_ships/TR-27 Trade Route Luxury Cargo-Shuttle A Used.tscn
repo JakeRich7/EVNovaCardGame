@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://hkr5p23rf11p"]
+
+[ext_resource type="Texture2D" uid="uid://bbidfhpufcsqu" path="res://images/TR-27 Trade Route Luxury Cargo-Shuttle A Used.png" id="1_i76qy"]
+
+[sub_resource type="GDScript" id="GDScript_1x25c"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"TR-27 Trade Route Luxury Cargo-Shuttle A Used\"
+var ship_button_name = \"Shuttle A\"
+var ship_position = 0
+var shield = 3
+var armor = 3
+var pursuit = 11
+var escape = 6
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"Light Blaster\", \"button_name\": \"Light Blaster\",
+		\"phase\": 4, \"shield\": 8, \"armor\": 6, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_i76qy")
+script = SubResource("GDScript_1x25c")

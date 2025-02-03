@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6wrvlphf55q1"]
+
+[ext_resource type="Texture2D" uid="uid://dm5xt0cqeiqkv" path="res://images/TR-35 Trade Route Medical-Rebel Viper Interceptor.png" id="1_23ad1"]
+
+[sub_resource type="GDScript" id="GDScript_eqcxt"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"TR-35 Trade Route Medical-Rebel Viper Interceptor\"
+var ship_button_name = \"Viper Interceptor\"
+var ship_position = 0
+var shield = 8
+var armor = 7
+var pursuit = 14
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Thunderhead Lance\", \"button_name\": \"Thunderhead Lance\",
+		\"phase\": 5, \"shield\": 15, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_23ad1")
+script = SubResource("GDScript_eqcxt")

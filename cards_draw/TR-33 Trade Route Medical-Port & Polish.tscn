@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://2ae2fluf4cbn"]
+
+[ext_resource type="Texture2D" uid="uid://bnit2xt2y3cux" path="res://images/TR-33 Trade Route Medical-Port & Polish.png" id="1_4rsio"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_qsbqt"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_4rsio")
+script = ExtResource("2_qsbqt")

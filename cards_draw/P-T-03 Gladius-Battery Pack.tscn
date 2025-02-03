@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqm6e1uu26onj"]
+
+[ext_resource type="Texture2D" uid="uid://dry0vvgfppf4s" path="res://images/P-T-03 Gladius-Battery Pack.png" id="1_ua7um"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_duso2"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ua7um")
+script = ExtResource("2_duso2")

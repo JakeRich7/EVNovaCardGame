@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1488rqsgd1xr"]
+
+[ext_resource type="Texture2D" uid="uid://mwc462ngspn5" path="res://images/TR-24 Trade Route Industrial-Event Auroran Drop Bear.png" id="1_woaxx"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_k1frs"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_woaxx")
+script = ExtResource("2_k1frs")

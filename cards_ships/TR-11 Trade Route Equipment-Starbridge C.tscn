@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://cthlei01lqdi8"]
+
+[ext_resource type="Texture2D" uid="uid://vjm5gjf78u7b" path="res://images/TR-11 Trade Route Equipment-Starbridge C.png" id="1_cp8fl"]
+
+[sub_resource type="GDScript" id="GDScript_ag1v8"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"TR-11 Trade Route Equipment-Starbridge C\"
+var ship_button_name = \"Starbridge C\"
+var ship_position = 0
+var shield = 12
+var armor = 5
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"3 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 9, \"armor\": 12, \"pursuit\": 15, \"ammo\": 2
+	},
+	{
+		\"name\": \"Hellhound Missile\", \"button_name\": \"Hellhound Missile\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 26, \"pursuit\": 15, \"ammo\": 10
+	},
+	{
+		\"name\": \"3 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_cp8fl")
+script = SubResource("GDScript_ag1v8")

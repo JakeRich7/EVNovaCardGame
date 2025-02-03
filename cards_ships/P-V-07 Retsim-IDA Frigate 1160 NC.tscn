@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt37j8ov7td0d"]
+
+[ext_resource type="Texture2D" uid="uid://k5co2suftmpe" path="res://images/P-V-07 Retsim-IDA Frigate 1160 NC.png" id="1_a0w3p"]
+
+[sub_resource type="GDScript" id="GDScript_1hp6f"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-V-07 Retsim-IDA Frigate 1160 NC\"
+var ship_button_name = \"IDA Frigate 1160 NC\"
+var ship_position = 0
+var shield = 13
+var armor = 15
+var pursuit = 9
+var escape = 5
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 8
+	},
+	{
+		\"name\": \"2 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 23, \"armor\": 19, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"1 PD Quad Lt. Blaster Turret\", \"button_name\": \"Quad Lt. Blaster Turret\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 7, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_a0w3p")
+script = SubResource("GDScript_1hp6f")

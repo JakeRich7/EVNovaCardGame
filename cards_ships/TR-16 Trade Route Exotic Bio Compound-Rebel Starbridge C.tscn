@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhs74utklx6ea"]
+
+[ext_resource type="Texture2D" uid="uid://bfqhv14k6goic" path="res://images/TR-16 Trade Route Exotic Bio Compound-Rebel Starbridge C.png" id="1_oxgou"]
+
+[sub_resource type="GDScript" id="GDScript_qnwop"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"TR-16 Trade Route Exotic Bio Compound-Rebel Starbridge C\"
+var ship_button_name = \"Starbridge C\"
+var ship_position = 0
+var shield = 11
+var armor = 6
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"3 Grav Missiles\", \"button_name\": \"Grav Missiles\",
+		\"phase\": 1, \"shield\": 19, \"armor\": 26, \"pursuit\": 18, \"ammo\": 8
+	},
+	{
+		\"name\": \"4 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 17, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Light Blaster Turrets\", \"button_name\": \"Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 10, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_oxgou")
+script = SubResource("GDScript_qnwop")

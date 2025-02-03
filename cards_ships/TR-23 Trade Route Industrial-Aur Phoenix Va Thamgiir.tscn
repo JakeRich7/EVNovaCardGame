@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx3yvn2m7w5t0"]
+
+[ext_resource type="Texture2D" uid="uid://d31ch1x0gcgkw" path="res://images/TR-23 Trade Route Industrial-Aur Phoenix Va Thamgiir.png" id="1_mgj46"]
+
+[sub_resource type="GDScript" id="GDScript_i5b1v"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"TR-23 Trade Route Industrial-Aur Phoenix Va Thamgiir\"
+var ship_button_name = \"Phoenix Va Thamgiir\"
+var ship_position = 0
+var shield = 4
+var armor = 5
+var pursuit = 12
+var escape = 6
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Fusion Pulse Turrets\", \"button_name\": \"Fusion Pulse Turrets\",
+		\"phase\": 3, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mgj46")
+script = SubResource("GDScript_i5b1v")

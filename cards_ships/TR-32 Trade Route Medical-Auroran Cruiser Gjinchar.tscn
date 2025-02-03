@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4c3owgrrr5o4"]
+
+[ext_resource type="Texture2D" uid="uid://cxhh0f1wk45ok" path="res://images/TR-32 Trade Route Medical-Auroran Cruiser Gjinchar.png" id="1_io1xc"]
+
+[sub_resource type="GDScript" id="GDScript_nd58k"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"TR-32 Trade Route Medical-Auroran Cruiser Gjinchar\"
+var ship_button_name = \"Cruiser Gjinchar\"
+var ship_position = 0
+var shield = 9
+var armor = 20
+var pursuit = 8
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"6 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 22, \"armor\": 27, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": 18, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Fusion Pulse Batteries\", \"button_name\": \"Fusion Pulse Batteries\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 14, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 24, \"pursuit\": null, \"ammo\": 10
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_io1xc")
+script = SubResource("GDScript_nd58k")

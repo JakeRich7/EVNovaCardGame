@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://7vl068cqmljf"]
+
+[ext_resource type="Texture2D" uid="uid://kuuoknge6nkq" path="res://images/TR-40 Trade Route Opals-Polaris Dragon.png" id="1_52b6s"]
+
+[sub_resource type="GDScript" id="GDScript_36c40"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"TR-40 Trade Route Opals-Polaris Dragon\"
+var ship_button_name = \"Dragon\"
+var ship_position = 0
+var shield = 11
+var armor = 8
+var pursuit = 11
+var escape = 5
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"Wraith Cannon\", \"button_name\": \"Wraith Cannon\",
+		\"phase\": 3, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": 20
+	},
+	{
+		\"name\": \"BioRelay Laser\", \"button_name\": \"BioRelay Laser\",
+		\"phase\": 4, \"shield\": 17, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_52b6s")
+script = SubResource("GDScript_36c40")

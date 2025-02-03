@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://oj8aby4qu3hk"]
+
+[ext_resource type="Texture2D" uid="uid://bi4vo4tnpgxf8" path="res://images/P-T-02 Gladius Shipyards-Cargo Drone.png" id="1_a54ol"]
+
+[sub_resource type="GDScript" id="GDScript_cxvrp"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-T-02 Gladius Shipyards-Cargo Drone\"
+var ship_button_name = \"Cargo Drone\"
+var ship_position = 0
+var shield = 2
+var armor = 2
+var pursuit = 9
+var escape = 4
+var cost = 1
+var attacks = []
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_a54ol")
+script = SubResource("GDScript_cxvrp")

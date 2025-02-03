@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbjglya3w0jk8"]
+
+[ext_resource type="Texture2D" uid="uid://jk2bj3nuautn" path="res://images/TR-31 Trade Route Luxury-Regional Map.png" id="1_7vfsp"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_uvfkx"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_7vfsp")
+script = ExtResource("2_uvfkx")

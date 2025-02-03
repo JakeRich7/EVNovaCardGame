@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcuc6i3m8eiat"]
+
+[ext_resource type="Texture2D" uid="uid://jnvvd7j3pagn" path="res://images/P-U-1 Korell-Regional Map.png" id="1_hyqa1"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_7hduu"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_hyqa1")
+script = ExtResource("2_7hduu")

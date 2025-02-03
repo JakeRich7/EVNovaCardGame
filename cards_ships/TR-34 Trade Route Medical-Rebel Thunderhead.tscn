@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkqjwe7gfxwml"]
+
+[ext_resource type="Texture2D" uid="uid://cssmos66um0bi" path="res://images/TR-34 Trade Route Medical-Rebel Thunderhead.png" id="1_umssy"]
+
+[sub_resource type="GDScript" id="GDScript_v717e"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"TR-34 Trade Route Medical-Rebel Thunderhead\"
+var ship_button_name = \"Thunderhead\"
+var ship_position = 0
+var shield = 7
+var armor = 7
+var pursuit = 13
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"100mm Railgun\", \"button_name\": \"100mm Railgun\",
+		\"phase\": 1, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Wraith Cannons\", \"button_name\": \"Wraith Cannons\",
+		\"phase\": 3, \"shield\": 19, \"armor\": 20, \"pursuit\": null, \"ammo\": 20
+	},
+	{
+		\"name\": \"1 Medium Blaster\", \"button_name\": \"Medium Blaster\",
+		\"phase\": 4, \"shield\": 11, \"armor\": 9, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Thunderhead Lances\", \"button_name\": \"Thunderhead Lances\",
+		\"phase\": 5, \"shield\": 18, \"armor\": 18, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_umssy")
+script = SubResource("GDScript_v717e")

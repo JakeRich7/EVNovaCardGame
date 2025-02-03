@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://jf7vivarjrsi"]
+
+[ext_resource type="Texture2D" uid="uid://c2g4bf1awre6l" path="res://images/TR-22 Trade Route Industrial-Aur Phoenix Frunch ek.png" id="1_u3jdw"]
+
+[sub_resource type="GDScript" id="GDScript_470uh"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"TR-22 Trade Route Industrial-Aur Phoenix Frunch ek\"
+var ship_button_name = \"Phoenix Frunch'ek\"
+var ship_position = 0
+var shield = 4
+var armor = 6
+var pursuit = 14
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"100mm Railgun\", \"button_name\": \"100mm Railgun\",
+		\"phase\": 1, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 15, \"armor\": 20, \"pursuit\": 17, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 3, \"shield\": 16, \"armor\": 20, \"pursuit\": null, \"ammo\": 2
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_u3jdw")
+script = SubResource("GDScript_470uh")

@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlrcd244rjy00"]
+
+[ext_resource type="Texture2D" uid="uid://m0ca4i3d6exo" path="res://images/TR-26 Trade Route Industrial-Wraith Adult.png" id="1_x0oht"]
+
+[sub_resource type="GDScript" id="GDScript_4jxlx"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"TR-26 Trade Route Industrial-Wraith Adult\"
+var ship_button_name = \"Wraith Adult\"
+var ship_position = 0
+var shield = 12
+var armor = 12
+var pursuit = null
+var escape = 6
+var cost = 0
+var attacks = [
+	{
+		\"name\": \"Adult Wraith Grav Beam\", \"button_name\": \"Grav Beam\",
+		\"phase\": 4, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_x0oht")
+script = SubResource("GDScript_4jxlx")

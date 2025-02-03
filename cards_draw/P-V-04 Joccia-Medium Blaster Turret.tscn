@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://k6d4aw5k4n2c"]
+
+[ext_resource type="Texture2D" uid="uid://u6syquhjf735" path="res://images/P-V-04 Joccia-Medium Blaster Turret.png" id="1_gi522"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_fir0w"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_gi522")
+script = ExtResource("2_fir0w")

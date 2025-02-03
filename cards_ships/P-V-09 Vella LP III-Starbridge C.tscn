@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0oamn5ecomcr"]
+
+[ext_resource type="Texture2D" uid="uid://c0r16ipqqddc1" path="res://images/P-V-09 Vella LP III-Starbridge C.png" id="1_1ssu8"]
+
+[sub_resource type="GDScript" id="GDScript_4h74a"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-V-09 Vella LP III-Starbridge C\"
+var ship_button_name = \"Starbridge C\"
+var ship_position = 0
+var shield = 12
+var armor = 5
+var pursuit = 11
+var escape = 5
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"Hellhound Missile\", \"button_name\": \"Hellhound Missile\",
+		\"phase\": 2, \"shield\": 15, \"armor\": 23, \"pursuit\": 15, \"ammo\": 10
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_1ssu8")
+script = SubResource("GDScript_4h74a")

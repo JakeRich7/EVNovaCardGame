@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqngnjbl8pivy"]
+
+[ext_resource type="Texture2D" uid="uid://bh433jpbqmko8" path="res://images/TR-13 Trade Route Equipment-Tekel Cruiser Gjinchar.png" id="1_mwsgc"]
+
+[sub_resource type="GDScript" id="GDScript_f0ogi"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"TR-13 Trade Route Equipment-Tekel Cruiser Gjinchar\"
+var ship_button_name = \"Cruiser Gjinchar\"
+var ship_position = 0
+var shield = 7
+var armor = 19
+var pursuit = 8
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"2 100mm Railguns\", \"button_name\": \"100mm Railguns\",
+		\"phase\": 1, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 16, \"armor\": 21, \"pursuit\": 19, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Fusion Pulse Batteries\", \"button_name\": \"Fusion Pulse Batteries\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 14, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 10
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mwsgc")
+script = SubResource("GDScript_f0ogi")

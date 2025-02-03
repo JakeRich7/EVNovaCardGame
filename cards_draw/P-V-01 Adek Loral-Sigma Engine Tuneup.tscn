@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqe1voqvhuceg"]
+
+[ext_resource type="Texture2D" uid="uid://gptilco1j5a0" path="res://images/P-V-01 Adek Loral-Sigma Engine Tuneup.png" id="1_j5x6t"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_svvsx"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_j5x6t")
+script = ExtResource("2_svvsx")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://vrjk2kuitb5x"]
+
+[ext_resource type="Texture2D" uid="uid://b68qair21ktuy" path="res://images/TR-46 Trade Route Vrenna Ice Pelts-Auto Eject.png" id="1_2tyu4"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_bi2o2"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_2tyu4")
+script = ExtResource("2_bi2o2")

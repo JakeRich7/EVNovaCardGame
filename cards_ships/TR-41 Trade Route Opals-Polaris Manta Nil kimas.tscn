@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://chre2ysv1q341"]
+
+[ext_resource type="Texture2D" uid="uid://m0gqn1qnr5k3" path="res://images/TR-41 Trade Route Opals-Polaris Manta Nil kimas.png" id="1_joi6u"]
+
+[sub_resource type="GDScript" id="GDScript_xjwjt"]
+script/source = "extends Sprite2D
+
+var type = \"polaris\"
+var ship_name = \"TR-41 Trade Route Opals-Polaris Manta Nil kimas\"
+var ship_button_name = \"Manta Nil'kimas\"
+var ship_position = 0
+var shield = 8
+var armor = 6
+var pursuit = 16
+var escape = 8
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"3 Wraith Cannon\", \"button_name\": \"Wraith Cannon\",
+		\"phase\": 3, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 BioRelay Lasers\", \"button_name\": \"BioRelay Lasers\",
+		\"phase\": 4, \"shield\": 18, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_joi6u")
+script = SubResource("GDScript_xjwjt")

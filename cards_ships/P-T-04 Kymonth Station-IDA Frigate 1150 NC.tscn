@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccjbum6xhklnj"]
+
+[ext_resource type="Texture2D" uid="uid://cm2lj5ty4lbh0" path="res://images/P-T-04 Kymonth Station-IDA Frigate 1150 NC.png" id="1_k57pp"]
+
+[sub_resource type="GDScript" id="GDScript_xxqfx"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-T-04 Kymonth Station-IDA Frigate 1150 NC\"
+var ship_button_name = \"IDA Frigate 1150 NC\"
+var ship_position = 0
+var shield = 12
+var armor = 15
+var pursuit = 8
+var escape = 4
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"Raven Turret\", \"button_name\": \"Raven Turret\",
+		\"phase\": 2, \"shield\": 11, \"armor\": 13, \"pursuit\": 14, \"ammo\": 10
+	},
+	{
+		\"name\": \"4 Medium Blaster Turrets\", \"button_name\": \"Medium Blaster Turrets\",
+		\"phase\": 3, \"shield\": 19, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 9, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_k57pp")
+script = SubResource("GDScript_xxqfx")

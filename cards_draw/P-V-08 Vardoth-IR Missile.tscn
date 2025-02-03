@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://sqj15ni0fhmg"]
+
+[ext_resource type="Texture2D" uid="uid://o5dyekasycht" path="res://images/P-V-08 Vardoth-IR Missile.png" id="1_xguio"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_wjttj"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_xguio")
+script = ExtResource("2_wjttj")

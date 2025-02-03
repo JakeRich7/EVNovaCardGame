@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr4ai2dy0houn"]
+
+[ext_resource type="Texture2D" uid="uid://dkb5ing7mg426" path="res://images/TR-28 Trade Route Luxury Cargo-Sigma Mass Addition.png" id="1_btcpu"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_g2pty"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_btcpu")
+script = ExtResource("2_g2pty")

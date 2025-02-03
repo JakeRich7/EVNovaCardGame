@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfavaa1yrkehl"]
+
+[ext_resource type="Texture2D" uid="uid://bsjths6fqbntr" path="res://images/TR-47 Trade Route Vrenna Ice Pelts-Cargo Expansion.png" id="1_xxnt4"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_q1wvg"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_xxnt4")
+script = ExtResource("2_q1wvg")
