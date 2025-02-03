@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://caccqwkh1ibbu"]
+
+[ext_resource type="Texture2D" uid="uid://ccy2m6ap8ebdp" path="res://images/P-A-35 Rimerta-200mm Railgun.png" id="1_u4ovk"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_0o5mq"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_u4ovk")
+script = ExtResource("2_0o5mq")

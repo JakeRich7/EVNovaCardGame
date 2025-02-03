@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsb7sh044jm4i"]
+
+[ext_resource type="Texture2D" uid="uid://cps0it7dry3t8" path="res://images/M-R-06 Rebel Insertion-Illegal Rebel Cloak.png" id="1_dlo7f"]
+[ext_resource type="Script" path="res://cards_draw_scripts/6.gd" id="2_c2nw2"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dlo7f")
+script = ExtResource("2_c2nw2")

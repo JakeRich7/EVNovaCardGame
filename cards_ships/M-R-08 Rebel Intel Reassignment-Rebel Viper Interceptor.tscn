@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbo01w2re05mh"]
+
+[ext_resource type="Texture2D" uid="uid://c7m1lc0hdtv7u" path="res://images/M-R-08 Rebel Intel Reassignment-Rebel Viper Interceptor.png" id="1_dis8c"]
+
+[sub_resource type="GDScript" id="GDScript_uawx0"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-R-08 Rebel Intel Reassignment-Rebel Viper Interceptor\"
+var ship_button_name = \"Viper Interceptor\"
+var ship_position = 0
+var shield = 7
+var armor = 4
+var pursuit = 14
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"3 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 10, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dis8c")
+script = SubResource("GDScript_uawx0")

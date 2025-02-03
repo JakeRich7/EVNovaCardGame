@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfri6yp3m25xo"]
+
+[ext_resource type="Texture2D" uid="uid://db3v2s1ptvu1p" path="res://images/P-A-07 Auroran LP III-Matrix Steel.png" id="1_o7aip"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_e770u"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_o7aip")
+script = ExtResource("2_e770u")

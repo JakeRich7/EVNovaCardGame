@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://g5tc33s4xux2"]
+
+[ext_resource type="Texture2D" uid="uid://cb5xc5wh1tqy2" path="res://images/P-A-26 Nibos Prime-Fusion Pulse Turret D.png" id="1_twwg3"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_u5wq1"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_twwg3")
+script = ExtResource("2_u5wq1")

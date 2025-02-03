@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://bql8ka80gi3j7"]
+
+[ext_resource type="Texture2D" uid="uid://ce2yugtpktai6" path="res://images/M-SS-1 Sigma Shipyards 01-Pirate Viper Beam Var.png" id="1_rx00u"]
+
+[sub_resource type="GDScript" id="GDScript_q3f72"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-SS-1 Sigma Shipyards 01-Pirate Viper Beam Var\"
+var ship_button_name = \"Viper Beam Var.\"
+var ship_position = 0
+var shield = 5
+var armor = 3
+var pursuit = 14
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"1 Thunderhead Lance\", \"button_name\": \"Thunderhead Lance\",
+		\"phase\": 5, \"shield\": 15, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_rx00u")
+script = SubResource("GDScript_q3f72")

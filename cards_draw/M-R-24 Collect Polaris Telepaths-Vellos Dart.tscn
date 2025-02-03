@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhpj5m2yqi1dg"]
+
+[ext_resource type="Texture2D" uid="uid://cehbgxd3jyyy" path="res://images/M-R-24 Collect Polaris Telepaths-Vellos Dart.png" id="1_8l6on"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_fmmlr"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_8l6on")
+script = ExtResource("2_fmmlr")

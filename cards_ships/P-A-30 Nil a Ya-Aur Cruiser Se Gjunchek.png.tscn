@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://m7cn78xj2xvb"]
+
+[ext_resource type="Texture2D" uid="uid://cgah1yeu4fbhj" path="res://images/P-A-30 Nil a Ya-Aur Cruiser Se Gjunchek.png" id="1_tcs0t"]
+
+[sub_resource type="GDScript" id="GDScript_6asvc"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-A-30 Nil a Ya-Aur Cruiser Se Gjunchek.png\"
+var ship_button_name = \"Cruiser Se Gjunchek\"
+var ship_position = 0
+var shield = 7
+var armor = 18
+var pursuit = 9
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 16, \"armor\": 21, \"pursuit\": 19, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 20, \"pursuit\": null, \"ammo\": 10
+	},
+	{
+		\"name\": \"4 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 24, \"pursuit\": null, \"ammo\": 10
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_tcs0t")
+script = SubResource("GDScript_6asvc")

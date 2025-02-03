@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqw2f7dximjxc"]
+
+[ext_resource type="Texture2D" uid="uid://ciyngujlcxi14" path="res://images/P-F-05 Cornwall-Mining Laser.png" id="1_spvun"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_k46qg"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_spvun")
+script = ExtResource("2_k46qg")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv51kp8gjvj5k"]
+
+[ext_resource type="Texture2D" uid="uid://cfs4w2bru6p4d" path="res://images/P-A-36 Schmoo-Argosy Heavily Modified.png" id="1_g0jbp"]
+
+[sub_resource type="GDScript" id="GDScript_evl37"]
+script/source = "extends Sprite2D
+
+var type = \"\"
+var ship_name = \"\"
+var ship_button_name = \"\"
+var ship_position = 0
+var shield = 9
+var armor = 11
+var pursuit = 9
+var escape = 5
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 150mm Railguns\", \"button_name\": \"150mm Railguns\",
+		\"phase\": 1, \"shield\": 14, \"armor\": 18, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 10, \"armor\": 13, \"pursuit\": 13, \"ammo\": 3
+	},
+	{
+		\"name\": \"2 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_g0jbp")
+script = SubResource("GDScript_evl37")

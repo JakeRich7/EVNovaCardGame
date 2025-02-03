@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://hdyrdp1yfrjo"]
+
+[ext_resource type="Texture2D" uid="uid://dc5upmvjbm2af" path="res://images/P-A-16 Fallen-Chaingun Ammo.png" id="1_td8a1"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_hjwk5"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_td8a1")
+script = ExtResource("2_hjwk5")

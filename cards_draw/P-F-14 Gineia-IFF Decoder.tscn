@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://be2lxpic64a4f"]
+
+[ext_resource type="Texture2D" uid="uid://bb5bvwjmbr277" path="res://images/P-F-14 Gineia-IFF Decoder.png" id="1_nm34e"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_ubple"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_nm34e")
+script = ExtResource("2_ubple")

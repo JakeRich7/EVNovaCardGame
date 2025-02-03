@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://q085m4lroi2r"]
+
+[ext_resource type="Texture2D" uid="uid://dg2gc8lfwj2dv" path="res://images/M-UNS-14 United Shipping 04a-Ionic Particle Cannon.png" id="1_cdyo0"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_j1yts"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_cdyo0")
+script = ExtResource("2_j1yts")

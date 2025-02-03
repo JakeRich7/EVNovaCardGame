@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1g76ny4vp8mm"]
+
+[ext_resource type="Texture2D" uid="uid://xhis47wuys04" path="res://images/P-A-20 Habilis-100mm Railgun Turret.png" id="1_x8hlx"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_reu8i"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_x8hlx")
+script = ExtResource("2_reu8i")

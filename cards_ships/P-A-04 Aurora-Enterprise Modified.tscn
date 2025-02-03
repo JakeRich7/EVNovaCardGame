@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwo2bml4s7ggp"]
+
+[ext_resource type="Texture2D" uid="uid://b25flql66ro31" path="res://images/P-A-04 Aurora-Enterprise Modified.png" id="1_7fqxv"]
+
+[sub_resource type="GDScript" id="GDScript_6iufq"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-A-04 Aurora-Enterprise Modified\"
+var ship_button_name = \"Enterprise, Modified\"
+var ship_position = 0
+var shield = 10
+var armor = 12
+var pursuit = 9
+var escape = 5
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 100mm Railgun Turrets\", \"button_name\": \"Railgun Turrets\",
+		\"phase\": 2, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 15, \"pursuit\": 15, \"ammo\": 3
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_7fqxv")
+script = SubResource("GDScript_6iufq")

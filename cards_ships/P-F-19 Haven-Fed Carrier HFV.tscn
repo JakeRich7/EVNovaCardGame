@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://drm043sq32c8v"]
+
+[ext_resource type="Texture2D" uid="uid://dspa08gyow2nd" path="res://images/P-F-19 Haven-Fed Carrier HFV.png" id="1_6nwex"]
+
+[sub_resource type="GDScript" id="GDScript_jg2hx"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"P-F-19 Haven-Fed Carrier HFV\"
+var ship_button_name = \"Carrier HFV\"
+var ship_position = 0
+var shield = 19
+var armor = 15
+var pursuit = 6
+var escape = 3
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"Thunderhead Bay\", \"button_name\": \"Thunderhead Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Anaconda Bays\", \"button_name\": \"Anaconda Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
+	},
+	{
+		\"name\": \"2 Viper Bays\", \"button_name\": \"Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 8
+	},
+	{
+		\"name\": \"2 Hellhound Missiles\", \"button_name\": \"Hellhound Missiles\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 26, \"pursuit\": 16, \"ammo\": 10
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_6nwex")
+script = SubResource("GDScript_jg2hx")

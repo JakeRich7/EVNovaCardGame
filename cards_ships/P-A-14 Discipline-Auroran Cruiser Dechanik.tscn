@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp2xeg014mq5"]
+
+[ext_resource type="Texture2D" uid="uid://dj6g1rbl5et58" path="res://images/P-A-14 Discipline-Auroran Cruiser Dechanik.png" id="1_undru"]
+
+[sub_resource type="GDScript" id="GDScript_p21jc"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-A-14 Discipline-Auroran Cruiser Dechanik\"
+var ship_button_name = \"Cruiser Dechanik\"
+var ship_position = 0
+var shield = 7
+var armor = 18
+var pursuit = 10
+var escape = 5
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 17, \"armor\": 19, \"pursuit\": 17, \"ammo\": 1
+	},
+	{
+		\"name\": \"4 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 22, \"armor\": 26, \"pursuit\": null, \"ammo\": 5
+	},
+	{
+		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 5
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_undru")
+script = SubResource("GDScript_p21jc")

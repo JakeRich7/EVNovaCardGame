@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd0fhelgb30r3"]
+
+[ext_resource type="Texture2D" uid="uid://10mnx4l1ee7a" path="res://images/M-UNS-16 United Shipping 04b-Manta Bay.png" id="1_si7oa"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_lscme"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_si7oa")
+script = ExtResource("2_lscme")

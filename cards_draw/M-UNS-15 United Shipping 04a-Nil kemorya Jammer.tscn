@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://1gekjuimyvut"]
+
+[ext_resource type="Texture2D" uid="uid://83pc72ywpjxf" path="res://images/M-UNS-15 United Shipping 04a-Nil kemorya Jammer.png" id="1_un8w0"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_5vp3o"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_un8w0")
+script = ExtResource("2_5vp3o")

@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpthcj7cj73aq"]
+
+[ext_resource type="Texture2D" uid="uid://8q02v4pbg3s1" path="res://images/M-UNS-13 United Shipping 04a-Hyperioid.png" id="1_jww8l"]
+
+[sub_resource type="GDScript" id="GDScript_2tqhw"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"M-UNS-13 United Shipping 04a-Hyperioid\"
+var ship_button_name = \"Hyperoid\"
+var ship_position = 0
+var shield = 14
+var armor = 2
+var pursuit = 8
+var escape = 4
+var cost = 1
+var attacks = [
+	{
+		\"name\": \"Solar Lance\", \"button_name\": \"Solar Lance\",
+		\"phase\": 4, \"shield\": 14, \"armor\": 14, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_jww8l")
+script = SubResource("GDScript_2tqhw")

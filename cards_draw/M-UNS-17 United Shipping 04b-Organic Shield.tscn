@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d06ogmofr3q5a"]
+
+[ext_resource type="Texture2D" uid="uid://cmbyay8dhby4p" path="res://images/M-UNS-17 United Shipping 04b-Organic Shield.png" id="1_b4sed"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_umwjc"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_b4sed")
+script = ExtResource("2_umwjc")

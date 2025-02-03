@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://32nf152a4cun"]
+
+[ext_resource type="Texture2D" uid="uid://crmqnxumyl662" path="res://images/M-UNS-10 United Shipping 03-Fusion Reactor.png" id="1_2132b"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_phwy1"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_2132b")
+script = ExtResource("2_phwy1")

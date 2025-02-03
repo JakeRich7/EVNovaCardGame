@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://be7s6if23lwk"]
+
+[ext_resource type="Texture2D" uid="uid://cewcw2po67jm4" path="res://images/P-A-11 Cibella-Auroran Cruiser.png" id="1_li76s"]
+
+[sub_resource type="GDScript" id="GDScript_esb5s"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-A-11 Cibella-Auroran Cruiser\"
+var ship_button_name = \"Cruiser\"
+var ship_position = 0
+var shield = 7
+var armor = 20
+var pursuit = 8
+var escape = 4
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"2 100mm Railguns\", \"button_name\": \"100mm Railguns\",
+		\"phase\": 1, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 16, \"armor\": 21, \"pursuit\": 19, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Fusion Pulse Batteries\", \"button_name\": \"Fusion Pulse Batteries\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 14, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 16
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_li76s")
+script = SubResource("GDScript_esb5s")

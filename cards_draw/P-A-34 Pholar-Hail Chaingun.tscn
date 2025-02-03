@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy242lyp8uy4h"]
+
+[ext_resource type="Texture2D" uid="uid://ceg6p4fv1xcwo" path="res://images/P-A-34 Pholar-Hail Chaingun.png" id="1_kt4w2"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_icf3a"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_kt4w2")
+script = ExtResource("2_icf3a")

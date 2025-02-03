@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8ea32gjdjcl5"]
+
+[ext_resource type="Texture2D" uid="uid://51stbac6wbf4" path="res://images/M-R-17 Scout Aurora-Krypt Pod.png" id="1_haky7"]
+
+[sub_resource type="GDScript" id="GDScript_yc8vh"]
+script/source = "extends Sprite2D
+
+var type = \"alien\"
+var ship_name = \"M-R-17 Scout Aurora-Krypt Pod\"
+var ship_button_name = \"Krypt Pod\"
+var ship_position = 0
+var shield = 18
+var armor = 18
+var pursuit = 17
+var escape = 8
+var cost = 1
+var attacks = [
+	{
+		\"name\": \"Nanites\", \"button_name\": \"Nanites\",
+		\"phase\": 4, \"shield\": null, \"armor\": 21, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_haky7")
+script = SubResource("GDScript_yc8vh")

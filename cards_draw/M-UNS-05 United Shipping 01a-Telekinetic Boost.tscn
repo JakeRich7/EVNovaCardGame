@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c55phbcvhn0mu"]
+
+[ext_resource type="Texture2D" uid="uid://ccmscf7rr4luw" path="res://images/M-UNS-05 United Shipping 01a-Telekinetic Boost.png" id="1_dpdyq"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_q3khr"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dpdyq")
+script = ExtResource("2_q3khr")

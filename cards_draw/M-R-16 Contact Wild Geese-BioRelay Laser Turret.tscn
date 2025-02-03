@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://iwhk4atgvfct"]
+
+[ext_resource type="Texture2D" uid="uid://dfmd7rkqqautg" path="res://images/M-R-16 Contact Wild Geese-BioRelay Laser Turret.png" id="1_cos4r"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_m2dy5"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_cos4r")
+script = ExtResource("2_m2dy5")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://beox5hs6ptfus"]
+
+[ext_resource type="Texture2D" uid="uid://djfb2rme2do7i" path="res://images/P-F-15 GLi Tech nia-Stellar Grenade.png" id="1_ikmgx"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_p7qua"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ikmgx")
+script = ExtResource("2_p7qua")

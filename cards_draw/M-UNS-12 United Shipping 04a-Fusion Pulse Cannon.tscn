@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgj0x2g6k4ov8"]
+
+[ext_resource type="Texture2D" uid="uid://wcedsw5wyr7n" path="res://images/M-UNS-12 United Shipping 04a-Fusion Pulse Cannon.png" id="1_x4dxr"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_7tq4a"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_x4dxr")
+script = ExtResource("2_7tq4a")

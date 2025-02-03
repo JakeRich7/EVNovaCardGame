@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf3hpi0l2l45j"]
+
+[ext_resource type="Texture2D" uid="uid://cg68wpetab3y3" path="res://images/M-R-19 Warn Wild Geese-Tunnelling Organ.png" id="1_dit4d"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_0k712"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_dit4d")
+script = ExtResource("2_0k712")

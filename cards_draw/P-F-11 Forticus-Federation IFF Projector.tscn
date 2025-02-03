@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://boqr5mtgfoy6x"]
+
+[ext_resource type="Texture2D" uid="uid://ceapmn1usdmf3" path="res://images/P-F-11 Forticus-Federation IFF Projector.png" id="1_pn6w8"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_f3m6c"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_pn6w8")
+script = ExtResource("2_f3m6c")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4iotqvtmviom"]
+
+[ext_resource type="Texture2D" uid="uid://bjignlaorvgtg" path="res://images/M-R-18 Scout Moash System-Overdrive.png" id="1_jdho3"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_y6tnv"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_jdho3")
+script = ExtResource("2_y6tnv")

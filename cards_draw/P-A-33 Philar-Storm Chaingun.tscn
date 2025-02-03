@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://k6ad3kbgf4x2"]
+
+[ext_resource type="Texture2D" uid="uid://bredrwglxf4mw" path="res://images/P-A-33 Philar-Storm Chaingun.png" id="1_nqhkn"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_k0sgh"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_nqhkn")
+script = ExtResource("2_k0sgh")

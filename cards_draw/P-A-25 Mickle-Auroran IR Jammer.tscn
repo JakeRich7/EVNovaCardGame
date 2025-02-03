@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk3fc0icgkn3k"]
+
+[ext_resource type="Texture2D" uid="uid://byg76iukvwyu2" path="res://images/P-A-25 Mickle-Auroran IR Jammer.png" id="1_8ec7m"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_21gn4"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_8ec7m")
+script = ExtResource("2_21gn4")

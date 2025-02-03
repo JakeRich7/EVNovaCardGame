@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://gv5xht1p1vqt"]
+
+[ext_resource type="Texture2D" uid="uid://dr87y0nhjiefn" path="res://images/P-A-09 Auroran LP V-150mm Railgun.png" id="1_l2esw"]
+[ext_resource type="Script" path="res://cards_draw_scripts/7.gd" id="2_kv2wf"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_l2esw")
+script = ExtResource("2_kv2wf")

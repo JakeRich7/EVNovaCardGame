@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://c74rr0ct6d1w8"]
+
+[ext_resource type="Texture2D" uid="uid://cmfdyme2ji6b4" path="res://images/P-D-5 Forticus Shipyards-Dani Cruiser Se Gjunchek.png" id="1_rt85c"]
+
+[sub_resource type="GDScript" id="GDScript_wgu6o"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-D-5 Forticus Shipyards-Dani Cruiser Se Gjunchek\"
+var ship_button_name = \"Cruiser Se Gjunchek\"
+var ship_position = 0
+var shield = 7
+var armor = 19
+var pursuit = 8
+var escape = 4
+var cost = 6
+var attacks = [
+	{
+		\"name\": \"2 100mm Railguns\", \"button_name\": \"100mm Railguns\",
+		\"phase\": 1, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 23, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"3 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 14, \"armor\": 19, \"pursuit\": 18, \"ammo\": 2
+	},
+	{
+		\"name\": \"Fusion Pulse Battery\", \"button_name\": \"Fusion Pulse Battery\",
+		\"phase\": 3, \"shield\": 10, \"armor\": 12, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"PD Storm Chaingun\", \"button_name\": \"Storm Chaingun\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 15, \"pursuit\": null, \"ammo\": 10
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_rt85c")
+script = SubResource("GDScript_wgu6o")

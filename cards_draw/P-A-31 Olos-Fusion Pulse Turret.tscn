@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgfsylwyte056"]
+
+[ext_resource type="Texture2D" uid="uid://bh5ehha3ejn1n" path="res://images/P-A-31 Olos-Fusion Pulse Turret.png" id="1_khck0"]
+[ext_resource type="Script" path="res://cards_draw_scripts/4.gd" id="2_ssvn3"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_khck0")
+script = ExtResource("2_ssvn3")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbtfjjnleyykr"]
+
+[ext_resource type="Texture2D" uid="uid://dw4e6hjtaux61" path="res://images/M-UNS-19 United Shipping 04b-Transmission Jammer.png" id="1_4b1q7"]
+[ext_resource type="Script" path="res://cards_draw_scripts/9.gd" id="2_mtr00"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_4b1q7")
+script = ExtResource("2_mtr00")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxi2htofys7qy"]
+
+[ext_resource type="Texture2D" uid="uid://b1uxb30mjbrnw" path="res://images/M-R-27 Take Polaris Home-Pirate Viper Bay.png" id="1_yq0bo"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_gbi26"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_yq0bo")
+script = ExtResource("2_gbi26")

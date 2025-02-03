@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciymjw2urb14u"]
+
+[ext_resource type="Texture2D" uid="uid://bf5rpnse4a2rs" path="res://images/P-A-39 Watermoon-Aur Firebird Themgaar.png" id="1_lvjxp"]
+
+[sub_resource type="GDScript" id="GDScript_k4nmw"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-A-39 Watermoon-Aur Firebird Themgaar\"
+var ship_button_name = \"Firebird Themgaar\"
+var ship_position = 0
+var shield = 3
+var armor = 4
+var pursuit = 14
+var escape = 7
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 23, \"pursuit\": null, \"ammo\": 3
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_lvjxp")
+script = SubResource("GDScript_k4nmw")

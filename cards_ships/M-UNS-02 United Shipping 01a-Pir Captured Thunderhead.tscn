@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://dof78vue6kymd"]
+
+[ext_resource type="Texture2D" uid="uid://dtjg8m42j6mk6" path="res://images/M-UNS-02 United Shipping 01a-Pir Captured Thunderhead.png" id="1_bygnw"]
+
+[sub_resource type="GDScript" id="GDScript_554qr"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-UNS-02 United Shipping 01a-Pir Captured Thunderhead\"
+var ship_button_name = \"Captured Thunderhead\"
+var ship_position = 0
+var shield = 7
+var armor = 8
+var pursuit = 12
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"100mm Railgun\", \"button_name\": \"100mm Railgun\",
+		\"phase\": 1, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Thunderhead Lances\", \"button_name\": \"Thunderhead Lances\",
+		\"phase\": 5, \"shield\": 18, \"armor\": 18, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_bygnw")
+script = SubResource("GDScript_554qr")

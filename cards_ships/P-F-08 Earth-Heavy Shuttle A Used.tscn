@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2qcs02g0bf4t"]
+
+[ext_resource type="Texture2D" uid="uid://bvca2ckrtx5qe" path="res://images/P-F-08 Earth-Heavy Shuttle A Used.png" id="1_n3i0e"]
+
+[sub_resource type="GDScript" id="GDScript_w5jtp"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-F-08 Earth-Heavy Shuttle A Used\"
+var ship_button_name = \"Heavy Shuttle - A\"
+var ship_position = 0
+var shield = 4
+var armor = 3
+var pursuit = 11
+var escape = 6
+var cost = 3
+var attacks = [
+	{
+		\"name\": \"2 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 8, \"armor\": 8, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_n3i0e")
+script = SubResource("GDScript_w5jtp")

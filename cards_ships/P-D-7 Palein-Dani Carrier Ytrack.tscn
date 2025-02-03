@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://bemllyebbcs4a"]
+
+[ext_resource type="Texture2D" uid="uid://cmyxc5a4f5pss" path="res://images/P-D-7 Palein-Dani Carrier Ytrack.png" id="1_bavbg"]
+
+[sub_resource type="GDScript" id="GDScript_w8ebu"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-D-7 Palein-Dani Carrier Ytrack\"
+var ship_button_name = \"Carrier Ytrack\"
+var ship_position = 0
+var shield = 10
+var armor = 20
+var pursuit = 5
+var escape = 3
+var cost = 10
+var attacks = [
+	{
+		\"name\": \"1 Firebird Bay\", \"button_name\": \"Firebird Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 6
+	},
+	{
+		\"name\": \"1 Phoenix Bay\", \"button_name\": \"Phoenix Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 3
+	},
+	{
+		\"name\": \"2 100mm Railguns\", \"button_name\": \"100mm Railguns\",
+		\"phase\": 1, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Fusion Pulse Turrets\", \"button_name\": \"Fusion Pulse Turrets\",
+		\"phase\": 3, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 10, \"armor\": 15, \"pursuit\": null, \"ammo\": 12
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_bavbg")
+script = SubResource("GDScript_w8ebu")

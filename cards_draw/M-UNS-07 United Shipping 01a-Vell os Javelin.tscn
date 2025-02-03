@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjttmhahldi6f"]
+
+[ext_resource type="Texture2D" uid="uid://caoyl34wtcaqr" path="res://images/M-UNS-07 United Shipping 01a-Vell os Javelin.png" id="1_osx4u"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_yinrl"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_osx4u")
+script = ExtResource("2_yinrl")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://beu8r5pf3ee21"]
+
+[ext_resource type="Texture2D" uid="uid://ca0vonx68lkq0" path="res://images/P-A-29 Nil a Ni-Argosy Modified.png" id="1_ukhpd"]
+
+[sub_resource type="GDScript" id="GDScript_nw4i1"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-A-29 Nil a Ni-Argosy Modified\"
+var ship_button_name = \"Argosy, Modified\"
+var ship_position = 0
+var shield = 8
+var armor = 11
+var pursuit = 10
+var escape = 5
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 IR Missiles\", \"button_name\": \"IR Missiles\",
+		\"phase\": 2, \"shield\": 12, \"armor\": 17, \"pursuit\": 17, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Fusion Pulse Cannons\", \"button_name\": \"Fusion Pulse Cannons\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 20, \"pursuit\": null, \"ammo\": 4
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ukhpd")
+script = SubResource("GDScript_nw4i1")

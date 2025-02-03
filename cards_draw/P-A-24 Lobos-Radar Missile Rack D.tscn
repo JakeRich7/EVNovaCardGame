@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://6xmc6mpop3fx"]
+
+[ext_resource type="Texture2D" uid="uid://bfgv4pfck7bnw" path="res://images/P-A-24 Lobos-Radar Missile Rack D.png" id="1_mw2tk"]
+[ext_resource type="Script" path="res://cards_draw_scripts/5.gd" id="2_a3d5s"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mw2tk")
+script = ExtResource("2_a3d5s")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjcpc2kq2gud8"]
+
+[ext_resource type="Texture2D" uid="uid://03ul5xdihdbx" path="res://images/M-SS-2 Sigma Shipyards 02-Anti Matter Reactor.png" id="1_mqo21"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_v57d4"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mqo21")
+script = ExtResource("2_v57d4")

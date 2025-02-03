@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0wwow7ktlhqi"]
+
+[ext_resource type="Texture2D" uid="uid://cfygobave1xry" path="res://images/M-R-26 Bring Rebel Leaders to Earth-Hostility Sense.png" id="1_fqgl1"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_2wstw"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_fqgl1")
+script = ExtResource("2_2wstw")

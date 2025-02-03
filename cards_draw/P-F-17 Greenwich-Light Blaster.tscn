@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyxedprf37wrp"]
+
+[ext_resource type="Texture2D" uid="uid://dw6k6vmq8xwi7" path="res://images/P-F-17 Greenwich-Light Blaster.png" id="1_gys66"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_hdpa6"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_gys66")
+script = ExtResource("2_hdpa6")

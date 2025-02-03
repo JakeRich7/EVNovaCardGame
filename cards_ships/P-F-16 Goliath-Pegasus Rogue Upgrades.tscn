@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlvf6jj13k6ib"]
+
+[ext_resource type="Texture2D" uid="uid://bqn08167hbb74" path="res://images/P-F-16 Goliath-Pegasus Rogue Upgrades.png" id="1_tfegw"]
+
+[sub_resource type="GDScript" id="GDScript_s44w5"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-F-16 Goliath-Pegasus Rogue Upgrades\"
+var ship_button_name = \"Pegasus Rogue Upgrade\"
+var ship_position = 0
+var shield = 10
+var armor = 5
+var pursuit = 7
+var escape = 3
+var cost = 7
+var attacks = [
+	{
+		\"name\": \"2 Raven Turrets\", \"button_name\": \"Raven Turrets\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 15, \"pursuit\": 15, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 Medium Blaster Turrets\", \"button_name\": \"Medium Blaster Turrets\",
+		\"phase\": 3, \"shield\": 15, \"armor\": 13, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_tfegw")
+script = SubResource("GDScript_s44w5")

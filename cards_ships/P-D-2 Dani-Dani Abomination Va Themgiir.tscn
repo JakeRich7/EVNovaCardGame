@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf1w8awxon5rj"]
+
+[ext_resource type="Texture2D" uid="uid://c8ll2jis8gqn" path="res://images/P-D-2 Dani-Dani Abomination Va Themgiir.png" id="1_0aup4"]
+
+[sub_resource type="GDScript" id="GDScript_7u1r4"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-D-2 Dani-Dani Abomination Va Themgiir\"
+var ship_button_name = \"Abomination Va Themgiir\"
+var ship_position = 0
+var shield = 6
+var armor = 7
+var pursuit = 10
+var escape = 5
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"3 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 15, \"armor\": 20, \"pursuit\": 17, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Fusion Pulse Batteries\", \"button_name\": \"Fusion Pulse Batteries\",
+		\"phase\": 3, \"shield\": 12, \"armor\": 14, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_0aup4")
+script = SubResource("GDScript_7u1r4")

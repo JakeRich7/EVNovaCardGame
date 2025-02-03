@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgaiiqs8e481r"]
+
+[ext_resource type="Texture2D" uid="uid://gkcuy7tfxi50" path="res://images/M-UNS-11 United Shipping 04-Pirate Valkyrie III.png" id="1_aa6pw"]
+
+[sub_resource type="GDScript" id="GDScript_n5okq"]
+script/source = "extends Sprite2D
+
+var type = \"pirate\"
+var ship_name = \"M-UNS-11 United Shipping 04-Pirate Valkyrie III\"
+var ship_button_name = \"Valkyrie III\"
+var ship_position = 0
+var shield = 11
+var armor = 8
+var pursuit = 13
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"4 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 17, \"armor\": 22, \"pursuit\": 18, \"ammo\": 4
+	},
+	{
+		\"name\": \"2 Medium Blasters\", \"button_name\": \"Medium Blasters\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 Light Blasters\", \"button_name\": \"Light Blasters\",
+		\"phase\": 4, \"shield\": 12, \"armor\": 9, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_aa6pw")
+script = SubResource("GDScript_n5okq")

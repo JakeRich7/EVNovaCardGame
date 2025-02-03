@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctkqhs2df7sqc"]
+
+[ext_resource type="Texture2D" uid="uid://bgtjenk8u7skw" path="res://images/P-A-08 Auroran LP IV-Aur Abomination Va French ek.png" id="1_mum44"]
+
+[sub_resource type="GDScript" id="GDScript_idtqv"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-A-08 Auroran LP IV-Aur Abomination Va French ek\"
+var ship_button_name = \"Abomination Va French'ek\"
+var ship_position = 0
+var shield = 7
+var armor = 9
+var pursuit = 11
+var escape = 6
+var cost = 4
+var attacks = [
+	{
+		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 13, \"ammo\": 1
+	},
+	{
+		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 23, \"pursuit\": null, \"ammo\": 2
+	},
+	{
+		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": 2
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_mum44")
+script = SubResource("GDScript_idtqv")

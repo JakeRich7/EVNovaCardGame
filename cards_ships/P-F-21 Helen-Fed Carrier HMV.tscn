@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://f5fqkqirhsi7"]
+
+[ext_resource type="Texture2D" uid="uid://biywmsw8a7uk0" path="res://images/P-F-21 Helen-Fed Carrier HMV.png" id="1_poovs"]
+
+[sub_resource type="GDScript" id="GDScript_hnlth"]
+script/source = "extends Sprite2D
+
+var type = \"federation\"
+var ship_name = \"P-F-21 Helen-Fed Carrier HMV\"
+var ship_button_name = \"Carrier HMV\"
+var ship_position = 0
+var shield = 19
+var armor = 15
+var pursuit = 8
+var escape = 4
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"Anaconda Bay\", \"button_name\": \"Anaconda Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 2
+	},
+	{
+		\"name\": \"Viper Bay\", \"button_name\": \"Viper Bay\",
+		\"phase\": 1, \"shield\": null, \"armor\": null, \"pursuit\": null, \"ammo\": 4
+	},
+	{
+		\"name\": \"2 Hellhound Missiles\", \"button_name\": \"Hellhound Missiles\",
+		\"phase\": 2, \"shield\": 18, \"armor\": 26, \"pursuit\": 16, \"ammo\": 20
+	},
+	{
+		\"name\": \"2 Heavy Blaster Turrets\", \"button_name\": \"Heavy Blaster Turrets\",
+		\"phase\": 3, \"shield\": 20, \"armor\": 16, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 EMP Torpedo Tubes\", \"button_name\": \"EMP Torpedo Tubes\",
+		\"phase\": 3, \"shield\": 38, \"armor\": 14, \"pursuit\": 9, \"ammo\": 10
+	},
+	{
+		\"name\": \"2 PD Quad Light Blaster Turrets\", \"button_name\": \"Quad Light Blaster Turrets\",
+		\"phase\": 4, \"shield\": 16, \"armor\": 11, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_poovs")
+script = SubResource("GDScript_hnlth")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://xuhpfnsm7r1y"]
+
+[ext_resource type="Texture2D" uid="uid://b10rxkj7tqsyc" path="res://images/M-UNS-08 United Shipping 01a-Wraithi.png" id="1_pgo08"]
+[ext_resource type="Script" path="res://cards_draw_scripts/8.gd" id="2_sqiic"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_pgo08")
+script = ExtResource("2_sqiic")

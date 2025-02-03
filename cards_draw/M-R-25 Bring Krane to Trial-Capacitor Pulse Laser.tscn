@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://8skq4cal2hhu"]
+
+[ext_resource type="Texture2D" uid="uid://de8ljvakwj2bw" path="res://images/M-R-25 Bring Krane to Trial-Capacitor Pulse Laser.png" id="1_xeq8e"]
+[ext_resource type="Script" path="res://cards_draw_scripts/2.gd" id="2_3lrmh"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_xeq8e")
+script = ExtResource("2_3lrmh")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bogtfgcffmeya"]
+
+[ext_resource type="Texture2D" uid="uid://bbpbgg6k5tcfy" path="res://images/M-R-12 Get Polaris Technology-Rebel Thunderhead UPG 1.png" id="1_ro2uw"]
+
+[sub_resource type="GDScript" id="GDScript_f2vk2"]
+script/source = "extends Sprite2D
+
+var type = \"rebel\"
+var ship_name = \"M-R-12 Get Polaris Technology-Rebel Thunderhead UPG 1\"
+var ship_button_name = \"Thunderhead UPG 1\"
+var ship_position = 0
+var shield = 7
+var armor = 7
+var pursuit = 13
+var escape = 6
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 1
+	},
+	{
+		\"name\": \"2 Light Cannons\", \"button_name\": \"Light Cannons\",
+		\"phase\": 4, \"shield\": 9, \"armor\": 9, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"Thunderhead Lance\", \"button_name\": \"Thunderhead Lance\",
+		\"phase\": 5, \"shield\": 15, \"armor\": 15, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_ro2uw")
+script = SubResource("GDScript_f2vk2")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxna8iqcb085y"]
+
+[ext_resource type="Texture2D" uid="uid://b0tw0btnon1g1" path="res://images/P-A-01 Arabus-Phoenix Bay.png" id="1_2qv0t"]
+[ext_resource type="Script" path="res://cards_draw_scripts/0.gd" id="2_7tweg"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_2qv0t")
+script = ExtResource("2_7tweg")

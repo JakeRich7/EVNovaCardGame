@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0dbe4dwcebod"]
+
+[ext_resource type="Texture2D" uid="uid://m80ftbqpv4b0" path="res://images/P-A-19 Gungungun-Auroran Thunderforge.png" id="1_3w5rb"]
+
+[sub_resource type="GDScript" id="GDScript_m6vt8"]
+script/source = "extends Sprite2D
+
+var type = \"auroran\"
+var ship_name = \"P-A-19 Gungungun-Auroran Thunderforge\"
+var ship_button_name = \"Thunderforge\"
+var ship_position = 0
+var shield = 14
+var armor = 16
+var pursuit = 10
+var escape = 5
+var cost = 11
+var attacks = [
+	{
+		\"name\": \"4 150mm Railguns\", \"button_name\": \"150mm Railguns\",
+		\"phase\": 1, \"shield\": 18, \"armor\": 22, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"2 Radar Missiles\", \"button_name\": \"Radar Missiles\",
+		\"phase\": 2, \"shield\": 13, \"armor\": 18, \"pursuit\": 16, \"ammo\": 20
+	},
+	{
+		\"name\": \"4 Triphammers\", \"button_name\": \"Triphammers\",
+		\"phase\": 2, \"shield\": null, \"armor\": 24, \"pursuit\": null, \"ammo\": null
+	},
+	{
+		\"name\": \"4 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
+		\"phase\": 4, \"shield\": 19, \"armor\": 24, \"pursuit\": null, \"ammo\": 10
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_3w5rb")
+script = SubResource("GDScript_m6vt8")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq63pn5s2b36b"]
+
+[ext_resource type="Texture2D" uid="uid://b3tqfsgd7dssh" path="res://images/M-R-22 Report Back to Rebel II-Pir Thunderhead Bay.png" id="1_lnx42"]
+[ext_resource type="Script" path="res://cards_draw_scripts/1.gd" id="2_hlfl5"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_lnx42")
+script = ExtResource("2_hlfl5")

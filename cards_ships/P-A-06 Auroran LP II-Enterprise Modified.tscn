@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://lv5djsdgoxx7"]
+
+[ext_resource type="Texture2D" uid="uid://b4ctwmpq4offj" path="res://images/P-A-06 Auroran LP II-Enterprise Modified.png" id="1_rit5w"]
+
+[sub_resource type="GDScript" id="GDScript_4evp6"]
+script/source = "extends Sprite2D
+
+var type = \"trader\"
+var ship_name = \"P-A-06 Auroran LP II-Enterprise Modified\"
+var ship_button_name = \"Enterprise, Modified\"
+var ship_position = 0
+var shield = 9
+var armor = 13
+var pursuit = 8
+var escape = 4
+var cost = 5
+var attacks = [
+	{
+		\"name\": \"3 Fusion Pulse Turrets\", \"button_name\": \"Fusion Pulse Turrets\",
+		\"phase\": 3, \"shield\": 15, \"armor\": 17, \"pursuit\": null, \"ammo\": null
+	}
+]
+
+var time := 0.0
+var flicker_speed := 4.0
+var to_blink = false
+
+func blink(toggle):
+	to_blink = toggle
+	if to_blink:
+		time = PI / 2
+
+func _physics_process(delta):
+	if to_blink:
+		time += delta * flicker_speed
+		modulate.a = 0.5 + 0.5 * sin(time)
+"
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_rit5w")
+script = SubResource("GDScript_4evp6")

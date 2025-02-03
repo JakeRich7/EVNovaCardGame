@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbvhobwt50fav"]
+
+[ext_resource type="Texture2D" uid="uid://c1uppyxgb2i8u" path="res://images/M-R-04 Rescue Rebel Agent-Rebel Viper Bay.png" id="1_uh2w8"]
+[ext_resource type="Script" path="res://cards_draw_scripts/3.gd" id="2_6shtm"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_uh2w8")
+script = ExtResource("2_6shtm")
