@@ -13,7 +13,7 @@ var shield = 3
 var armor = 4
 var pursuit = 14
 var escape = 7
-var cost = 4
+var cost = 3
 var attacks = [
 	{
 		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",

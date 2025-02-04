@@ -13,7 +13,7 @@ var shield = 16
 var armor = 13
 var pursuit = 11
 var escape = 5
-var cost = 8
+var cost = 40
 var attacks = [
 	{
 		\"name\": \"4 Polaran Torpedoes\", \"button_name\": \"Polaran Torpedos\",

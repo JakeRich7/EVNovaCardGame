@@ -13,7 +13,7 @@ var shield = 9
 var armor = 13
 var pursuit = 8
 var escape = 4
-var cost = 5
+var cost = 4
 var attacks = [
 	{
 		\"name\": \"3 Fusion Pulse Turrets\", \"button_name\": \"Fusion Pulse Turrets\",

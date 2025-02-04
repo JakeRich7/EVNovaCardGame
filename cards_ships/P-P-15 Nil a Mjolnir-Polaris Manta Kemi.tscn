@@ -13,7 +13,7 @@ var shield = 6
 var armor = 4
 var pursuit = 15
 var escape = 7
-var cost = 3
+var cost = 4
 var attacks = [
 	{
 		\"name\": \"BioRelay Laser\", \"button_name\": \"BioRelay Laser\",

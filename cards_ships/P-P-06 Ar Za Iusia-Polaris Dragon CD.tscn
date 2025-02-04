@@ -17,7 +17,7 @@ var cost = 6
 var attacks = [
 	{
 		\"name\": \"Wraith Cannon\", \"button_name\": \"Wraith Cannon\",
-		\"phase\": 4, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": 20
+		\"phase\": 3, \"shield\": 16, \"armor\": 17, \"pursuit\": null, \"ammo\": 20
 	},
 	{
 		\"name\": \"BioRelay Laser\", \"button_name\": \"BioRelay Laser\",

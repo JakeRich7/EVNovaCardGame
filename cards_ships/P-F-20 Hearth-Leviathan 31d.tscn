@@ -13,7 +13,7 @@ var shield = 11
 var armor = 6
 var pursuit = 5
 var escape = 2
-var cost = 10
+var cost = 1
 var attacks = []
 
 var time := 0.0

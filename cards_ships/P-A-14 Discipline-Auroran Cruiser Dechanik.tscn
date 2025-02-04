@@ -13,7 +13,7 @@ var shield = 7
 var armor = 18
 var pursuit = 10
 var escape = 5
-var cost = 6
+var cost = 8
 var attacks = [
 	{
 		\"name\": \"4 200mm Railguns\", \"button_name\": \"200mm Railguns\",

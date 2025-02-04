@@ -13,7 +13,7 @@ var shield = 9
 var armor = 2
 var pursuit = 16
 var escape = 8
-var cost = 0
+var cost = 3
 var attacks = [
 	{
 		\"name\": \"Telepath Flower of Spring\", \"button_name\": \"Flower of Spring\",

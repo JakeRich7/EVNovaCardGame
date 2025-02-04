@@ -13,7 +13,7 @@ var shield = 7
 var armor = 4
 var pursuit = 8
 var escape = 4
-var cost = 3
+var cost = 2
 var attacks = [
 	{
 		\"name\": \"Medium Blaster\", \"button_name\": \"Medium Blaster\",

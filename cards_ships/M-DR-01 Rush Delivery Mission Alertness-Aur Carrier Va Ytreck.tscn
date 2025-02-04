@@ -13,7 +13,7 @@ var shield = 10
 var armor = 21
 var pursuit = 6
 var escape = 3
-var cost = 6
+var cost = 40
 var attacks = [
 	{
 		\"name\": \"Firebird Bay\", \"button_name\": \"Firebird Bay\",

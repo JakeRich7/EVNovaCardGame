@@ -13,10 +13,10 @@ var shield = 12
 var armor = 13
 var pursuit = 9
 var escape = 5
-var cost = 11
+var cost = 9
 var attacks = [
 	{
-		\"name\": \"EMP Torpedo tube\", \"button_name\": \"EMP Torpedo tube\",
+		\"name\": \"EMP Torpedo Tube\", \"button_name\": \"EMP Torpedo Tube\",
 		\"phase\": 3, \"shield\": 34, \"armor\": 10, \"pursuit\": 8, \"ammo\": 8
 	},
 	{

@@ -13,7 +13,7 @@ var shield = 13
 var armor = 8
 var pursuit = 11
 var escape = 6
-var cost = 8
+var cost = 25
 var attacks = [
 	{
 		\"name\": \"3 Rebel Viper Bays\", \"button_name\": \"Rebel Viper Bay\",
