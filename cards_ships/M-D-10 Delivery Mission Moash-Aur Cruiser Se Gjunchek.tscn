@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"auroran\"
 var ship_name = \"M-D-10 Delivery Mission Moash-Aur Cruiser Se Gjunchek\"
-var ship_button_name = \"Cruiser\"
+var ship_button_name = \"Cruiser Se Gjunchek\"
 var ship_position = 0
 var shield = 7
 var armor = 18
@@ -41,6 +41,8 @@ func blink(toggle):
 	to_blink = toggle
 	if to_blink:
 		time = PI / 2
+	else:
+		modulate.a = 1.0
 
 func _physics_process(delta):
 	if to_blink:

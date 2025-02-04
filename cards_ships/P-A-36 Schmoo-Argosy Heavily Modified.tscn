@@ -5,9 +5,9 @@
 [sub_resource type="GDScript" id="GDScript_evl37"]
 script/source = "extends Sprite2D
 
-var type = \"\"
-var ship_name = \"\"
-var ship_button_name = \"\"
+var type = \"trader\"
+var ship_name = \"P-A-36 Schmoo-Argosy Heavily Modified\"
+var ship_button_name = \"Argosy, Heavily Modified\"
 var ship_position = 0
 var shield = 9
 var armor = 11
@@ -37,6 +37,8 @@ func blink(toggle):
 	to_blink = toggle
 	if to_blink:
 		time = PI / 2
+	else:
+		modulate.a = 1.0
 
 func _physics_process(delta):
 	if to_blink:

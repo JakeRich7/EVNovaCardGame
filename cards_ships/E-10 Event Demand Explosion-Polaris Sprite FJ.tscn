@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"polaris\"
 var ship_name = \"E-10 Event Demand Explosion-Polaris Sprite FJ\"
-var ship_button_name = \"Sprite\"
+var ship_button_name = \"Sprite FJ\"
 var ship_position = 0
 var shield = 9
 var armor = 3
@@ -24,6 +24,8 @@ func blink(toggle):
 	to_blink = toggle
 	if to_blink:
 		time = PI / 2
+	else:
+		modulate.a = 1.0
 
 func _physics_process(delta):
 	if to_blink:

@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"auroran\"
 var ship_name = \"M-A-24 Speak with Polaris-Auroran Firebird Thamgir\"
-var ship_button_name = \"Firebird\"
+var ship_button_name = \"Firebird Thamgir\"
 var ship_position = 0
 var shield = 16
 var armor = 20
@@ -29,6 +29,8 @@ func blink(toggle):
 	to_blink = toggle
 	if to_blink:
 		time = PI / 2
+	else:
+		modulate.a = 1.0
 
 func _physics_process(delta):
 	if to_blink:

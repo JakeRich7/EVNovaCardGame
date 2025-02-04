@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"federation\"
 var ship_name = \"M-D-04 Delivery Mission Hargen-Fed Destroyer AO\"
-var ship_button_name = \"Destroyer\"
+var ship_button_name = \"Destroyer AO\"
 var ship_position = 0
 var shield = 14
 var armor = 14
@@ -41,6 +41,8 @@ func blink(toggle):
 	to_blink = toggle
 	if to_blink:
 		time = PI / 2
+	else:
+		modulate.a = 1.0
 
 func _physics_process(delta):
 	if to_blink:

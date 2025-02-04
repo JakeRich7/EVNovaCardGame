@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"pirate\"
 var ship_name = \"M-D-22 Delivery Mission Trusa-Pirate Enterprise Modified\"
-var ship_button_name = \"Enterprise\"
+var ship_button_name = \"Enterprise, Modified\"
 var ship_position = 0
 var shield = 10
 var armor = 13
@@ -37,6 +37,8 @@ func blink(toggle):
 	to_blink = toggle
 	if to_blink:
 		time = PI / 2
+	else:
+		modulate.a = 1.0
 
 func _physics_process(delta):
 	if to_blink:

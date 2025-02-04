@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"trader\"
 var ship_name = \"M-D-08 Delivery Mission Lodestone-Modified Starbridge E\"
-var ship_button_name = \"Starbridge E\"
+var ship_button_name = \"Mod Starbridge E\"
 var ship_position = 0
 var shield = 15
 var armor = 10
@@ -45,6 +45,8 @@ func blink(toggle):
 	to_blink = toggle
 	if to_blink:
 		time = PI / 2
+	else:
+		modulate.a = 1.0
 
 func _physics_process(delta):
 	if to_blink:
