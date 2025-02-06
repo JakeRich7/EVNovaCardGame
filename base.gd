@@ -771,8 +771,6 @@ func setup_battlefield():
 		draw_pile_2.position += draw_pile_position
 		draw_pile_2.position.y -= 310
 		add_child(draw_pile_2)
-		battlefield_setup = true
-		battleloop_started = true
 		# Populates deck counters
 		player_one_deck_counter.text = "x " + str(player_1_deck.size())
 		player_one_deck_count = player_1_deck.size()
@@ -780,6 +778,9 @@ func setup_battlefield():
 		player_two_deck_counter.text = "x " + str(player_2_deck.size())
 		player_two_deck_count = player_2_deck.size()
 		player_two_deck_counter.visible = true
+		# Toggles next step
+		battlefield_setup = true
+		battleloop_started = true
 
 func player_setup_manager():
 	if player_two_choose == true and player_two_setup == false:
