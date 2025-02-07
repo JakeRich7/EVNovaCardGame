@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://lb5r8j0wnl4m"]
+[gd_scene load_steps=4 format=3 uid="uid://lb5r8j0wnl4m"]
 
-[ext_resource type="AudioStream" uid="uid://tvsnkwjs7bhl" path="res://music/Mars, the Bringer of War.mp3" id="1_0bq30"]
 [ext_resource type="Script" path="res://base.gd" id="1_8slmb"]
 [ext_resource type="Texture2D" uid="uid://bx5ekhqu1tkgi" path="res://images/board.jpeg" id="2_l80rw"]
 
@@ -304,9 +303,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 75
 text = "Draw"
-
-[node name="music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("1_0bq30")
 
 [node name="map" type="Sprite2D" parent="."]
 texture = ExtResource("2_l80rw")

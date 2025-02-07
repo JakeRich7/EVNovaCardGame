@@ -36,7 +36,7 @@ extends Node2D
 @onready var draw_pile_position = Vector2(2210, 720)
 @onready var canvas_layer = $"menu_layer"
 @onready var map = $"map"
-@onready var music = $"music"
+@onready var music = get_parent().get_node("music")
 @onready var game_speed = 0.1
 const cards_draw_path = "res://cards_draw"
 const cards_ships_path = "res://cards_ships"
@@ -86,8 +86,6 @@ var secondary_cards_to_remove_2 = []
 func _ready():
 	# Position attack menus
 	offset_attacks_menus()
-	# Starts music
-	music.playing = true
 	# Centers map
 	map.position.x += 1278
 	map.position.y += 720
