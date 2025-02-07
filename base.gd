@@ -98,6 +98,7 @@ func _ready():
 	canvas_layer.add_child(settings_instance)
 	# Creates settings menu listeners
 	settings_instance.get_node("music").pressed.connect(_on_music_pressed)
+	settings_instance.get_node("audio").pressed.connect(_on_audio_pressed)
 	settings_instance.get_node("speed").pressed.connect(_on_speed_pressed)
 	settings_instance.get_node("quit").pressed.connect(_on_quit_pressed)
 	# Initializes and places all draw cards in deck
@@ -124,10 +125,14 @@ func _ready():
 			instance.scale = Vector2(.78, .78)
 			ships_all.push_back(instance)
 		file_name = dir.get_next()
+	# Play base loaded sound
+	SfxManager.play_sound("menu_loaded", SfxManager.menu_loaded_volume)
 	# Creates menu options to select from for player 1
 	create_menu_options()
 
 func _on_button_pressed(button):
+	# Plays click sounds when races are chosen
+	play_click_sounds()
 	# Adds all ships to players deck
 	var type_to_search
 	if button.text == "Alien": type_to_search = "alien"
@@ -157,13 +162,28 @@ func _on_button_pressed(button):
 		x.queue_free()
 
 func _on_music_pressed():
+	play_click_sounds()
 	if settings_instance.get_node("music").text == "Music ON":
 		settings_instance.get_node("music").text = "Music OFF"
 	elif settings_instance.get_node("music").text == "Music OFF":
 		settings_instance.get_node("music").text = "Music ON"
 	music.playing = !music.playing
 	
+func _on_audio_pressed():
+	SfxManager.audio_playing = !SfxManager.audio_playing
+	play_click_sounds()
+	if settings_instance.get_node("audio").text == "Audio ON":
+		settings_instance.get_node("audio").text = "Audio OFF"
+	elif settings_instance.get_node("audio").text == "Audio OFF":
+		settings_instance.get_node("audio").text = "Audio ON"
+	
+
+func play_click_sounds():
+	SfxManager.play_sound("click_on", SfxManager.click_on_volume)
+	SfxManager.delayed_play_sound("click_off", SfxManager.click_off_volume)
+	
 func _on_speed_pressed():
+	play_click_sounds()
 	var fastest = "Fastest"
 	var fast = "Fast"
 	var normal = "Normal"
@@ -178,6 +198,7 @@ func _on_speed_pressed():
 		game_speed = 0
 	
 func _on_quit_pressed():
+	play_click_sounds()
 	get_tree().quit()
 
 func _input(event):
@@ -284,6 +305,8 @@ func player_which_enemy():
 	if check_for_fighter_launch():
 		attack(return_enemy_single_ship_name())
 	elif enemy_has_multiple_ships():
+		# Covers all cases when click sounds need to be played for a non-attack attack menu
+		play_click_sounds()
 		shuffle_deck()
 		if menu_attacks:
 			for x in menu_attacks.get_children():
@@ -352,6 +375,8 @@ func enemy_has_multiple_ships():
 	return false
 
 func attack(enemy_ship_name):
+	# Plays click sounds when attack is chosen
+	play_click_sounds()
 	var enemy_ship = return_first_instance_of_enemy_ship_name(enemy_ship_name)
 	for x in attack_info_primary_ship.attacks:
 		if x.button_name == attack_info_name:
@@ -744,11 +769,6 @@ func send_active_ship():
 				player_two_deck_counter.text = "x " + str(player_2_deck.size())
 		else:
 			player_wins = 1
-	# This accounts allows the game to continue if neither ship has any attacks
-	if player_one_active_ships.size() == 0 and player_two_active_ships.size() == 0:
-		if player_one_active_ships[0].attacks.size() == 0 and player_two_active_ships[0].attacks.size() == 0:
-			player_one_active_ships.pop_at(0)
-			player_two_active_ships.pop_at(0)
 		
 func reset_phase():
 	current_phase = 1
