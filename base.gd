@@ -11,10 +11,9 @@ extends Node2D
 @onready var rebel_viper = preload("res://cards_ships/M-R-05 Rescue Rebel Operative-Rebel Viper.tscn")
 @onready var manta = preload("res://cards_ships/M-P-09 Take Muhari to Port Kane-Polaris Manta.tscn")
 
+# Constants
 @onready var player_one_deck_counter = $"menu_layer/player_one_deck_counter"
-@onready var player_one_deck_count = 0
 @onready var player_two_deck_counter = $"menu_layer/player_two_deck_counter"
-@onready var player_two_deck_count = 0
 @onready var menu_1 = $"menu_layer/player_one_attacks_menu"
 @onready var menu_2 = $"menu_layer/player_two_attacks_menu"
 @onready var menu_3 = $"menu_layer/player_three_attacks_menu"
@@ -25,6 +24,9 @@ extends Node2D
 @onready var menu_counter_four = $"menu_layer/player_four_counter"
 @onready var menu_counter_five = $"menu_layer/player_five_counter"
 @onready var menu_counter_six = $"menu_layer/player_six_counter"
+@onready var canvas_layer = $"menu_layer"
+@onready var map = $"map"
+@onready var music = get_parent().get_node("music")
 @onready var ship_position_1 = Vector2(1280, 1030)
 @onready var ship_position_2 = Vector2(1280, 410)
 @onready var ship_position_3 = Vector2(850, 1100)
@@ -34,47 +36,39 @@ extends Node2D
 @onready var player_draw_position_1 = Vector2(350, 1030)
 @onready var player_draw_position_2 = Vector2(350, 410)
 @onready var draw_pile_position = Vector2(2210, 720)
-@onready var canvas_layer = $"menu_layer"
-@onready var map = $"map"
-@onready var music = get_parent().get_node("music")
-@onready var game_speed = 0.1
 const cards_draw_path = "res://cards_draw"
 const cards_ships_path = "res://cards_ships"
+
+# Dynamics
+@onready var player_one_deck_count = 0
+@onready var player_two_deck_count = 0
+@onready var game_speed = 0.1
 @onready var card_back = preload("res://card_back.tscn")
 @onready var menu = preload("res://menu.tscn")
 @onready var settings = preload("res://settings.tscn")
+@onready var deck_races = ["Alien", "Auroran", "Federation", "Pirate", "Polaris", "Rebel", "Trader"]
 @onready var draw_deck = []
 @onready var draw_deck_reshuffle = []
 @onready var ships_all = []
 @onready var player_1_deck = []
 @onready var player_2_deck = []
-@onready var deck_races = ["Alien", "Auroran", "Federation", "Pirate", "Polaris", "Rebel", "Trader"]
 @onready var player_two_choose = false
 @onready var player_two_setup = false
 @onready var battlefield_setup = false
 @onready var players_done_choosing = false
 @onready var battleloop_started = false
-var menu_instance
-var settings_instance
-var player_one_draw_pile
-var player_two_draw_pile
-var draw_pile_1
-var draw_pile_2
 @onready var player_one_active_ships = []
 @onready var player_two_active_ships = []
 @onready var ships_attacking_this_phase = []
 @onready var attacks_generated = false
-var current_phase = 1
-var menu_attacks
-var player_attack_chosen = false
-var player_end_turn_signal = false
-var order_of_attack_determined = false
 @onready var fighters_in_position_3 = 0
 @onready var fighters_in_position_4 = 0
 @onready var fighters_in_position_5 = 0
 @onready var fighters_in_position_6 = 0
-var attack_info_name
-var attack_info_primary_ship
+var current_phase = 1
+var player_attack_chosen = false
+var player_end_turn_signal = false
+var order_of_attack_determined = false
 var player_which_enemy_initialized = false
 var player_wins = 0
 var end_message_printed = false
@@ -82,6 +76,15 @@ var button_held = false
 var repeat_timer = 0.0
 var secondary_cards_to_remove_1 = []
 var secondary_cards_to_remove_2 = []
+var menu_instance
+var settings_instance
+var player_one_draw_pile
+var player_two_draw_pile
+var draw_pile_1
+var draw_pile_2
+var menu_attacks
+var attack_info_name
+var attack_info_primary_ship
 
 func _ready():
 	# Position attack menus
@@ -130,13 +133,60 @@ func _ready():
 	# Play base loaded sound
 	SfxManager.play_sound("menu_loaded", SfxManager.menu_loaded_volume)
 	# Creates menu options to select from for player 1
-	create_menu_options()
+	create_race_selection_options()
 
+func _physics_process(delta):
+	map_movement_manager()
+	player_setup_manager()
+	setup_battlefield()
+	battleloop()
+	handle_held_inputs(delta)
+
+func _input(event):
+	if event.is_action_pressed("escape"):
+		# Allows menu to be pulled up after selection has taken place
+		if menu_instance.get_child_count() <= 1:
+			play_click_sounds()
+			if settings_instance.visible:
+				settings_instance.hide()
+				show_attack_menus()
+			else:
+				hide_attack_menus()
+				settings_instance.show()
+	if event.is_action_pressed("return") or event.is_action_pressed("right_click") or event.is_action_pressed("space"):
+		simulate_mouse_click()
+
+func simulate_mouse_click():
+	var click = InputEventMouseButton.new()
+	click.set_button_index(MOUSE_BUTTON_LEFT)
+	click.position = get_viewport().get_mouse_position() * .75
+	click.set_pressed(true)
+	Input.parse_input_event(click)
+		
+	var release_click = InputEventMouseButton.new()
+	release_click.set_button_index(MOUSE_BUTTON_LEFT)
+	release_click.position = click.position
+	release_click.set_pressed(false)
+	Input.parse_input_event(release_click)
+
+func handle_held_inputs(delta):
+	if Input.is_action_pressed("return") or Input.is_action_pressed("right_click") or Input.is_action_pressed("space"):
+		repeat_timer += delta
+		if not button_held and repeat_timer >= 0.5:
+			button_held = true
+		if button_held and repeat_timer >= 0.6:
+			simulate_mouse_click()
+			repeat_timer = 0.5
+	else:
+		if button_held:
+			button_held = false
+			repeat_timer = 0.0
+		
 func _on_skip_button_pressed():
 	play_click_sounds()
 	player_end_turn_signal = true
 
-func _on_button_pressed(button):
+func _on_select_race_button_pressed(button):
 	# Plays click sounds when races are chosen
 	play_click_sounds()
 	# Adds all ships to players deck
@@ -183,11 +233,6 @@ func _on_audio_pressed():
 	elif settings_instance.get_node("audio").text == "Audio OFF":
 		settings_instance.get_node("audio").text = "Audio ON"
 	
-
-func play_click_sounds():
-	SfxManager.play_sound("click_on", SfxManager.click_on_volume)
-	SfxManager.delayed_play_sound("click_off", SfxManager.click_off_volume)
-	
 func _on_speed_pressed():
 	play_click_sounds()
 	var fastest = "Fastest"
@@ -206,53 +251,60 @@ func _on_speed_pressed():
 func _on_quit_pressed():
 	play_click_sounds()
 	get_tree().quit()
-
-func _input(event):
-	if event.is_action_pressed("escape"):
-		# Allows menu to be pulled up after selection has taken place
-		if menu_instance.get_child_count() <= 1:
-			if settings_instance.visible:
-				settings_instance.hide()
-				show_attack_menus()
-			else:
-				hide_attack_menus()
-				settings_instance.show()
-	if event.is_action_pressed("return") or event.is_action_pressed("right_click") or event.is_action_pressed("space"):
-		simulate_mouse_click()
-		
-func simulate_mouse_click():
-	var click = InputEventMouseButton.new()
-	click.set_button_index(MOUSE_BUTTON_LEFT)
-	click.position = get_viewport().get_mouse_position() * .75
-	click.set_pressed(true)
-	Input.parse_input_event(click)
-		
-	var release_click = InputEventMouseButton.new()
-	release_click.set_button_index(MOUSE_BUTTON_LEFT)
-	release_click.position = click.position
-	release_click.set_pressed(false)
-	Input.parse_input_event(release_click)
-
-func _physics_process(delta):
-	map_movement_manager()
-	player_setup_manager()
-	setup_battlefield()
-	battleloop()
-	handle_held_inputs(delta)
 	
-func handle_held_inputs(delta):
-	if Input.is_action_pressed("return") or Input.is_action_pressed("right_click") or Input.is_action_pressed("space"):
-		repeat_timer += delta
-		if not button_held and repeat_timer >= 0.5:
-			button_held = true
-		if button_held and repeat_timer >= 0.6:
-			simulate_mouse_click()
-			repeat_timer = 0.5
-	else:
-		if button_held:
-			button_held = false
-			repeat_timer = 0.0
-	
+func play_click_sounds():
+	SfxManager.play_sound("click_on", SfxManager.click_on_volume)
+	SfxManager.delayed_play_sound("click_off", SfxManager.click_off_volume)
+
+func create_race_selection_options():
+	for x in deck_races:
+		var button = Button.new()
+		button.text = x
+		button.custom_minimum_size = Vector2(400, 120)
+		button.add_theme_font_size_override("font_size", 75)
+		button.connect("pressed", Callable(self, "_on_select_race_button_pressed").bind(button))
+		menu_instance.add_child(button)
+
+func player_setup_manager():
+	if player_two_choose == true and player_two_setup == false:
+		# Creates menu options to select from for player 2
+		create_race_selection_options()
+		player_two_setup = true
+		
+func setup_battlefield():
+	if battlefield_setup == false and players_done_choosing == true:
+		player_one_draw_pile = card_back.instantiate()
+		player_one_draw_pile.position += player_draw_position_1
+		add_child(player_one_draw_pile)
+		player_two_draw_pile = card_back.instantiate()
+		player_two_draw_pile.position += player_draw_position_2
+		add_child(player_two_draw_pile)
+		draw_pile_1 = card_back.instantiate()
+		draw_pile_1.position += draw_pile_position
+		draw_pile_1.position.y += 310
+		add_child(draw_pile_1)
+		draw_pile_2 = card_back.instantiate()
+		draw_pile_2.position += draw_pile_position
+		draw_pile_2.position.y -= 310
+		add_child(draw_pile_2)
+		# Populates deck counters
+		player_one_deck_counter.text = "x " + str(player_1_deck.size())
+		player_one_deck_count = player_1_deck.size()
+		player_one_deck_counter.visible = true
+		player_two_deck_counter.text = "x " + str(player_2_deck.size())
+		player_two_deck_count = player_2_deck.size()
+		player_two_deck_counter.visible = true
+		# Adds skip option to buttons
+		var skip_button = Button.new()
+		skip_button.text = "Skip"
+		skip_button.custom_minimum_size = Vector2(250, 30)
+		skip_button.add_theme_font_size_override("font_size", 30)
+		skip_button.connect("pressed", Callable(self, "_on_skip_button_pressed"))
+		menu_instance.add_child(skip_button)
+		# Toggles next step
+		battlefield_setup = true
+		battleloop_started = true
+
 func battleloop():
 	if battleloop_started == true and player_wins == 0:
 		send_active_ship()
@@ -267,17 +319,45 @@ func battleloop():
 			final_win_label()
 			end_message_printed = true
 
-func final_win_label():
-	hide_attack_menus()
-	var label = Label.new()
-	label.text = "Player " + str(player_wins) + " Wins!"
-	label.custom_minimum_size = Vector2(350, 120)
-	label.add_theme_font_size_override("font_size", 100)
-	label.add_theme_color_override("font_color", return_font_color_by_race(attack_info_primary_ship))
-	var final_instance = menu.instantiate()
-	final_instance.position -= Vector2(25, 300)
-	final_instance.add_child(label)
-	canvas_layer.add_child(final_instance)
+func send_active_ship():
+	if player_one_active_ships.size() == 0:
+		if player_1_deck.size() > 0:
+			var index = randi() % player_1_deck.size()
+			player_one_active_ships.push_back(player_1_deck.pop_at(index))
+			var player_one_main_ship = player_one_active_ships[0]
+			player_one_main_ship.ship_position = 1
+			player_one_main_ship.position = ship_position_1
+			add_child(player_one_main_ship)
+			if player_1_deck.size() == 0:
+				player_one_draw_pile.queue_free()
+			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
+				reset_phase()
+			if player_1_deck.size() < 2:
+				player_one_deck_counter.visible = false
+			else:
+				player_one_deck_count -= 1 
+				player_one_deck_counter.text = "x " + str(player_1_deck.size())
+		else:
+			player_wins = 2
+	if player_two_active_ships.size() == 0:
+		if player_2_deck.size() > 0:
+			var index = randi() % player_2_deck.size()
+			player_two_active_ships.push_back(player_2_deck.pop_at(index))
+			var player_two_main_ship = player_two_active_ships[0]
+			player_two_main_ship.ship_position = 2
+			player_two_main_ship.position = ship_position_2
+			add_child(player_two_main_ship)
+			if player_2_deck.size() == 0:
+				player_two_draw_pile.queue_free()
+			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
+				reset_phase()
+			if player_2_deck.size() < 2:
+				player_two_deck_counter.visible = false
+			else:
+				player_two_deck_count -= 1 
+				player_two_deck_counter.text = "x " + str(player_2_deck.size())
+		else:
+			player_wins = 1
 
 func determine_order_of_attack():
 	if order_of_attack_determined == false:
@@ -301,6 +381,40 @@ func determine_order_of_attack():
 		ships_attacking_this_phase.sort_custom(func(a, b): return a.pursuit > b.pursuit)
 		order_of_attack_determined = true
 
+func attacks_generator():
+	if attacks_generated == false and ships_attacking_this_phase.size() > 0:
+		attacks_generated = true
+		var active_ship = ships_attacking_this_phase[0]
+		var ship_map_position = active_ship.ship_position
+		determine_menu(ship_map_position)
+		for x in active_ship.attacks:
+			if x.phase == current_phase:
+				# Perfect gate for determining proper items for attack menu
+				if x.ammo != 0:
+					var attack_button_instance = Button.new()
+					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship))
+					attack_button_instance.custom_minimum_size = Vector2(250, 80)
+					attack_button_instance.add_theme_font_size_override("font_size", 50)
+					attack_button_instance.add_theme_color_override("font_color", font_color_by_race(active_ship))
+					attack_button_instance.text = x.button_name
+					menu_attacks.add_child(attack_button_instance)
+		if menu_attacks.get_child_count() == 0:
+			player_end_turn_signal = true
+	
+func determine_menu(ship_map_position):
+	if ship_map_position == 1:
+		menu_attacks = $"menu_layer/player_one_attacks_menu"
+	elif ship_map_position == 2:
+		menu_attacks = $"menu_layer/player_two_attacks_menu"
+	elif ship_map_position == 3:
+		menu_attacks = $"menu_layer/player_three_attacks_menu"
+	elif ship_map_position == 4:
+		menu_attacks = $"menu_layer/player_four_attacks_menu"
+	elif ship_map_position == 5:
+		menu_attacks = $"menu_layer/player_five_attacks_menu"
+	elif ship_map_position == 6:
+		menu_attacks = $"menu_layer/player_six_attacks_menu"
+	
 func attack_chosen(attack_button, active_ship):
 	for x in active_ship.attacks:
 		if x.button_name == attack_button.text:
@@ -310,7 +424,7 @@ func attack_chosen(attack_button, active_ship):
 
 func player_which_enemy():
 	if check_for_fighter_launch():
-		attack(return_enemy_single_ship_name())
+		attack(enemy_single_ship_name())
 	elif enemy_has_multiple_ships():
 		# Covers all cases when click sounds need to be played for a non-attack attack menu
 		play_click_sounds()
@@ -318,19 +432,19 @@ func player_which_enemy():
 		if menu_attacks:
 			for x in menu_attacks.get_children():
 				x.queue_free()
-		var unique_enemies_to_attack = return_unique_enemies()
+		var unique_enemies_to_attack = unique_enemies_attackable()
 		for i in range(unique_enemies_to_attack.size()):
 			var attack_button_instance = Button.new()
 			attack_button_instance.connect("pressed", Callable(self, "attack").bind(unique_enemies_to_attack[i]))
 			attack_button_instance.custom_minimum_size = Vector2(250, 80)
 			attack_button_instance.add_theme_font_size_override("font_size", 50)
-			attack_button_instance.add_theme_color_override("font_color", return_font_color_by_race(attack_info_primary_ship))
+			attack_button_instance.add_theme_color_override("font_color", font_color_by_race(attack_info_primary_ship))
 			attack_button_instance.text = unique_enemies_to_attack[i]
 			menu_attacks.add_child(attack_button_instance)
 		player_which_enemy_initialized = true
 	else:
 		shuffle_deck()
-		attack(return_enemy_single_ship_name())
+		attack(enemy_single_ship_name())
 		
 func check_for_fighter_launch():
 	for x in attack_info_primary_ship.attacks:
@@ -339,7 +453,7 @@ func check_for_fighter_launch():
 				return true
 	return false
 
-func return_unique_enemies():
+func unique_enemies_attackable():
 	var unique_enemies = []
 	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
 		for x in player_two_active_ships:
@@ -359,7 +473,7 @@ func return_unique_enemies():
 				unique_enemies.push_back(x.ship_button_name)
 	return unique_enemies
 
-func return_enemy_single_ship_name():
+func enemy_single_ship_name():
 	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
 		return player_two_active_ships[0].ship_button_name
 	else:
@@ -384,7 +498,7 @@ func enemy_has_multiple_ships():
 func attack(enemy_ship_name):
 	# Plays click sounds when attack is chosen
 	play_click_sounds()
-	var enemy_ship = return_first_instance_of_enemy_ship_name(enemy_ship_name)
+	var enemy_ship = first_instance_of_enemy_ship(enemy_ship_name)
 	for x in attack_info_primary_ship.attacks:
 		if x.button_name == attack_info_name:
 			# Identifies Fighters
@@ -446,18 +560,6 @@ func armor_down(enemy_ship):
 	blink_manager(enemy_ship, false)
 	remove_child(enemy_ship)
 
-func blink_manager(enemy_ship, toggle):
-	if enemy_ship.ship_position == 3 or enemy_ship.ship_position == 5:
-		for x in player_one_active_ships:
-			if enemy_ship.ship_button_name == x.ship_button_name:
-				x.blink(toggle)
-	elif enemy_ship.ship_position == 4 or enemy_ship.ship_position == 6:
-		for x in player_two_active_ships:
-			if enemy_ship.ship_button_name == x.ship_button_name:
-				x.blink(toggle)
-	else:
-		enemy_ship.blink(toggle)
-				
 func draw_a_card(primary_ship_position):
 	var index = randi() % draw_deck.size()
 	var element = draw_deck.pop_at(index)
@@ -494,19 +596,7 @@ func draw_a_card_missile(primary_ship_position):
 		if element.get_parent() == null: add_child(element)
 	draw_deck_reshuffle.push_back(element)
 	return element.value
-	
-func shuffle_deck():
-	for x in secondary_cards_to_remove_1:
-		if x.get_parent(): remove_child(x)
-	for x in secondary_cards_to_remove_2:
-		if x.get_parent(): remove_child(x)
-	secondary_cards_to_remove_1.clear()
-	secondary_cards_to_remove_2.clear()
-	for x in draw_deck:
-		if x.get_parent(): remove_child(x)
-	draw_deck.append_array(draw_deck_reshuffle)
-	draw_deck_reshuffle.clear()
-	
+
 func flip_a_card(primary_ship_position, front_card):
 	# Card back cover is used to cover previously flipped cards
 	var card_back_cover = card_back.instantiate()
@@ -538,8 +628,32 @@ func flip_a_card(primary_ship_position, front_card):
 	await get_tree().create_timer(game_speed).timeout
 	# Cleanup of card back cover
 	card_back_cover.queue_free()
+	
+func blink_manager(enemy_ship, toggle):
+	if enemy_ship.ship_position == 3 or enemy_ship.ship_position == 5:
+		for x in player_one_active_ships:
+			if enemy_ship.ship_button_name == x.ship_button_name:
+				x.blink(toggle)
+	elif enemy_ship.ship_position == 4 or enemy_ship.ship_position == 6:
+		for x in player_two_active_ships:
+			if enemy_ship.ship_button_name == x.ship_button_name:
+				x.blink(toggle)
+	else:
+		enemy_ship.blink(toggle)
 
-func return_first_instance_of_enemy_ship_name(enemy_ship_name):
+func shuffle_deck():
+	for x in secondary_cards_to_remove_1:
+		if x.get_parent(): remove_child(x)
+	for x in secondary_cards_to_remove_2:
+		if x.get_parent(): remove_child(x)
+	secondary_cards_to_remove_1.clear()
+	secondary_cards_to_remove_2.clear()
+	for x in draw_deck:
+		if x.get_parent(): remove_child(x)
+	draw_deck.append_array(draw_deck_reshuffle)
+	draw_deck_reshuffle.clear()
+	
+func first_instance_of_enemy_ship(enemy_ship_name):
 	if attack_info_primary_ship.ship_position == 1 or attack_info_primary_ship.ship_position == 3 or attack_info_primary_ship.ship_position == 5:
 		for x in player_two_active_ships:
 			if x.ship_button_name == enemy_ship_name:
@@ -585,7 +699,7 @@ func launch_fighters(attack_selected, active_ship_position):
 			ship_position = 6
 			position_to_spawn = ship_position_6
 	for x in attack_selected.ammo:
-		var fighter_instance = fighter_return_instance(attack_selected.button_name)
+		var fighter_instance = fighter_instance_by_name(attack_selected.button_name)
 		fighter_instance.ship_position = ship_position
 		ship_group_to_join.push_back(fighter_instance)
 		fighter_instance.position = position_to_spawn
@@ -642,7 +756,7 @@ func fighter_add_to_counters(ship_position):
 		menu_to_show.text = "x" + str(fighters_in_position_6)
 	menu_to_show.visible = true
 
-func fighter_return_instance(fighter):
+func fighter_instance_by_name(fighter):
 	if fighter == "Thunderhead Bay":
 		return thunderhead.instantiate()
 	elif fighter == "Pirate Viper Bay":
@@ -658,53 +772,19 @@ func fighter_return_instance(fighter):
 	elif fighter == "Anaconda Bay":
 		return anaconda.instantiate()
 	elif fighter == "Rebel Viper Bay":
-		return viper.instantiate()
+		return rebel_viper.instantiate()
 	elif fighter == "Manta Bay":
 		return manta.instantiate()
 
-func attacks_generator():
-	if attacks_generated == false and ships_attacking_this_phase.size() > 0:
-		attacks_generated = true
-		var active_ship = ships_attacking_this_phase[0]
-		var ship_map_position = active_ship.ship_position
-		determine_menu(ship_map_position)
-		for x in active_ship.attacks:
-			if x.phase == current_phase:
-				# Perfect gate for determining proper items for attack menu
-				if x.ammo != 0:
-					var attack_button_instance = Button.new()
-					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship))
-					attack_button_instance.custom_minimum_size = Vector2(250, 80)
-					attack_button_instance.add_theme_font_size_override("font_size", 50)
-					attack_button_instance.add_theme_color_override("font_color", return_font_color_by_race(active_ship))
-					attack_button_instance.text = x.button_name
-					menu_attacks.add_child(attack_button_instance)
-		if menu_attacks.get_child_count() == 0:
-			player_end_turn_signal = true
-		
-func return_font_color_by_race(active_ship):
+func font_color_by_race(active_ship):
 	if active_ship.type == "alien": return "#FFD700"
-	elif active_ship.type == "auroran": return "#8B4513"
-	elif active_ship.type == "federation": return "#4682B4"
-	elif active_ship.type == "pirate": return "#D88B5E"
+	elif active_ship.type == "auroran": return "#E68568"
+	elif active_ship.type == "federation": return "#6BAFDE"
+	elif active_ship.type == "pirate": return "#D89262"
 	elif active_ship.type == "polaris": return "#D8BFD8"
-	elif active_ship.type == "rebel": return "#228B22"
-	elif active_ship.type == "trader": return "#A9A9A9"
+	elif active_ship.type == "rebel": return "#5AC46E"
+	elif active_ship.type == "trader": return "#C0C0C0"
 		
-func determine_menu(ship_map_position):
-	if ship_map_position == 1:
-		menu_attacks = $"menu_layer/player_one_attacks_menu"
-	elif ship_map_position == 2:
-		menu_attacks = $"menu_layer/player_two_attacks_menu"
-	elif ship_map_position == 3:
-		menu_attacks = $"menu_layer/player_three_attacks_menu"
-	elif ship_map_position == 4:
-		menu_attacks = $"menu_layer/player_four_attacks_menu"
-	elif ship_map_position == 5:
-		menu_attacks = $"menu_layer/player_five_attacks_menu"
-	elif ship_map_position == 6:
-		menu_attacks = $"menu_layer/player_six_attacks_menu"
-
 func phase_switch():
 	if current_phase < 5:
 		current_phase += 1
@@ -713,6 +793,11 @@ func phase_switch():
 	ships_attacking_this_phase.clear()
 	order_of_attack_determined = false
 
+func reset_phase():
+	current_phase = 1
+	ships_attacking_this_phase.clear()
+	order_of_attack_determined = false
+	
 func offset_attacks_menus():	
 	var menus_to_offset = [menu_1, menu_2, menu_3, menu_4, menu_5, menu_6]
 	for menu_to_offset in menus_to_offset:
@@ -739,100 +824,23 @@ func show_attack_menus():
 	menu_6.visible = true
 	menu_instance.visible = true
 		
-func send_active_ship():
-	if player_one_active_ships.size() == 0:
-		if player_1_deck.size() > 0:
-			var index = randi() % player_1_deck.size()
-			player_one_active_ships.push_back(player_1_deck.pop_at(index))
-			var player_one_main_ship = player_one_active_ships[0]
-			player_one_main_ship.ship_position = 1
-			player_one_main_ship.position = ship_position_1
-			add_child(player_one_main_ship)
-			if player_1_deck.size() == 0:
-				player_one_draw_pile.queue_free()
-			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
-				reset_phase()
-			if player_1_deck.size() < 2:
-				player_one_deck_counter.visible = false
-			else:
-				player_one_deck_count -= 1 
-				player_one_deck_counter.text = "x " + str(player_1_deck.size())
-		else:
-			player_wins = 2
-	if player_two_active_ships.size() == 0:
-		if player_2_deck.size() > 0:
-			var index = randi() % player_2_deck.size()
-			player_two_active_ships.push_back(player_2_deck.pop_at(index))
-			var player_two_main_ship = player_two_active_ships[0]
-			player_two_main_ship.ship_position = 2
-			player_two_main_ship.position = ship_position_2
-			add_child(player_two_main_ship)
-			if player_2_deck.size() == 0:
-				player_two_draw_pile.queue_free()
-			if player_one_active_ships.size() > 0 and player_two_active_ships.size() > 0:
-				reset_phase()
-			if player_2_deck.size() < 2:
-				player_two_deck_counter.visible = false
-			else:
-				player_two_deck_count -= 1 
-				player_two_deck_counter.text = "x " + str(player_2_deck.size())
-		else:
-			player_wins = 1
-		
-func reset_phase():
-	current_phase = 1
-	ships_attacking_this_phase.clear()
-	order_of_attack_determined = false
+func final_win_label():
+	hide_attack_menus()
+	var label = Label.new()
+	label.text = "Player " + str(player_wins) + " Wins!"
+	label.custom_minimum_size = Vector2(350, 120)
+	label.add_theme_font_size_override("font_size", 100)
+	label.add_theme_color_override("font_color", font_color_by_race(attack_info_primary_ship))
+	var final_instance = menu.instantiate()
+	final_instance.position.x -= 25
+	final_instance.position.y -= 5
+	if player_wins == 1:
+		final_instance.position -= Vector2(0, 400)
+	else:
+		final_instance.position += Vector2(0, 300)
+	final_instance.add_child(label)
+	canvas_layer.add_child(final_instance)
 	
-func setup_battlefield():
-	if battlefield_setup == false and players_done_choosing == true:
-		player_one_draw_pile = card_back.instantiate()
-		player_one_draw_pile.position += player_draw_position_1
-		add_child(player_one_draw_pile)
-		player_two_draw_pile = card_back.instantiate()
-		player_two_draw_pile.position += player_draw_position_2
-		add_child(player_two_draw_pile)
-		draw_pile_1 = card_back.instantiate()
-		draw_pile_1.position += draw_pile_position
-		draw_pile_1.position.y += 310
-		add_child(draw_pile_1)
-		draw_pile_2 = card_back.instantiate()
-		draw_pile_2.position += draw_pile_position
-		draw_pile_2.position.y -= 310
-		add_child(draw_pile_2)
-		# Populates deck counters
-		player_one_deck_counter.text = "x " + str(player_1_deck.size())
-		player_one_deck_count = player_1_deck.size()
-		player_one_deck_counter.visible = true
-		player_two_deck_counter.text = "x " + str(player_2_deck.size())
-		player_two_deck_count = player_2_deck.size()
-		player_two_deck_counter.visible = true
-		# Adds skip option to buttons
-		var skip_button = Button.new()
-		skip_button.text = "Skip"
-		skip_button.custom_minimum_size = Vector2(250, 30)
-		skip_button.add_theme_font_size_override("font_size", 30)
-		skip_button.connect("pressed", Callable(self, "_on_skip_button_pressed"))
-		menu_instance.add_child(skip_button)
-		# Toggles next step
-		battlefield_setup = true
-		battleloop_started = true
-
-func player_setup_manager():
-	if player_two_choose == true and player_two_setup == false:
-		# Creates menu options to select from for player 2
-		create_menu_options()
-		player_two_setup = true
-
-func create_menu_options():
-	for x in deck_races:
-		var button = Button.new()
-		button.text = x
-		button.custom_minimum_size = Vector2(400, 120)
-		button.add_theme_font_size_override("font_size", 75)
-		button.connect("pressed", Callable(self, "_on_button_pressed").bind(button))
-		menu_instance.add_child(button)
-
 func map_movement_manager():
 	var mouse_position = get_viewport().get_mouse_position()
 	if mouse_position.x < 10 and mouse_position.y < 10:

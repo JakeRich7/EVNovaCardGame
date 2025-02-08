@@ -10,7 +10,7 @@ script = ExtResource("1_tp55q")
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 z_index = -1
 stream = ExtResource("1_a1d7a")
-volume_db = 1.0
+volume_db = 2.0
 autoplay = true
 
 [node name="loading_image" type="Sprite2D" parent="."]
