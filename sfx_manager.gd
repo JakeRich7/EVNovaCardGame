@@ -1,17 +1,18 @@
 extends Node
 
-@onready var audio_playing = true
+# Constants
 @onready var menu_loaded = preload("res://sounds/nova_loading.wav")
 @onready var click_on = preload("res://sounds/nova_click_on.wav")
 @onready var click_off = preload("res://sounds/nova_click_off.wav")
-
 @onready var menu_loaded_volume = 0.5
 @onready var click_on_volume = 0.7
 @onready var click_off_volume = 0.7
-
 @onready var pool_size = 10
 @onready var pool = []
 @onready var sfx_volume = 0.4
+
+# Dynamics
+@onready var audio_playing = true
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
