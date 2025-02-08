@@ -262,6 +262,7 @@ func create_race_selection_options():
 		button.text = x
 		button.custom_minimum_size = Vector2(400, 120)
 		button.add_theme_font_size_override("font_size", 75)
+		button.add_theme_color_override("font_color", font_color_by_race(x.to_lower()))
 		button.connect("pressed", Callable(self, "_on_select_race_button_pressed").bind(button))
 		menu_instance.add_child(button)
 
@@ -395,7 +396,7 @@ func attacks_generator():
 					attack_button_instance.connect("pressed", Callable(self, "attack_chosen").bind(attack_button_instance, active_ship))
 					attack_button_instance.custom_minimum_size = Vector2(250, 80)
 					attack_button_instance.add_theme_font_size_override("font_size", 50)
-					attack_button_instance.add_theme_color_override("font_color", font_color_by_race(active_ship))
+					attack_button_instance.add_theme_color_override("font_color", font_color_by_race(active_ship.type))
 					attack_button_instance.text = x.button_name
 					menu_attacks.add_child(attack_button_instance)
 		if menu_attacks.get_child_count() == 0:
@@ -438,7 +439,7 @@ func player_which_enemy():
 			attack_button_instance.connect("pressed", Callable(self, "attack").bind(unique_enemies_to_attack[i]))
 			attack_button_instance.custom_minimum_size = Vector2(250, 80)
 			attack_button_instance.add_theme_font_size_override("font_size", 50)
-			attack_button_instance.add_theme_color_override("font_color", font_color_by_race(attack_info_primary_ship))
+			attack_button_instance.add_theme_color_override("font_color", font_color_by_race(attack_info_primary_ship.type))
 			attack_button_instance.text = unique_enemies_to_attack[i]
 			menu_attacks.add_child(attack_button_instance)
 		player_which_enemy_initialized = true
@@ -776,14 +777,14 @@ func fighter_instance_by_name(fighter):
 	elif fighter == "Manta Bay":
 		return manta.instantiate()
 
-func font_color_by_race(active_ship):
-	if active_ship.type == "alien": return "#FFD700"
-	elif active_ship.type == "auroran": return "#E68568"
-	elif active_ship.type == "federation": return "#6BAFDE"
-	elif active_ship.type == "pirate": return "#D89262"
-	elif active_ship.type == "polaris": return "#D8BFD8"
-	elif active_ship.type == "rebel": return "#5AC46E"
-	elif active_ship.type == "trader": return "#C0C0C0"
+func font_color_by_race(active_ship_type):
+	if active_ship_type == "alien": return "#FFE766"
+	elif active_ship_type == "auroran": return "#E68568"
+	elif active_ship_type == "federation": return "#6BAFDE"
+	elif active_ship_type == "pirate": return "#D89262"
+	elif active_ship_type == "polaris": return "#D8BFD8"
+	elif active_ship_type == "rebel": return "#5AC46E"
+	elif active_ship_type == "trader": return "#C0C0C0"
 		
 func phase_switch():
 	if current_phase < 5:
@@ -830,7 +831,7 @@ func final_win_label():
 	label.text = "Player " + str(player_wins) + " Wins!"
 	label.custom_minimum_size = Vector2(350, 120)
 	label.add_theme_font_size_override("font_size", 100)
-	label.add_theme_color_override("font_color", font_color_by_race(attack_info_primary_ship))
+	label.add_theme_color_override("font_color", font_color_by_race(attack_info_primary_ship.type))
 	var final_instance = menu.instantiate()
 	final_instance.position.x -= 25
 	final_instance.position.y -= 5
