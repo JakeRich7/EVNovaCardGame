@@ -91,6 +91,8 @@ func _ready():
 	map.position.y += 720
 	# Creates initial menu
 	menu_instance = menu.instantiate()
+	menu_instance.position.x -= 25
+	menu_instance.position.y -= 5
 	canvas_layer.add_child(menu_instance)
 	# Creates settings menu
 	settings_instance = settings.instantiate()
@@ -129,6 +131,10 @@ func _ready():
 	SfxManager.play_sound("menu_loaded", SfxManager.menu_loaded_volume)
 	# Creates menu options to select from for player 1
 	create_menu_options()
+
+func _on_skip_button_pressed():
+	play_click_sounds()
+	player_end_turn_signal = true
 
 func _on_button_pressed(button):
 	# Plays click sounds when races are chosen
@@ -203,7 +209,8 @@ func _on_quit_pressed():
 
 func _input(event):
 	if event.is_action_pressed("escape"):
-		if menu_instance.get_child_count() == 0:
+		# Allows menu to be pulled up after selection has taken place
+		if menu_instance.get_child_count() <= 1:
 			if settings_instance.visible:
 				settings_instance.hide()
 				show_attack_menus()
@@ -721,6 +728,7 @@ func hide_attack_menus():
 	menu_4.visible = false
 	menu_5.visible = false
 	menu_6.visible = false
+	menu_instance.visible = false
 
 func show_attack_menus():
 	menu_1.visible = true
@@ -729,6 +737,7 @@ func show_attack_menus():
 	menu_4.visible = true
 	menu_5.visible = true
 	menu_6.visible = true
+	menu_instance.visible = true
 		
 func send_active_ship():
 	if player_one_active_ships.size() == 0:
@@ -798,6 +807,13 @@ func setup_battlefield():
 		player_two_deck_counter.text = "x " + str(player_2_deck.size())
 		player_two_deck_count = player_2_deck.size()
 		player_two_deck_counter.visible = true
+		# Adds skip option to buttons
+		var skip_button = Button.new()
+		skip_button.text = "Skip"
+		skip_button.custom_minimum_size = Vector2(250, 30)
+		skip_button.add_theme_font_size_override("font_size", 30)
+		skip_button.connect("pressed", Callable(self, "_on_skip_button_pressed"))
+		menu_instance.add_child(skip_button)
 		# Toggles next step
 		battlefield_setup = true
 		battleloop_started = true
