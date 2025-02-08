@@ -5,7 +5,7 @@ extends Node
 @onready var click_on = preload("res://sounds/nova_click_on.wav")
 @onready var click_off = preload("res://sounds/nova_click_off.wav")
 
-@onready var menu_loaded_volume = 0.7
+@onready var menu_loaded_volume = 0.5
 @onready var click_on_volume = 0.7
 @onready var click_off_volume = 0.7
 

@@ -772,6 +772,8 @@ func send_active_ship():
 		
 func reset_phase():
 	current_phase = 1
+	ships_attacking_this_phase.clear()
+	order_of_attack_determined = false
 	
 func setup_battlefield():
 	if battlefield_setup == false and players_done_choosing == true:
