@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"alien\"
 var ship_name = \"M-UNS-13 United Shipping 04a-Hyperioid\"
-var ship_button_name = \"Hyperoid\"
+var ship_button_name = \"Hyperioid\"
 var ship_position = 0
 var shield = 14
 var armor = 2

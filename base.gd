@@ -170,8 +170,8 @@ func setup_gametype_selection():
 			game_type_name = "Custom"
 		var game_type_button = Button.new()
 		game_type_button.connect("pressed", Callable(self, "_game_type_pressed").bind(game_type_name))
-		game_type_button.custom_minimum_size = Vector2(250, 80)
-		game_type_button.add_theme_font_size_override("font_size", 50)
+		game_type_button.custom_minimum_size = Vector2(400, 120)
+		game_type_button.add_theme_font_size_override("font_size", 75)
 		game_type_button.text = game_type_name
 		menu_instance.add_child(game_type_button)
 
@@ -229,17 +229,28 @@ func _on_select_race_button_pressed(button):
 	elif button.text == "Polaris": type_to_search = "polaris"
 	elif button.text == "Rebel": type_to_search = "rebel"
 	elif button.text == "Trader": type_to_search = "trader"
-	if player_two_choose == true:
-		for x in ships_all:
-			if x.type == type_to_search:
-				player_2_deck.push_back(x)
-		player_two_choose = false
-		players_done_choosing = true
-	else:
-		for x in ships_all:
-			if x.type == type_to_search:
-				player_1_deck.push_back(x)
-		player_two_choose = true
+	if game_type == "Full":
+		if player_two_choose == true:
+			for x in ships_all:
+				if x.type == type_to_search:
+					player_2_deck.push_back(x)
+			player_two_choose = false
+			players_done_choosing = true
+		else:
+			for x in ships_all:
+				if x.type == type_to_search:
+					player_1_deck.push_back(x)
+			player_one_choose = false
+			player_two_choose = true
+	elif game_type == "Skirmish":
+		if player_two_choose == true:
+			add_ships_to_player_deck_skirmish(2, type_to_search)
+			player_two_choose = false
+			players_done_choosing = true
+		else:
+			add_ships_to_player_deck_skirmish(1, type_to_search)
+			player_one_choose = false
+			player_two_choose = true
 	# Removes option from deck races button list
 	for x in range(deck_races.size() - 1, -1, -1):  # Iterate backwards
 		if deck_races[x] == button.text:
@@ -247,6 +258,42 @@ func _on_select_race_button_pressed(button):
 	# Removes all buttons
 	for x in menu_instance.get_children():
 		x.queue_free()
+
+func add_ships_to_player_deck_skirmish(player_number, type_to_search):
+	if player_number == 2:
+		var available_ships = []
+		for x in ships_all:
+			if x.type == type_to_search:
+				available_ships.append(x)
+		var total_cost = 0
+		var failed_attempts = 0
+		while available_ships.size() > 0 and failed_attempts < 10:
+			var index = randi() % available_ships.size()
+			var ship = available_ships[index]
+			if total_cost + ship.cost <= 100 and ship not in player_2_deck:
+				player_2_deck.append(ship)
+				total_cost += ship.cost
+				available_ships.remove_at(index)
+				failed_attempts = 0
+			else:
+				failed_attempts += 1
+	else:
+		var available_ships = []
+		for x in ships_all:
+			if x.type == type_to_search:
+				available_ships.append(x)
+		var total_cost = 0
+		var failed_attempts = 0
+		while available_ships.size() > 0 and failed_attempts < 10:
+			var index = randi() % available_ships.size()
+			var ship = available_ships[index]
+			if total_cost + ship.cost <= 100 and ship not in player_1_deck:
+				player_1_deck.append(ship)
+				total_cost += ship.cost
+				available_ships.remove_at(index)
+				failed_attempts = 0
+			else:
+				failed_attempts += 1
 
 func _on_music_pressed():
 	play_click_sounds()
