@@ -77,6 +77,8 @@ var button_held = false
 var repeat_timer = 0.0
 var secondary_cards_to_remove_1 = []
 var secondary_cards_to_remove_2 = []
+var no_attacking_ships_counter = 0
+var game_type = null
 var menu_instance
 var settings_instance
 var player_one_draw_pile
@@ -86,7 +88,6 @@ var draw_pile_2
 var menu_attacks
 var attack_info_name
 var attack_info_primary_ship
-var game_type = null
 var final_instance
 
 func _ready():
@@ -434,7 +435,6 @@ func _on_attack_stats_pressed():
 	get_parent().attack_stats = !get_parent().attack_stats
 	
 func _on_restart_pressed():
-	play_click_sounds()
 	# Accesses the 'loading_scene' root and resets it
 	get_parent().base_loaded = false
 	queue_free()
@@ -621,6 +621,8 @@ func attack_chosen(attack_button, active_ship):
 			player_attack_chosen = true
 			attack_info_name = attack_button.text
 			attack_info_primary_ship = active_ship
+	# Resets this counter which prevents the rare event of a two attackless ships encounter
+	no_attacking_ships_counter = 0
 
 func player_which_enemy():
 	if check_for_fighter_launch():
@@ -986,12 +988,20 @@ func font_color_by_race(active_ship_type):
 	elif active_ship_type == "trader": return "#C0C0C0"
 		
 func phase_switch():
+	# Handles main phase switching
 	if current_phase < 5:
 		current_phase += 1
 	else:
 		current_phase = 1
 	ships_attacking_this_phase.clear()
 	order_of_attack_determined = false
+	# Handles the rare event of a two attackless ships encounter
+	no_attacking_ships_counter += 1
+	if no_attacking_ships_counter == 100:
+		attack_info_primary_ship = player_two_active_ships[0]
+		remove_child(player_one_active_ships[0])
+		player_one_active_ships.pop_at(0)
+		no_attacking_ships_counter = 0
 
 func reset_phase():
 	current_phase = 1
@@ -1027,7 +1037,7 @@ func show_attack_menus():
 	menu_instance.visible = true
 	if final_instance:
 		final_instance.visible = true
-		
+	
 func final_win_label():
 	hide_attack_menus()
 	var label = Label.new()
