@@ -87,6 +87,7 @@ var menu_attacks
 var attack_info_name
 var attack_info_primary_ship
 var game_type = null
+var final_instance
 
 func _ready():
 	# Position attack menus
@@ -1013,6 +1014,8 @@ func hide_attack_menus():
 	menu_5.visible = false
 	menu_6.visible = false
 	menu_instance.visible = false
+	if final_instance:
+		final_instance.visible = false
 
 func show_attack_menus():
 	menu_1.visible = true
@@ -1022,6 +1025,8 @@ func show_attack_menus():
 	menu_5.visible = true
 	menu_6.visible = true
 	menu_instance.visible = true
+	if final_instance:
+		final_instance.visible = true
 		
 func final_win_label():
 	hide_attack_menus()
@@ -1030,7 +1035,7 @@ func final_win_label():
 	label.custom_minimum_size = Vector2(350, 120)
 	label.add_theme_font_size_override("font_size", 100)
 	label.add_theme_color_override("font_color", font_color_by_race(attack_info_primary_ship.type))
-	var final_instance = menu.instantiate()
+	final_instance = menu.instantiate()
 	final_instance.position.x -= 25
 	final_instance.position.y -= 5
 	if player_wins == 1:
