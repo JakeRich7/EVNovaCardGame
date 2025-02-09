@@ -133,6 +133,8 @@ func _ready():
 			instance.scale = Vector2(.78, .78)
 			ships_all.push_back(instance)
 		file_name = dir.get_next()
+	# Anonymous lambda function to sort all ships alphabetically
+	ships_all.sort_custom(func(a, b): return a.ship_button_name < b.ship_button_name)
 	# Play base loaded sound
 	SfxManager.play_sound("menu_loaded", SfxManager.menu_loaded_volume)
 	# Setup menu for gametype selection
@@ -148,7 +150,7 @@ func _physics_process(delta):
 func _input(event):
 	if event.is_action_pressed("escape"):
 		# Allows menu to be pulled up after selection has taken place
-		if menu_instance.get_child_count() <= 1:
+		if battleloop_started:
 			play_click_sounds()
 			if settings_instance.visible:
 				settings_instance.hide()
@@ -163,7 +165,7 @@ func setup_gametype_selection():
 	for x in 3:
 		var game_type_name
 		if x == 0:
-			game_type_name = "Full"
+			game_type_name = "Battle"
 		elif x == 1:
 			game_type_name = "Skirmish"
 		elif x == 2:
@@ -202,15 +204,13 @@ func handle_held_inputs(delta):
 			repeat_timer = 0.0
 	
 func _game_type_pressed(game_type_name):
-	if game_type_name == "Full":
-		game_type = "Full"
+	if game_type_name == "Battle":
+		game_type = "Battle"
 	elif game_type_name == "Skirmish":
 		game_type = "Skirmish"
 	elif game_type_name == "Custom":
 			game_type = "Custom"
-	# Removes all buttons
-	for x in menu_instance.get_children():
-		x.queue_free()
+	remove_all_buttons_from_main_menu()
 	player_one_choose = true
 	
 func _on_skip_button_pressed():
@@ -220,7 +220,7 @@ func _on_skip_button_pressed():
 func _on_select_race_button_pressed(button):
 	# Plays click sounds when races are chosen
 	play_click_sounds()
-	# Adds all ships to players deck
+	# Adds ships to players deck
 	var type_to_search
 	if button.text == "Alien": type_to_search = "alien"
 	elif button.text == "Auroran": type_to_search = "auroran"
@@ -229,7 +229,7 @@ func _on_select_race_button_pressed(button):
 	elif button.text == "Polaris": type_to_search = "polaris"
 	elif button.text == "Rebel": type_to_search = "rebel"
 	elif button.text == "Trader": type_to_search = "trader"
-	if game_type == "Full":
+	if game_type == "Battle":
 		if player_two_choose == true:
 			for x in ships_all:
 				if x.type == type_to_search:
@@ -242,6 +242,7 @@ func _on_select_race_button_pressed(button):
 					player_1_deck.push_back(x)
 			player_one_choose = false
 			player_two_choose = true
+		remove_all_buttons_from_main_menu()
 	elif game_type == "Skirmish":
 		if player_two_choose == true:
 			add_ships_to_player_deck_skirmish(2, type_to_search)
@@ -251,13 +252,72 @@ func _on_select_race_button_pressed(button):
 			add_ships_to_player_deck_skirmish(1, type_to_search)
 			player_one_choose = false
 			player_two_choose = true
+		remove_all_buttons_from_main_menu()
+	elif game_type == "Custom":
+		if player_two_choose == true:
+			remove_all_buttons_from_main_menu()
+			# Creates 10 buttons to choose from
+			for x in 10:
+				var game_type_button = Button.new()
+				game_type_button.connect("pressed", Callable(self, "custom_amount_pressed").bind(type_to_search, x + 1))
+				game_type_button.custom_minimum_size = Vector2(250, 80)
+				game_type_button.add_theme_font_size_override("font_size", 75)
+				game_type_button.text = str(x + 1)
+				menu_instance.add_child(game_type_button)
+		else:
+			remove_all_buttons_from_main_menu()
+			# Creates 10 buttons to choose from
+			for x in 10:
+				var game_type_button = Button.new()
+				game_type_button.connect("pressed", Callable(self, "custom_amount_pressed").bind(type_to_search, x + 1))
+				game_type_button.custom_minimum_size = Vector2(250, 80)
+				game_type_button.add_theme_font_size_override("font_size", 75)
+				game_type_button.text = str(x + 1)
+				menu_instance.add_child(game_type_button)
 	# Removes option from deck races button list
 	for x in range(deck_races.size() - 1, -1, -1):  # Iterate backwards
 		if deck_races[x] == button.text:
 			deck_races.remove_at(x)
-	# Removes all buttons
+
+func remove_all_buttons_from_main_menu():
 	for x in menu_instance.get_children():
 		x.queue_free()
+
+func custom_amount_pressed(type_to_search, number_of_custom_ships):
+	remove_all_buttons_from_main_menu()
+	if number_of_custom_ships > 0:
+		var scroll_container = ScrollContainer.new()
+		scroll_container.custom_minimum_size = Vector2(600, 800)
+		var vbox = VBoxContainer.new()
+		scroll_container.add_child(vbox)
+		for x in ships_all:
+			if x.type == type_to_search:
+				var game_type_button = Button.new()
+				game_type_button.connect("pressed", Callable(self, "add_ships_to_player_deck_custom").bind(type_to_search, number_of_custom_ships, x))
+				game_type_button.add_theme_font_size_override("font_size", 30)
+				game_type_button.custom_minimum_size = Vector2(600, 80)
+				game_type_button.text = str(x.ship_button_name)
+				vbox.add_child(game_type_button)
+		menu_instance.add_child(scroll_container)
+	else:
+		if player_two_choose:
+			player_two_choose = false
+			players_done_choosing = true
+		else:
+			player_one_choose = false
+			player_two_choose = true
+
+func add_ships_to_player_deck_custom(type_to_search, number_of_custom_ships, ship_instance):
+	var num_ships = number_of_custom_ships - 1
+	if player_two_choose:
+		player_2_deck.push_back(ship_instance)
+	else:
+		player_1_deck.push_back(ship_instance)
+	for i in range(ships_all.size()):
+		if ships_all[i].ship_name == ship_instance.ship_name:
+			ships_all.remove_at(i)
+			break
+	custom_amount_pressed(type_to_search, num_ships)
 
 func add_ships_to_player_deck_skirmish(player_number, type_to_search):
 	if player_number == 2:
