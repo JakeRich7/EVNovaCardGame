@@ -999,6 +999,8 @@ func phase_switch():
 	no_attacking_ships_counter += 1
 	if no_attacking_ships_counter == 100:
 		attack_info_primary_ship = player_two_active_ships[0]
+		if player_one_active_ships[0].ship_position > 2:
+			fighter_subtract_from_counters(player_one_active_ships[0].ship_position)
 		remove_child(player_one_active_ships[0])
 		player_one_active_ships.pop_at(0)
 		no_attacking_ships_counter = 0
