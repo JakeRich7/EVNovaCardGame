@@ -106,6 +106,7 @@ func _ready():
 	# Creates settings menu listeners
 	settings_instance.get_node("music").pressed.connect(_on_music_pressed)
 	settings_instance.get_node("audio").pressed.connect(_on_audio_pressed)
+	settings_instance.get_node("display").pressed.connect(_on_display_pressed)
 	settings_instance.get_node("speed").pressed.connect(_on_speed_pressed)
 	settings_instance.get_node("restart").pressed.connect(_on_restart_pressed)
 	settings_instance.get_node("quit").pressed.connect(_on_quit_pressed)
@@ -139,7 +140,7 @@ func _ready():
 	SfxManager.play_sound("menu_loaded", SfxManager.menu_loaded_volume)
 	# Setup menu for gametype selection
 	setup_gametype_selection()
-	# Set music and audio text
+	# Set all setting states on initial startup and restart
 	if music.playing:
 		settings_instance.get_node("music").text = "Music ON"
 	else:
@@ -148,13 +149,16 @@ func _ready():
 		settings_instance.get_node("audio").text = "Audio ON"
 	else:
 		settings_instance.get_node("audio").text = "Audio OFF"
-	# Set game speed
 	if get_parent().game_speed == 0.3:
 		settings_instance.get_node("speed").text = "Normal"
 	elif get_parent().game_speed == 0.1:
 		settings_instance.get_node("speed").text = "Fast"
 	elif get_parent().game_speed == 0:
 		settings_instance.get_node("speed").text = "Fastest"
+	if get_parent().display_mode == "Borderless":
+		settings_instance.get_node("display").text = "Borderless"
+	elif get_parent().display_mode == "Windowed":
+		settings_instance.get_node("display").text = "Windowed"
 	
 func _physics_process(delta):
 	map_movement_manager()
@@ -388,6 +392,17 @@ func _on_audio_pressed():
 	elif settings_instance.get_node("audio").text == "Audio OFF":
 		settings_instance.get_node("audio").text = "Audio ON"
 	
+func _on_display_pressed():
+	if get_parent().display_mode == "Borderless":
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		settings_instance.get_node("display").text = "Windowed"
+		get_parent().display_mode = "Windowed"
+		DisplayServer.window_set_size(DisplayServer.screen_get_size() * .8)
+	elif get_parent().display_mode == "Windowed":
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		settings_instance.get_node("display").text = "Borderless"
+		get_parent().display_mode = "Borderless"
+		
 func _on_speed_pressed():
 	play_click_sounds()
 	var normal = "Normal"

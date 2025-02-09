@@ -25,6 +25,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Audio ON"
 
+[node name="display" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Borderless"
+
 [node name="speed" type="Button" parent="."]
 layout_mode = 2
 theme_override_font_sizes/font_size = 75

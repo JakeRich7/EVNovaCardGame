@@ -7,6 +7,7 @@ extends Node2D
 
 # Dynamics
 @onready var game_speed = 0.1
+@onready var display_mode = "Borderless"
 	
 func _physics_process(_delta):
 	if base_loaded == false:
