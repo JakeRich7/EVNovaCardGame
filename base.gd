@@ -52,6 +52,8 @@ const cards_ships_path = "res://cards_ships"
 @onready var ships_all = []
 @onready var player_1_deck = []
 @onready var player_2_deck = []
+@onready var player_one_choose = false
+@onready var player_one_setup = false
 @onready var player_two_choose = false
 @onready var player_two_setup = false
 @onready var battlefield_setup = false
@@ -85,6 +87,7 @@ var draw_pile_2
 var menu_attacks
 var attack_info_name
 var attack_info_primary_ship
+var game_type = null
 
 func _ready():
 	# Position attack menus
@@ -132,8 +135,8 @@ func _ready():
 		file_name = dir.get_next()
 	# Play base loaded sound
 	SfxManager.play_sound("menu_loaded", SfxManager.menu_loaded_volume)
-	# Creates menu options to select from for player 1
-	create_race_selection_options()
+	# Setup menu for gametype selection
+	setup_gametype_selection()
 
 func _physics_process(delta):
 	map_movement_manager()
@@ -155,6 +158,22 @@ func _input(event):
 				settings_instance.show()
 	if event.is_action_pressed("return") or event.is_action_pressed("right_click") or event.is_action_pressed("space"):
 		simulate_mouse_click()
+
+func setup_gametype_selection():
+	for x in 3:
+		var game_type_name
+		if x == 0:
+			game_type_name = "Full"
+		elif x == 1:
+			game_type_name = "Skirmish"
+		elif x == 2:
+			game_type_name = "Custom"
+		var game_type_button = Button.new()
+		game_type_button.connect("pressed", Callable(self, "_game_type_pressed").bind(game_type_name))
+		game_type_button.custom_minimum_size = Vector2(250, 80)
+		game_type_button.add_theme_font_size_override("font_size", 50)
+		game_type_button.text = game_type_name
+		menu_instance.add_child(game_type_button)
 
 func simulate_mouse_click():
 	var click = InputEventMouseButton.new()
@@ -181,7 +200,19 @@ func handle_held_inputs(delta):
 		if button_held:
 			button_held = false
 			repeat_timer = 0.0
-		
+	
+func _game_type_pressed(game_type_name):
+	if game_type_name == "Full":
+		game_type = "Full"
+	elif game_type_name == "Skirmish":
+		game_type = "Skirmish"
+	elif game_type_name == "Custom":
+			game_type = "Custom"
+	# Removes all buttons
+	for x in menu_instance.get_children():
+		x.queue_free()
+	player_one_choose = true
+	
 func _on_skip_button_pressed():
 	play_click_sounds()
 	player_end_turn_signal = true
@@ -267,6 +298,9 @@ func create_race_selection_options():
 		menu_instance.add_child(button)
 
 func player_setup_manager():
+	if player_one_choose == true and player_one_setup == false:
+		create_race_selection_options()
+		player_one_setup = true
 	if player_two_choose == true and player_two_setup == false:
 		# Creates menu options to select from for player 2
 		create_race_selection_options()
