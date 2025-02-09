@@ -14,6 +14,7 @@ volume_db = 2.0
 autoplay = true
 
 [node name="loading_image" type="Sprite2D" parent="."]
+z_index = -3
 scale = Vector2(1.34, 1.34)
 texture = ExtResource("2_eqmi3")
 offset = Vector2(960, 540)

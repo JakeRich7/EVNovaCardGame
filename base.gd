@@ -900,15 +900,33 @@ func launch_fighters(attack_selected, active_ship_position):
 		else:
 			ship_position = 6
 			position_to_spawn = ship_position_6
+	# Checks for the rare edge case where a carrier launches three different types of fighters
+	var already_occupied = check_for_position_already_occupied(active_ship_position, ship_position)
 	for x in attack_selected.ammo:
 		var fighter_instance = fighter_instance_by_name(attack_selected.button_name)
 		fighter_instance.ship_position = ship_position
 		ship_group_to_join.push_back(fighter_instance)
 		fighter_instance.position = position_to_spawn
+		# Adjusts fighters stack in the rare edge case where a carrier launches three different types of fighters
+		if already_occupied:
+			fighter_instance.position.y -= 35
+			fighter_instance.z_index = -1
 		fighter_instance.scale = Vector2(.78, .78)
 		add_child(fighter_instance)
 		fighter_add_to_counters(ship_position)
 	attack_selected.ammo = 0
+
+func check_for_position_already_occupied(active_ship_position, position_to_check):
+	var occupied = false
+	if active_ship_position == 1:
+		for x in player_one_active_ships:
+			if x.ship_position == position_to_check:
+				occupied = true
+	else:
+		for x in player_two_active_ships:
+			if x.ship_position == position_to_check:
+				occupied = true
+	return occupied
 
 func fighter_subtract_from_counters(ship_position):
 	var menu_to_subtract

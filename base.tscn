@@ -305,4 +305,5 @@ theme_override_font_sizes/font_size = 75
 text = "Draw"
 
 [node name="map" type="Sprite2D" parent="."]
+z_index = -2
 texture = ExtResource("2_l80rw")
