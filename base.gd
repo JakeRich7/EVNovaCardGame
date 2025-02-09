@@ -108,6 +108,7 @@ func _ready():
 	settings_instance.get_node("audio").pressed.connect(_on_audio_pressed)
 	settings_instance.get_node("display").pressed.connect(_on_display_pressed)
 	settings_instance.get_node("speed").pressed.connect(_on_speed_pressed)
+	settings_instance.get_node("attack_stats").pressed.connect(_on_attack_stats_pressed)
 	settings_instance.get_node("restart").pressed.connect(_on_restart_pressed)
 	settings_instance.get_node("quit").pressed.connect(_on_quit_pressed)
 	# Initializes and places all draw cards in deck
@@ -159,6 +160,10 @@ func _ready():
 		settings_instance.get_node("display").text = "Borderless"
 	elif get_parent().display_mode == "Windowed":
 		settings_instance.get_node("display").text = "Windowed"
+	if get_parent().attack_stats:
+		settings_instance.get_node("attack_stats").text = "Attack Stats ON"
+	elif !get_parent().attack_stats:
+		settings_instance.get_node("attack_stats").text = "Attack Stats OFF"
 	
 func _physics_process(delta):
 	map_movement_manager()
@@ -393,6 +398,7 @@ func _on_audio_pressed():
 		settings_instance.get_node("audio").text = "Audio ON"
 	
 func _on_display_pressed():
+	play_click_sounds()
 	if get_parent().display_mode == "Borderless":
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		settings_instance.get_node("display").text = "Windowed"
@@ -418,7 +424,16 @@ func _on_speed_pressed():
 		settings_instance.get_node("speed").text = fastest
 		get_parent().game_speed = 0
 	
+func _on_attack_stats_pressed():
+	play_click_sounds()
+	if get_parent().attack_stats:
+		settings_instance.get_node("attack_stats").text = "Attack Stats OFF"
+	elif !get_parent().attack_stats:
+		settings_instance.get_node("attack_stats").text = "Attack Stats ON"
+	get_parent().attack_stats = !get_parent().attack_stats
+	
 func _on_restart_pressed():
+	play_click_sounds()
 	# Accesses the 'loading_scene' root and resets it
 	get_parent().base_loaded = false
 	queue_free()
@@ -576,6 +591,11 @@ func attacks_generator():
 					attack_button_instance.add_theme_font_size_override("font_size", 50)
 					attack_button_instance.add_theme_color_override("font_color", font_color_by_race(active_ship.type))
 					attack_button_instance.text = x.button_name
+					if get_parent().attack_stats:
+						if x.shield:
+							attack_button_instance.text += " (" + str(x.shield) + "," + str(x.armor) + ")"
+						elif x.armor:
+							attack_button_instance.text += " (*," + str(x.armor) + ")"
 					menu_attacks.add_child(attack_button_instance)
 		if menu_attacks.get_child_count() == 0:
 			player_end_turn_signal = true
@@ -596,7 +616,7 @@ func determine_menu(ship_map_position):
 	
 func attack_chosen(attack_button, active_ship):
 	for x in active_ship.attacks:
-		if x.button_name == attack_button.text:
+		if attack_button.text.begins_with(x.button_name):
 			player_attack_chosen = true
 			attack_info_name = attack_button.text
 			attack_info_primary_ship = active_ship
@@ -679,7 +699,7 @@ func attack(enemy_ship_name):
 	play_click_sounds()
 	var enemy_ship = first_instance_of_enemy_ship(enemy_ship_name)
 	for x in attack_info_primary_ship.attacks:
-		if x.button_name == attack_info_name:
+		if attack_info_name.begins_with(x.button_name):
 			# Identifies Fighters
 			if x.armor == null:
 				launch_fighters(x, attack_info_primary_ship.ship_position)
