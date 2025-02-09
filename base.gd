@@ -42,7 +42,6 @@ const cards_ships_path = "res://cards_ships"
 # Dynamics
 @onready var player_one_deck_count = 0
 @onready var player_two_deck_count = 0
-@onready var game_speed = 0.1
 @onready var card_back = preload("res://card_back.tscn")
 @onready var menu = preload("res://menu.tscn")
 @onready var settings = preload("res://settings.tscn")
@@ -108,6 +107,7 @@ func _ready():
 	settings_instance.get_node("music").pressed.connect(_on_music_pressed)
 	settings_instance.get_node("audio").pressed.connect(_on_audio_pressed)
 	settings_instance.get_node("speed").pressed.connect(_on_speed_pressed)
+	settings_instance.get_node("restart").pressed.connect(_on_restart_pressed)
 	settings_instance.get_node("quit").pressed.connect(_on_quit_pressed)
 	# Initializes and places all draw cards in deck
 	var dir_deck = DirAccess.open(cards_draw_path)
@@ -139,7 +139,23 @@ func _ready():
 	SfxManager.play_sound("menu_loaded", SfxManager.menu_loaded_volume)
 	# Setup menu for gametype selection
 	setup_gametype_selection()
-
+	# Set music and audio text
+	if music.playing:
+		settings_instance.get_node("music").text = "Music ON"
+	else:
+		settings_instance.get_node("music").text = "Music OFF"
+	if SfxManager.audio_playing:
+		settings_instance.get_node("audio").text = "Audio ON"
+	else:
+		settings_instance.get_node("audio").text = "Audio OFF"
+	# Set game speed
+	if get_parent().game_speed == 0.3:
+		settings_instance.get_node("speed").text = "Normal"
+	elif get_parent().game_speed == 0.1:
+		settings_instance.get_node("speed").text = "Fast"
+	elif get_parent().game_speed == 0:
+		settings_instance.get_node("speed").text = "Fastest"
+	
 func _physics_process(delta):
 	map_movement_manager()
 	player_setup_manager()
@@ -204,6 +220,7 @@ func handle_held_inputs(delta):
 			repeat_timer = 0.0
 	
 func _game_type_pressed(game_type_name):
+	play_click_sounds()
 	if game_type_name == "Battle":
 		game_type = "Battle"
 	elif game_type_name == "Skirmish":
@@ -218,7 +235,6 @@ func _on_skip_button_pressed():
 	player_end_turn_signal = true
 
 func _on_select_race_button_pressed(button):
-	# Plays click sounds when races are chosen
 	play_click_sounds()
 	# Adds ships to players deck
 	var type_to_search
@@ -284,6 +300,7 @@ func remove_all_buttons_from_main_menu():
 		x.queue_free()
 
 func custom_amount_pressed(type_to_search, number_of_custom_ships):
+	play_click_sounds()
 	remove_all_buttons_from_main_menu()
 	if number_of_custom_ships > 0:
 		var scroll_container = ScrollContainer.new()
@@ -373,18 +390,23 @@ func _on_audio_pressed():
 	
 func _on_speed_pressed():
 	play_click_sounds()
-	var fastest = "Fastest"
-	var fast = "Fast"
 	var normal = "Normal"
+	var fast = "Fast"
+	var fastest = "Fastest"
 	if settings_instance.get_node("speed").text == fastest:
 		settings_instance.get_node("speed").text = normal
-		game_speed = 0.3
+		get_parent().game_speed = 0.3
 	elif settings_instance.get_node("speed").text == normal:
 		settings_instance.get_node("speed").text = fast
-		game_speed = 0.1
+		get_parent().game_speed = 0.1
 	elif settings_instance.get_node("speed").text == fast:
 		settings_instance.get_node("speed").text = fastest
-		game_speed = 0
+		get_parent().game_speed = 0
+	
+func _on_restart_pressed():
+	# Accesses the 'loading_scene' root and resets it
+	get_parent().base_loaded = false
+	queue_free()
 	
 func _on_quit_pressed():
 	play_click_sounds()
@@ -712,7 +734,7 @@ func draw_a_card(primary_ship_position):
 		element.position = draw_pile_position
 		element.position.y -= 310
 	element.scale = Vector2(.78, .78)
-	if game_speed != 0:
+	if get_parent().game_speed != 0:
 		flip_a_card(primary_ship_position, element)
 	else:
 		if element.get_parent() == null: add_child(element)
@@ -732,7 +754,7 @@ func draw_a_card_missile(primary_ship_position):
 	element.position.x += 45
 	secondary_cards_to_remove_1.push_back(element)
 	secondary_cards_to_remove_2.push_back(element)
-	if game_speed != 0:
+	if get_parent().game_speed != 0:
 		flip_a_card(primary_ship_position, element)
 	else:
 		if element.get_parent() == null: add_child(element)
@@ -759,15 +781,15 @@ func flip_a_card(primary_ship_position, front_card):
 	add_child(card_back_temp)
 	# Back card flip
 	var tween_back = create_tween()
-	tween_back.tween_property(card_back_temp, "scale", Vector2(0, 1), game_speed)
-	await get_tree().create_timer(game_speed).timeout
+	tween_back.tween_property(card_back_temp, "scale", Vector2(0, 1), get_parent().game_speed)
+	await get_tree().create_timer(get_parent().game_speed).timeout
 	card_back_temp.queue_free()
 	# Front card flip
 	front_card.scale = Vector2(0, .78)
 	if front_card.get_parent() == null: add_child(front_card)
 	var tween_front = create_tween()
-	tween_front.tween_property(front_card, "scale", Vector2(.78, .78), game_speed)
-	await get_tree().create_timer(game_speed).timeout
+	tween_front.tween_property(front_card, "scale", Vector2(.78, .78), get_parent().game_speed)
+	await get_tree().create_timer(get_parent().game_speed).timeout
 	# Cleanup of card back cover
 	card_back_cover.queue_free()
 	
