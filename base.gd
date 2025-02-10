@@ -642,16 +642,20 @@ func player_setup_manager():
 func setup_battlefield():
 	if battlefield_setup == false and players_done_choosing == true:
 		player_one_draw_pile = card_back.instantiate()
+		player_one_draw_pile.scale = Vector2(.78, .78)
 		player_one_draw_pile.position += player_draw_position_1
 		add_child(player_one_draw_pile)
 		player_two_draw_pile = card_back.instantiate()
+		player_two_draw_pile.scale = Vector2(.78, .78)
 		player_two_draw_pile.position += player_draw_position_2
 		add_child(player_two_draw_pile)
 		draw_pile_1 = card_back.instantiate()
+		draw_pile_1.scale = Vector2(.78, .78)
 		draw_pile_1.position += draw_pile_position
 		draw_pile_1.position.y += 310
 		add_child(draw_pile_1)
 		draw_pile_2 = card_back.instantiate()
+		draw_pile_2.scale = Vector2(.78, .78)
 		draw_pile_2.position += draw_pile_position
 		draw_pile_2.position.y -= 310
 		add_child(draw_pile_2)
@@ -979,20 +983,24 @@ func flip_a_card(primary_ship_position, front_card):
 	var card_back_temp = card_back.instantiate()
 	# Determines which draw pile to use (Front card has already been positioned)
 	if primary_ship_position == 1 or primary_ship_position == 3 or primary_ship_position == 5:
+		card_back_cover.scale = Vector2(.78, .78)
 		card_back_cover.position = draw_pile_position
 		card_back_cover.position.y += 310
+		card_back_temp.scale = Vector2(.78, .78)
 		card_back_temp.position = draw_pile_position
 		card_back_temp.position.y += 310
 	else:
+		card_back_cover.scale = Vector2(.78, .78)
 		card_back_cover.position = draw_pile_position
 		card_back_cover.position.y -= 310
+		card_back_temp.scale = Vector2(.78, .78)
 		card_back_temp.position = draw_pile_position
 		card_back_temp.position.y -= 310
 	add_child(card_back_cover)
 	add_child(card_back_temp)
 	# Back card flip
 	var tween_back = create_tween()
-	tween_back.tween_property(card_back_temp, "scale", Vector2(0, 1), get_parent().game_speed)
+	tween_back.tween_property(card_back_temp, "scale", Vector2(0, .78), get_parent().game_speed)
 	await get_tree().create_timer(get_parent().game_speed).timeout
 	card_back_temp.queue_free()
 	# Front card flip
