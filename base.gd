@@ -115,6 +115,7 @@ func _ready():
 	settings_instance.get_node("display").pressed.connect(_on_display_pressed)
 	settings_instance.get_node("speed").pressed.connect(_on_speed_pressed)
 	settings_instance.get_node("attack_stats").pressed.connect(_on_attack_stats_pressed)
+	settings_instance.get_node("map_movement").pressed.connect(_on_map_movement_pressed)
 	settings_instance.get_node("restart").pressed.connect(_on_restart_pressed)
 	settings_instance.get_node("quit").pressed.connect(_on_quit_pressed)
 	# Initializes and places all draw cards in deck
@@ -170,6 +171,10 @@ func _ready():
 		settings_instance.get_node("attack_stats").text = "Attack Stats ON"
 	elif !get_parent().attack_stats:
 		settings_instance.get_node("attack_stats").text = "Attack Stats OFF"
+	if get_parent().map_movement:
+		settings_instance.get_node("map_movement").text = "Map Movement ON"
+	elif !get_parent().map_movement:
+		settings_instance.get_node("map_movement").text = "Map Movement OFF"
 	
 func _physics_process(delta):
 	map_movement_manager()
@@ -576,6 +581,14 @@ func _on_attack_stats_pressed():
 	elif !get_parent().attack_stats:
 		settings_instance.get_node("attack_stats").text = "Attack Stats ON"
 	get_parent().attack_stats = !get_parent().attack_stats
+	
+func _on_map_movement_pressed():
+	play_click_sounds()
+	if get_parent().map_movement:
+		settings_instance.get_node("map_movement").text = "Map Movement OFF"
+	elif !get_parent().map_movement:
+		settings_instance.get_node("map_movement").text = "Map Movement ON"
+	get_parent().map_movement = !get_parent().map_movement
 	
 func _on_restart_pressed():
 	# Accesses the 'loading_scene' root and resets it
@@ -1225,24 +1238,25 @@ func final_win_label():
 	canvas_layer.add_child(final_instance)
 	
 func map_movement_manager():
-	var mouse_position = get_viewport().get_mouse_position()
-	if mouse_position.x < 10 and mouse_position.y < 10:
-		if map.position.x < 1587.5: map.position.x += 5
-		if map.position.y < 1587.5: map.position.y += 5
-	elif mouse_position.x < 10 and mouse_position.y > 1430:
-		if map.position.x < 1587.5: map.position.x += 5
-		if map.position.y > -147.5: map.position.y -= 5
-	elif mouse_position.x > 2545 and mouse_position.y > 1430:
-		if map.position.x > 972.5: map.position.x -= 5
-		if map.position.y > -147.5: map.position.y -= 5
-	elif mouse_position.x > 2545 and mouse_position.y < 10:
-		if map.position.x > 972.5: map.position.x -= 5
-		if map.position.y < 1587.5: map.position.y += 5
-	elif mouse_position.x < 10:
-		if map.position.x < 1587.5: map.position.x += 5
-	elif mouse_position.y > 1430:
-		if map.position.y > -147.5: map.position.y -= 5
-	elif mouse_position.x > 2545:
-		if map.position.x > 972.5: map.position.x -= 5
-	elif mouse_position.y < 10:
-		if map.position.y < 1587.5: map.position.y += 5
+	if get_parent().map_movement:
+		var mouse_position = get_viewport().get_mouse_position()
+		if mouse_position.x < 10 and mouse_position.y < 10:
+			if map.position.x < 1587.5: map.position.x += 5
+			if map.position.y < 1587.5: map.position.y += 5
+		elif mouse_position.x < 10 and mouse_position.y > 1430:
+			if map.position.x < 1587.5: map.position.x += 5
+			if map.position.y > -147.5: map.position.y -= 5
+		elif mouse_position.x > 2545 and mouse_position.y > 1430:
+			if map.position.x > 972.5: map.position.x -= 5
+			if map.position.y > -147.5: map.position.y -= 5
+		elif mouse_position.x > 2545 and mouse_position.y < 10:
+			if map.position.x > 972.5: map.position.x -= 5
+			if map.position.y < 1587.5: map.position.y += 5
+		elif mouse_position.x < 10:
+			if map.position.x < 1587.5: map.position.x += 5
+		elif mouse_position.y > 1430:
+			if map.position.y > -147.5: map.position.y -= 5
+		elif mouse_position.x > 2545:
+			if map.position.x > 972.5: map.position.x -= 5
+		elif mouse_position.y < 10:
+			if map.position.y < 1587.5: map.position.y += 5

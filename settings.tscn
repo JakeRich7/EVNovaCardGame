@@ -14,43 +14,49 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="music" type="Button" parent="."]
-custom_minimum_size = Vector2(650, 120)
+custom_minimum_size = Vector2(750, 120)
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Music ON"
 
 [node name="audio" type="Button" parent="."]
-custom_minimum_size = Vector2(650, 120)
+custom_minimum_size = Vector2(750, 120)
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Audio ON"
 
 [node name="display" type="Button" parent="."]
-custom_minimum_size = Vector2(650, 120)
+custom_minimum_size = Vector2(750, 120)
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Borderless"
 
 [node name="speed" type="Button" parent="."]
-custom_minimum_size = Vector2(650, 120)
+custom_minimum_size = Vector2(750, 120)
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Fast"
 
 [node name="attack_stats" type="Button" parent="."]
-custom_minimum_size = Vector2(650, 120)
+custom_minimum_size = Vector2(750, 120)
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Attack Stats ON"
 
+[node name="map_movement" type="Button" parent="."]
+custom_minimum_size = Vector2(750, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Map Movement ON"
+
 [node name="restart" type="Button" parent="."]
-custom_minimum_size = Vector2(650, 120)
+custom_minimum_size = Vector2(750, 120)
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Restart"
 
 [node name="quit" type="Button" parent="."]
-custom_minimum_size = Vector2(650, 120)
+custom_minimum_size = Vector2(750, 120)
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Quit"

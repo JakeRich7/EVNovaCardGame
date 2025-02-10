@@ -9,6 +9,7 @@ extends Node2D
 @onready var game_speed = 0.1
 @onready var display_mode = "Borderless"
 @onready var attack_stats = true
+@onready var map_movement = true
 	
 func _physics_process(_delta):
 	if base_loaded == false:
