@@ -300,12 +300,12 @@ func browse_type_selected(browse_type_chosen):
 			ships_type_to_browse.text = x
 			menu_instance.add_child(ships_type_to_browse)
 		# Added 'All' type selection
-		var ships_type_to_browse = Button.new()
-		ships_type_to_browse.connect("pressed", Callable(self, "browse_ships_all_types").bind("All"))
-		ships_type_to_browse.custom_minimum_size = Vector2(400, 120)
-		ships_type_to_browse.add_theme_font_size_override("font_size", 75)
-		ships_type_to_browse.text = "All"
-		menu_instance.add_child(ships_type_to_browse)
+		var ships_type_to_browse_all = Button.new()
+		ships_type_to_browse_all.connect("pressed", Callable(self, "browse_ships_all_types").bind("All"))
+		ships_type_to_browse_all.custom_minimum_size = Vector2(400, 120)
+		ships_type_to_browse_all.add_theme_font_size_override("font_size", 75)
+		ships_type_to_browse_all.text = "All"
+		menu_instance.add_child(ships_type_to_browse_all)
 	elif browse_type_chosen == "Draw":
 		var scroll_container = ScrollContainer.new()
 		scroll_container.custom_minimum_size = Vector2(1500, 800)
