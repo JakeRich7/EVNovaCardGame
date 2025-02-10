@@ -289,19 +289,28 @@ func create_browse_type_selection_options():
 func browse_type_selected(browse_type_chosen):
 	play_click_sounds()
 	remove_all_buttons_from_main_menu()
-	var scroll_container = ScrollContainer.new()
-	scroll_container.custom_minimum_size = Vector2(1500, 800)
-	var vbox = VBoxContainer.new()
-	scroll_container.add_child(vbox)
 	if browse_type_chosen == "Ships":
-		for card in ships_all:
-			var browse_item_button = Button.new()
-			browse_item_button.connect("pressed", Callable(self, "view_card").bind(card))
-			browse_item_button.add_theme_font_size_override("font_size", 30)
-			browse_item_button.custom_minimum_size = Vector2(1500, 80)
-			browse_item_button.text = str(card.ship_button_name)
-			vbox.add_child(browse_item_button)
+		# Added all races type selection
+		for x in deck_races:
+			var ships_type_to_browse = Button.new()
+			ships_type_to_browse.connect("pressed", Callable(self, "browse_ships_all_types").bind(x))
+			ships_type_to_browse.custom_minimum_size = Vector2(400, 120)
+			ships_type_to_browse.add_theme_font_size_override("font_size", 75)
+			ships_type_to_browse.add_theme_color_override("font_color", font_color_by_race(x.to_lower()))
+			ships_type_to_browse.text = x
+			menu_instance.add_child(ships_type_to_browse)
+		# Added 'All' type selection
+		var ships_type_to_browse = Button.new()
+		ships_type_to_browse.connect("pressed", Callable(self, "browse_ships_all_types").bind("All"))
+		ships_type_to_browse.custom_minimum_size = Vector2(400, 120)
+		ships_type_to_browse.add_theme_font_size_override("font_size", 75)
+		ships_type_to_browse.text = "All"
+		menu_instance.add_child(ships_type_to_browse)
 	elif browse_type_chosen == "Draw":
+		var scroll_container = ScrollContainer.new()
+		scroll_container.custom_minimum_size = Vector2(1500, 800)
+		var vbox = VBoxContainer.new()
+		scroll_container.add_child(vbox)
 		for card in draw_deck:
 			var browse_item_button = Button.new()
 			browse_item_button.connect("pressed", Callable(self, "view_card").bind(card))
@@ -309,7 +318,12 @@ func browse_type_selected(browse_type_chosen):
 			browse_item_button.custom_minimum_size = Vector2(1500, 80)
 			browse_item_button.text = str(card.scene_file_path.get_file().get_basename())
 			vbox.add_child(browse_item_button)
+		menu_instance.add_child(scroll_container)
 	else:
+		var scroll_container = ScrollContainer.new()
+		scroll_container.custom_minimum_size = Vector2(1500, 800)
+		var vbox = VBoxContainer.new()
+		scroll_container.add_child(vbox)
 		ships_all.append_array(draw_deck)
 		for card in ships_all:
 			var browse_item_button = Button.new()
@@ -327,6 +341,32 @@ func browse_type_selected(browse_type_chosen):
 		for button in all_buttons:
 			vbox.remove_child(button)
 			vbox.add_child(button)
+		menu_instance.add_child(scroll_container)
+	
+func browse_ships_all_types(race_ships_to_view):
+	play_click_sounds()
+	remove_all_buttons_from_main_menu()
+	var scroll_container = ScrollContainer.new()
+	scroll_container.custom_minimum_size = Vector2(1500, 800)
+	var vbox = VBoxContainer.new()
+	scroll_container.add_child(vbox)
+	if race_ships_to_view == "All":
+		for card in ships_all:
+			var browse_item_button = Button.new()
+			browse_item_button.connect("pressed", Callable(self, "view_card").bind(card))
+			browse_item_button.add_theme_font_size_override("font_size", 30)
+			browse_item_button.custom_minimum_size = Vector2(1500, 80)
+			browse_item_button.text = str(card.ship_button_name)
+			vbox.add_child(browse_item_button)
+	else:
+		for card in ships_all:
+			if card.type == race_ships_to_view.to_lower():
+				var browse_item_button = Button.new()
+				browse_item_button.connect("pressed", Callable(self, "view_card").bind(card))
+				browse_item_button.add_theme_font_size_override("font_size", 30)
+				browse_item_button.custom_minimum_size = Vector2(1500, 80)
+				browse_item_button.text = str(card.ship_button_name)
+				vbox.add_child(browse_item_button)
 	menu_instance.add_child(scroll_container)
 	
 func view_card(card):

@@ -7,7 +7,7 @@ script/source = "extends Sprite2D
 
 var type = \"auroran\"
 var ship_name = \"TR-01 Trade Route Ancient Vell os Sculpture-Aur Carrier Va Ytreck\"
-var ship_button_name = \"Carrier Va Ytrack\"
+var ship_button_name = \"Carrier Va Ytreck\"
 var ship_position = 0
 var shield = 10
 var armor = 20
