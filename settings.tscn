@@ -49,6 +49,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 75
 text = "Map Movement ON"
 
+[node name="how_to_play" type="Button" parent="."]
+custom_minimum_size = Vector2(750, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "How to Play"
+
 [node name="restart" type="Button" parent="."]
 custom_minimum_size = Vector2(750, 120)
 layout_mode = 2

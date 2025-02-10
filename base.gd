@@ -80,6 +80,8 @@ var secondary_cards_to_remove_1 = []
 var secondary_cards_to_remove_2 = []
 var no_attacking_ships_counter = 0
 var game_type = null
+var controls_being_viewed = false
+var how_to_play_instance
 var card_being_viewed
 var menu_instance
 var settings_instance
@@ -116,6 +118,7 @@ func _ready():
 	settings_instance.get_node("speed").pressed.connect(_on_speed_pressed)
 	settings_instance.get_node("attack_stats").pressed.connect(_on_attack_stats_pressed)
 	settings_instance.get_node("map_movement").pressed.connect(_on_map_movement_pressed)
+	settings_instance.get_node("how_to_play").pressed.connect(_on_how_to_play_pressed)
 	settings_instance.get_node("restart").pressed.connect(_on_restart_pressed)
 	settings_instance.get_node("quit").pressed.connect(_on_quit_pressed)
 	# Initializes and places all draw cards in deck
@@ -186,8 +189,13 @@ func _physics_process(delta):
 
 func _input(event):
 	if event.is_action_pressed("escape"):
+		# Allows for the case where menu is being pulled up
+		if controls_being_viewed == true:
+			remove_child(how_to_play_instance)
+			controls_being_viewed = false
+			settings_instance.show()
 		# Allows menu to be pulled up after selection has taken place OR Browse mode is selected
-		if battleloop_started or (game_type == "Browse" and viewing_card == false):
+		elif battleloop_started or (game_type == "Browse" and viewing_card == false):
 			play_click_sounds()
 			if settings_instance.visible:
 				settings_instance.hide()
@@ -589,6 +597,15 @@ func _on_map_movement_pressed():
 	elif !get_parent().map_movement:
 		settings_instance.get_node("map_movement").text = "Map Movement ON"
 	get_parent().map_movement = !get_parent().map_movement
+	
+func _on_how_to_play_pressed():
+	controls_being_viewed = true
+	var how_to_play = load("res://how_to_play.tscn")
+	how_to_play_instance = how_to_play.instantiate()
+	how_to_play_instance.scale = Vector2(1.35, 1.35)
+	how_to_play_instance.position = Vector2(1280, 720)
+	add_child(how_to_play_instance)
+	settings_instance.hide()
 	
 func _on_restart_pressed():
 	# Accesses the 'loading_scene' root and resets it

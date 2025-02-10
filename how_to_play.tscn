@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://8y20jew0oqvs"]
+
+[ext_resource type="Texture2D" uid="uid://dy8l3823htous" path="res://how_to_play.png" id="1_0iw1j"]
+
+[node name="how_to_play" type="Sprite2D"]
+z_index = 1
+texture = ExtResource("1_0iw1j")
