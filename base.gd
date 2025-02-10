@@ -66,6 +66,7 @@ const cards_ships_path = "res://cards_ships"
 @onready var fighters_in_position_4 = 0
 @onready var fighters_in_position_5 = 0
 @onready var fighters_in_position_6 = 0
+var viewing_card = false
 var current_phase = 1
 var player_attack_chosen = false
 var player_end_turn_signal = false
@@ -79,6 +80,7 @@ var secondary_cards_to_remove_1 = []
 var secondary_cards_to_remove_2 = []
 var no_attacking_ships_counter = 0
 var game_type = null
+var card_being_viewed
 var menu_instance
 var settings_instance
 var player_one_draw_pile
@@ -104,6 +106,8 @@ func _ready():
 	# Creates settings menu
 	settings_instance = settings.instantiate()
 	settings_instance.hide()
+	settings_instance.position.x -= 25
+	settings_instance.position.y -= 5
 	canvas_layer.add_child(settings_instance)
 	# Creates settings menu listeners
 	settings_instance.get_node("music").pressed.connect(_on_music_pressed)
@@ -172,12 +176,13 @@ func _physics_process(delta):
 	player_setup_manager()
 	setup_battlefield()
 	battleloop()
-	handle_held_inputs(delta)
+	if game_type != "Browse":
+		handle_held_inputs(delta)
 
 func _input(event):
 	if event.is_action_pressed("escape"):
-		# Allows menu to be pulled up after selection has taken place
-		if battleloop_started:
+		# Allows menu to be pulled up after selection has taken place OR Browse mode is selected
+		if battleloop_started or (game_type == "Browse" and viewing_card == false):
 			play_click_sounds()
 			if settings_instance.visible:
 				settings_instance.hide()
@@ -185,11 +190,18 @@ func _input(event):
 			else:
 				hide_attack_menus()
 				settings_instance.show()
+		elif game_type == "Browse" and viewing_card == true:
+			view_card(card_being_viewed)
 	if event.is_action_pressed("return") or event.is_action_pressed("right_click") or event.is_action_pressed("space"):
-		simulate_mouse_click()
+		if game_type == "Browse" and viewing_card == true:
+			card_being_viewed.rotation_degrees += 180
+		elif game_type != "Browse":
+			simulate_mouse_click()
+	if event.is_action_pressed("left_click") and (game_type == "Browse" and viewing_card == true):
+		card_being_viewed.rotation_degrees += 180
 
 func setup_gametype_selection():
-	for x in 3:
+	for x in 4:
 		var game_type_name
 		if x == 0:
 			game_type_name = "Battle"
@@ -197,6 +209,8 @@ func setup_gametype_selection():
 			game_type_name = "Skirmish"
 		elif x == 2:
 			game_type_name = "Custom"
+		elif x == 3:
+			game_type_name = "Browse"
 		var game_type_button = Button.new()
 		game_type_button.connect("pressed", Callable(self, "_game_type_pressed").bind(game_type_name))
 		game_type_button.custom_minimum_size = Vector2(400, 120)
@@ -234,12 +248,101 @@ func _game_type_pressed(game_type_name):
 	play_click_sounds()
 	if game_type_name == "Battle":
 		game_type = "Battle"
+		player_one_choose = true
+		remove_all_buttons_from_main_menu()
 	elif game_type_name == "Skirmish":
 		game_type = "Skirmish"
+		player_one_choose = true
+		remove_all_buttons_from_main_menu()
 	elif game_type_name == "Custom":
-			game_type = "Custom"
+		game_type = "Custom"
+		player_one_choose = true
+		remove_all_buttons_from_main_menu()
+	elif game_type_name == "Browse":
+		game_type = "Browse"
+		var children = $menu_layer.get_children()
+		for i in range(len(children) - 2):
+			children[i].queue_free()
+		remove_all_buttons_from_main_menu()
+		create_browse_type_selection_options()
+	
+func create_browse_type_selection_options():
+	var browse_type_button_ships = Button.new()
+	browse_type_button_ships.connect("pressed", Callable(self, "browse_type_selected").bind("Ships"))
+	browse_type_button_ships.custom_minimum_size = Vector2(250, 80)
+	browse_type_button_ships.add_theme_font_size_override("font_size", 75)
+	browse_type_button_ships.text = "Ships"
+	menu_instance.add_child(browse_type_button_ships)
+	var browse_type_button_draw = Button.new()
+	browse_type_button_draw.connect("pressed", Callable(self, "browse_type_selected").bind("Draw"))
+	browse_type_button_draw.custom_minimum_size = Vector2(250, 80)
+	browse_type_button_draw.add_theme_font_size_override("font_size", 75)
+	browse_type_button_draw.text = "Draw"
+	menu_instance.add_child(browse_type_button_draw)
+	var browse_type_button_all = Button.new()
+	browse_type_button_all.connect("pressed", Callable(self, "browse_type_selected").bind("All"))
+	browse_type_button_all.custom_minimum_size = Vector2(250, 80)
+	browse_type_button_all.add_theme_font_size_override("font_size", 75)
+	browse_type_button_all.text = "All"
+	menu_instance.add_child(browse_type_button_all)
+	
+func browse_type_selected(browse_type_chosen):
+	play_click_sounds()
 	remove_all_buttons_from_main_menu()
-	player_one_choose = true
+	var scroll_container = ScrollContainer.new()
+	scroll_container.custom_minimum_size = Vector2(1500, 800)
+	var vbox = VBoxContainer.new()
+	scroll_container.add_child(vbox)
+	if browse_type_chosen == "Ships":
+		for card in ships_all:
+			var browse_item_button = Button.new()
+			browse_item_button.connect("pressed", Callable(self, "view_card").bind(card))
+			browse_item_button.add_theme_font_size_override("font_size", 30)
+			browse_item_button.custom_minimum_size = Vector2(1500, 80)
+			browse_item_button.text = str(card.ship_button_name)
+			vbox.add_child(browse_item_button)
+	elif browse_type_chosen == "Draw":
+		for card in draw_deck:
+			var browse_item_button = Button.new()
+			browse_item_button.connect("pressed", Callable(self, "view_card").bind(card))
+			browse_item_button.add_theme_font_size_override("font_size", 30)
+			browse_item_button.custom_minimum_size = Vector2(1500, 80)
+			browse_item_button.text = str(card.scene_file_path.get_file().get_basename())
+			vbox.add_child(browse_item_button)
+	else:
+		ships_all.append_array(draw_deck)
+		for card in ships_all:
+			var browse_item_button = Button.new()
+			browse_item_button.connect("pressed", Callable(self, "view_card").bind(card))
+			browse_item_button.add_theme_font_size_override("font_size", 30)
+			browse_item_button.custom_minimum_size = Vector2(1500, 80)
+			if "ship_name" in card:
+				browse_item_button.text = str(card.ship_name)
+			else:
+				browse_item_button.text = str(card.scene_file_path.get_file().get_basename())
+			vbox.add_child(browse_item_button)
+		# Sort buttons in alphabetical order
+		var all_buttons = vbox.get_children()
+		all_buttons.sort_custom(func(a, b): return a.text < b.text)
+		for button in all_buttons:
+			vbox.remove_child(button)
+			vbox.add_child(button)
+	menu_instance.add_child(scroll_container)
+	
+func view_card(card):
+	play_click_sounds()
+	if viewing_card == false:
+		card_being_viewed = card
+		viewing_card = true
+		hide_attack_menus()
+		card.position = Vector2(1280, 720)
+		card.rotation_degrees = 0
+		card.scale = Vector2(1.5, 1.5)
+		add_child(card)
+	else:
+		viewing_card = false
+		show_attack_menus()
+		remove_child(card)
 	
 func _on_skip_button_pressed():
 	play_click_sounds()
@@ -1037,26 +1140,32 @@ func offset_attacks_menus():
 			menu_to_offset.position.y += 330
 		
 func hide_attack_menus():
-	menu_1.visible = false
-	menu_2.visible = false
-	menu_3.visible = false
-	menu_4.visible = false
-	menu_5.visible = false
-	menu_6.visible = false
-	menu_instance.visible = false
-	if final_instance:
-		final_instance.visible = false
+	if game_type != "Browse":
+		menu_1.visible = false
+		menu_2.visible = false
+		menu_3.visible = false
+		menu_4.visible = false
+		menu_5.visible = false
+		menu_6.visible = false
+		menu_instance.visible = false
+		if final_instance:
+			final_instance.visible = false
+	else:
+		menu_instance.visible = false
 
 func show_attack_menus():
-	menu_1.visible = true
-	menu_2.visible = true
-	menu_3.visible = true
-	menu_4.visible = true
-	menu_5.visible = true
-	menu_6.visible = true
-	menu_instance.visible = true
-	if final_instance:
-		final_instance.visible = true
+	if game_type != "Browse":
+		menu_1.visible = true
+		menu_2.visible = true
+		menu_3.visible = true
+		menu_4.visible = true
+		menu_5.visible = true
+		menu_6.visible = true
+		menu_instance.visible = true
+		if final_instance:
+			final_instance.visible = true
+	else:
+		menu_instance.visible = true
 	
 func final_win_label():
 	hide_attack_menus()
