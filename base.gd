@@ -126,6 +126,7 @@ func _ready():
 	dir_deck.list_dir_begin()
 	var file_name_deck = dir_deck.get_next()
 	while file_name_deck != "":
+		file_name_deck = file_name_deck.replace('.remap', '')
 		if file_name_deck.ends_with(".tscn") or file_name_deck.ends_with(".scn"):
 			var scene_path = cards_draw_path + "/" + file_name_deck
 			var packed_scene = load(scene_path)
@@ -138,6 +139,7 @@ func _ready():
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 	while file_name != "":
+		file_name = file_name.replace('.remap', '')
 		if file_name.ends_with(".tscn") or file_name.ends_with(".scn"):
 			var scene_path = cards_ships_path + "/" + file_name
 			var packed_scene = load(scene_path)
