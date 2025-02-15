@@ -25,7 +25,7 @@ var attacks = [
 	},
 	{
 		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
-		\"phase\": 4, \"shield\": 13, \"armor\": 15, \"pursuit\": null, \"ammo\": 2
+		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 2
 	}
 ]
 

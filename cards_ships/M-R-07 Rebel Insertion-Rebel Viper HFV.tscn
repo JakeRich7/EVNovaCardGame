@@ -17,7 +17,7 @@ var cost = 4
 var attacks = [
 	{
 		\"name\": \"2 Raven Pods\", \"button_name\": \"Raven Pods\",
-		\"phase\": 1, \"shield\": 6, \"armor\": 3, \"pursuit\": 16, \"ammo\": 1
+		\"phase\": 1, \"shield\": 8, \"armor\": 11, \"pursuit\": 16, \"ammo\": 1
 	},
 	{
 		\"name\": \"Medium Blaster\", \"button_name\": \"Medium Blaster\",

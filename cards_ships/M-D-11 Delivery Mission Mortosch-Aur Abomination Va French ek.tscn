@@ -21,7 +21,7 @@ var attacks = [
 	},
 	{
 		\"name\": \"3 Hail Chainguns\", \"button_name\": \"Hail Chainguns\",
-		\"phase\": 4, \"shield\": 13, \"armor\": 18, \"pursuit\": null, \"ammo\": 2
+		\"phase\": 4, \"shield\": 19, \"armor\": 23, \"pursuit\": null, \"ammo\": 2
 	},
 	{
 		\"name\": \"2 PD Storm Chainguns\", \"button_name\": \"Storm Chainguns\",
