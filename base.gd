@@ -193,7 +193,7 @@ func _input(event):
 	if event.is_action_pressed("escape"):
 		# Allows for the case where menu is being pulled up
 		if controls_being_viewed == true:
-			remove_child(how_to_play_instance)
+			canvas_layer.remove_child(how_to_play_instance)
 			controls_being_viewed = false
 			settings_instance.show()
 		# Allows menu to be pulled up after selection has taken place OR Browse mode is selected
@@ -606,7 +606,7 @@ func _on_how_to_play_pressed():
 	how_to_play_instance = how_to_play.instantiate()
 	how_to_play_instance.scale = Vector2(1.35, 1.35)
 	how_to_play_instance.position = Vector2(1280, 720)
-	add_child(how_to_play_instance)
+	canvas_layer.add_child(how_to_play_instance)
 	settings_instance.hide()
 	
 func _on_restart_pressed():
