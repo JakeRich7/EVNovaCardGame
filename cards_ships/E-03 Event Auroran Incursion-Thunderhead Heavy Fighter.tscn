@@ -6,7 +6,7 @@
 script/source = "extends Sprite2D
 
 var type = \"trader\"
-var ship_name = \"thunderhead\"
+var ship_name = \"E-03 Event Auroran Incursion-Thunderhead Heavy Fighter\"
 var ship_button_name = \"Thunderhead\"
 var ship_position = 0
 var shield = 6
